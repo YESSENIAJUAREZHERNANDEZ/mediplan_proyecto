@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class MedicationApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,9 +40,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
           IconButton(
             iconSize: 40.0,
             icon: Image.asset('assets/iconos/icono2.png'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () {},
           ),
           Row(
             children: <Widget>[
