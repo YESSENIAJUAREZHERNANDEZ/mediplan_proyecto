@@ -81,7 +81,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                   child: TextField(
                     controller: _textEditingController,
                     decoration: InputDecoration(
-                      hintText: 'Enter a note',
+                      hintText: 'Agregar recordatorio',
                     ),
                   ),
                 ),
