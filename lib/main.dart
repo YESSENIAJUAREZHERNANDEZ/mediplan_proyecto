@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
+import 'package:flutter_application_1/screens/splash_screen.dart';
+//import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/recordatorios.dart';
 //import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 //import 'package:flutter_application_1/screens/loginapp.dart';
-import 'package:flutter_application_1/screens/splash_screen.dart';
 //import 'package:flutter_application_1/screens/main_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
- 
- @override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
