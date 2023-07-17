@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
+//import 'package:flutter_application_1/screens/recordatorios.dart';
 
 class ReminderApp extends StatelessWidget {
   @override
@@ -91,6 +92,13 @@ class _ReminderScreenState extends State<ReminderScreen> {
 
       body: Column(
         children: <Widget>[
+          Text(
+                  'Recordatorios',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
           Expanded(
             child: ListView.builder(
               itemCount: reminders.length,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/alarma.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/medicamentos.dart';
-import 'package:flutter_application_1/screens/recordatorios.dart';
 import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 
@@ -111,7 +111,7 @@ class MainScreen extends StatelessWidget{
             onPressed: () {
               // Acción cuando se presiona el primer botón
               Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => Recordatorios()),
+                  MaterialPageRoute(builder: (context) => ReminderApp()),
                 );
             },
             style: ElevatedButton.styleFrom(
@@ -250,7 +250,7 @@ class MainScreen extends StatelessWidget{
         ],
         
       ),
-SizedBox(height: 70),
+SizedBox(height: 50),
       ],
                     
     );

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/alarma.dart';
+//import 'package:flutter_application_1/screens/alarma.dart';
+import 'package:flutter_application_1/screens/main_screen.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/splash_screen.dart';
-//import 'package:flutter_application_1/screens/camara.dart';
-//import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/recordatorios.dart';
 //import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 //import 'package:flutter_application_1/screens/loginapp.dart';
-//import 'package:flutter_application_1/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Medi plan',
-      home: ReminderApp(),
+      home: MainScreen(),
       theme: ThemeData(
         textTheme: TextTheme(
           headline1: TextStyle(
