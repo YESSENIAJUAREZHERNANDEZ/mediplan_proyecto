@@ -31,7 +31,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+     appBar: AppBar(
     elevation: 0,
     backgroundColor: Colors.transparent,
     title: Row(
@@ -43,31 +43,49 @@ class _MedicationScreenState extends State<MedicationScreen> {
         SizedBox(width: 8),
         Text(
           'Medi plan',
-          style: TextStyle(
-            color: Color.fromARGB(255, 48, 24, 49),
-            fontSize: 16,
-          ),
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),
         ),
       ],
     ),
   ),
-  endDrawer: Drawer(
+ endDrawer: Drawer(
     child: ListView(
       children: [
         DrawerHeader(
-          decoration: BoxDecoration(
-            color: Colors.blue,
-          ),
-          child: Text(
-            'Configuración',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            ),
-          ),
+  decoration: BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage('assets/imagenes/campo2.png'),
+      fit: BoxFit.cover,
+    ),
+  ),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.end,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Medi plan',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
+      ),
+      Text(
+        'Configuración',
+        style: TextStyle(
+          fontSize: 16,
+          color: Color.fromARGB(255, 48, 24, 49),
+        ),
+      ),
+    ],
+  ),
+),
+
         ListTile(
-          title: Text('Iniciar sesión'),
+          title: Text('Iniciar sesión',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
           onTap: () {
             // Acción para la opción 1
             Navigator.push( context,
@@ -76,13 +94,17 @@ class _MedicationScreenState extends State<MedicationScreen> {
           },
         ),
         ListTile(
-          title: Text('Terminos y condiciones'),
+          title: Text('Terminos y condiciones',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
           onTap: () {
             // Acción para la opción 2
           },
         ),
         ListTile(
-          title: Text('Ayuda'),
+          title: Text('Ayuda',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
           onTap: () {
             // Acción para la opción 3
           },
