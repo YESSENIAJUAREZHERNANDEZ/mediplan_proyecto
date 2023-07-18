@@ -105,7 +105,7 @@ Widget _textsHeader(BuildContext context) {
           lineHeight: 70.0, // Altura de la barra de progreso
           percent: progressValue, // Valor del progreso (70%)
           linearGradient: LinearGradient(
-            colors: [Color.fromARGB(255, 242, 201, 251), Color.fromARGB(255, 242, 201, 251)], // Colores del gradiente
+            colors: [Color.fromARGB(255, 201, 213, 251), Color.fromARGB(255, 208, 201, 251)], // Colores del gradiente
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -120,7 +120,7 @@ Widget _textsHeader(BuildContext context) {
                     '${(progressValue * 100).toStringAsFixed(0)}%',
                     textAlign: TextAlign.end,
                     style: TextStyle(fontWeight: FontWeight.bold,
-            color:Color.fromARGB(255, 189, 12, 145),fontSize: 30.0,),
+            color:Color.fromARGB(255, 74, 61, 150),fontSize: 30.0,),
                   ),
                 ),
               ],
@@ -202,7 +202,8 @@ Widget _textsHeader(BuildContext context) {
                 );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 231, 197, 132), // Color de fondo
+              primary: Color.fromARGB(255, 136, 108, 189), // Color de fondo
+              
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
@@ -242,7 +243,8 @@ Widget _textsHeader(BuildContext context) {
                 );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 139, 81, 245), // Color de fondo
+              primary: Color.fromARGB(255, 79, 153, 125),  // Color de fondo
+              
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
@@ -277,7 +279,7 @@ Widget _textsHeader(BuildContext context) {
                 );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 111, 156, 92), // Color de fondo
+              primary: Color.fromARGB(255, 231, 197, 132), // Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
