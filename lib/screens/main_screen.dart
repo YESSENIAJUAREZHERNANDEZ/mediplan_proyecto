@@ -8,15 +8,71 @@ import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 
 class MainScreen extends StatelessWidget{
-
   @override
   Widget build(BuildContext context){
     return Scaffold(
+       appBar: AppBar(
+    elevation: 0,
+    backgroundColor: Colors.transparent,
+    title: Row(
+      children: [
+        IconButton(
+          icon: Image.asset('assets/iconos/icono2.png'),
+          onPressed: () {},
+        ),
+        SizedBox(width: 8),
+        Text(
+          'Medi plan',
+          style: TextStyle(
+            color: Color.fromARGB(255, 48, 24, 49),
+            fontSize: 16,
+          ),
+        ),
+      ],
+    ),
+  ),
+  endDrawer: Drawer(
+    child: ListView(
+      children: [
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
+          child: Text(
+            'Configuración',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        ListTile(
+          title: Text('Iniciar sesión'),
+          onTap: () {
+            // Acción para la opción 1
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+          },
+        ),
+        ListTile(
+          title: Text('Terminos y condiciones'),
+          onTap: () {
+            // Acción para la opción 2
+          },
+        ),
+        ListTile(
+          title: Text('Ayuda'),
+          onTap: () {
+            // Acción para la opción 3
+          },
+        ),
+      ],
+    ),
+  ),
       body: SafeArea(
-      
         child: ListView(
           children: <Widget>[
-            _customAppBar(context),
             _textsHeader(context),
             _forYou(context),
             _recent(context),
@@ -27,62 +83,33 @@ class MainScreen extends StatelessWidget{
     );
   }
 
-  Widget _customAppBar(context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            icon: Image.asset('assets/iconos/icono2.png'),
-            onPressed: () {},
-          ),
-          Row(
-            children: <Widget>[
-              IconButton(
-                iconSize: 20.0,
-                icon: Image.asset('assets/imagenes/blanco.png'),
-                onPressed: () {},
-              ),
-              IconButton(
-                iconSize: 40.0,
-                icon: Image.asset('assets/iconos/menu.png'),
-                onPressed: () {
-                  Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => LoginApp()),
-                );
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 
-  Widget _textsHeader(context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Su tratamiento ',
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-          Text(
-            'Progreso de hoy ',
-            style: Theme.of(context).textTheme.headline1,
-          ),
-          Text(
-            '78%',
-            style: Theme.of(context).textTheme.headline5,
-          )
-        ],
-      ),
-    );
-  }
+Widget _textsHeader(BuildContext context) {
+  double progressValue = 0.7; // Valor del progreso (70%)
+
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Su tratamiento',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        SizedBox(height: 10.0), // Espacio entre el texto y la barra de progreso
+        LinearProgressIndicator(
+          minHeight: 65.0, // Altura de la barra de progreso
+          value: progressValue, // Valor del progreso (70%)
+          valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 211, 146, 255)), // Color de la barra de progreso
+          backgroundColor: Color.fromARGB(255, 235, 228, 236), // Color de fondo de la barra de progreso
+        ), // Barra de progreso
+      ],
+    ),
+  );
+}
+
+
+  
 
    Widget _forYou(context) {
     return Column(
@@ -279,7 +306,7 @@ SizedBox(height: 50),
               ),
               onPressed: () {
                 Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => Barra()),
+                  MaterialPageRoute(builder: (context) => CameraScreen()),
                 );
               },
             ),

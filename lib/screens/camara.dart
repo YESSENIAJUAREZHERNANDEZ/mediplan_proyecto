@@ -1,57 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-void main() => runApp(Barra());
-
-class Barra extends StatefulWidget {
+class CameraScreen extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _CameraScreenState createState() => _CameraScreenState();
 }
 
-class _MyAppState extends State<Barra> {
-  double _progressValue = 0.5; // Porcentaje de progreso inicial
+class _CameraScreenState extends State<CameraScreen> {
+  PickedFile? imageFile;
+
+  Future<void> _openCamera() async {
+    final picker = ImagePicker();
+    final picture = await picker.getImage(source: ImageSource.camera);
+    setState(() {
+      imageFile = picture;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(title: Text('Barra de progreso')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0), // Ajusta el espacio horizontal aquí
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0), // Ajusta el radio del borde aquí
-                    color: Color.fromARGB(255, 228, 216, 216), // Cambia el color de fondo de la barra aquí
-                  ),
-                  child: LinearProgressIndicator(
-                    value: _progressValue,
-                    minHeight: 70, // Ajusta el valor para hacer la barra más ancha
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                        Color.fromARGB(255, 235, 126, 126)), // Cambia el color del progreso aquí
-                    backgroundColor: Colors.transparent, // Establece el color de fondo del indicador como transparente
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Text('${(_progressValue * 100).toStringAsFixed(1)}%'),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Camera'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Lógica para el primer botón de configuración
+            },
+            icon: Icon(Icons.settings),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              // Simular avance de progreso
-              _progressValue += 0.1;
-              if (_progressValue > 1.0) {
-                _progressValue = 0.0;
-              }
-            });
-          },
-          child: Icon(Icons.add),
+          IconButton(
+            onPressed: () {
+              // Lógica para el segundo botón de configuración
+            },
+            icon: Icon(Icons.info),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            if (imageFile != null) SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _openCamera,
+              child: Text('Iniciar escaneo'),
+            ),
+            SizedBox(height: 20),
+            SizedBox(height: 20),
+            Text(
+              'Título de la interfaz',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
