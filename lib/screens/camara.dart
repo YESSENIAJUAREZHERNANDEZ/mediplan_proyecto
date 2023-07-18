@@ -109,6 +109,13 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(
+                  'Reconocer medicamento',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
             if (imageFile != null) SizedBox(height: 20),
             ElevatedButton(
               onPressed: _openCamera,
@@ -116,13 +123,6 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
             SizedBox(height: 20),
             SizedBox(height: 20),
-            Text(
-              'Título de la interfaz',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ],
         ),
       ),
