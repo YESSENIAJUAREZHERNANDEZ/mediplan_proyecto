@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/loginapp.dart';
 
 class MedicationApp extends StatelessWidget {
   @override
@@ -30,7 +31,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+       appBar: AppBar(
     elevation: 0,
     backgroundColor: Colors.transparent,
     title: Row(
@@ -69,6 +70,9 @@ class _MedicationScreenState extends State<MedicationScreen> {
           title: Text('Iniciar sesión'),
           onTap: () {
             // Acción para la opción 1
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
           },
         ),
         ListTile(

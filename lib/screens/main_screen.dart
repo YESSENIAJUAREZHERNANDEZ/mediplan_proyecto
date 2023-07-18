@@ -138,174 +138,177 @@ Widget _textsHeader(BuildContext context) {
 
   
 
-Widget _recent(context) {
-  return Column(
-    children: <Widget>[
+   Widget _forYou(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 0.0),
+          child: Text(
+            'Inicio',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ),
+        
+      SizedBox(height: 10),
+      ],
+    );
+  }
+
+  Widget _recent(context) {
+    return Column(
+      children: <Widget>[
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Flexible(
-            flex: 1,
-            child: ElevatedButton(
-              onPressed: () {
-                // Acción cuando se presiona el primer botón
-                Navigator.push(
-                  context,
+          ElevatedButton(
+            onPressed: () {
+              // Acción cuando se presiona el primer botón
+              Navigator.push( context,
                   MaterialPageRoute(builder: (context) => ReminderApp()),
                 );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 146, 176, 227), // Color de fondo
-                onPrimary: Colors.white, // Color del texto
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/imagenes/reloj.png',
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Recordatorio',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 146, 176, 227), // Color de fondo
+              onPrimary: Colors.white, // Color del texto
+              //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
             ),
+            child: Padding(
+          padding: EdgeInsets.all(15), // Padding de 10 unidades en todos los lados
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/imagenes/reloj.png',
+                width: 70,
+                height: 70,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Recordatorio',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
           ),
-          SizedBox(width: 20),
-          Flexible(
-            flex: 1,
-            child: ElevatedButton(
-              onPressed: () {
-                // Acción cuando se presiona el segundo botón
-                Navigator.push(
-                  context,
+        ),
+      ),
+          SizedBox(width: 20), // Espacio entre los botones
+          ElevatedButton(
+            onPressed: () {
+              // Acción cuando se presiona el segundo botón
+              Navigator.push( context,
                   MaterialPageRoute(builder: (context) => MedicationScreen()),
                 );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 231, 197, 132), // Color de fondo
-                onPrimary: Colors.white, // Color del texto
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/imagenes/pills.png',
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Medicamento',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 231, 197, 132), // Color de fondo
+              onPrimary: Colors.white, // Color del texto
+              //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
             ),
+            child: Padding(
+          padding: EdgeInsets.all(15), // Padding de 10 unidades en todos los lados
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/imagenes/pills.png',
+                width: 70,
+                height: 70,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Medicamento',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
           ),
+        ),
+      ),
         ],
       ),
-      SizedBox(height: 20),
+      SizedBox(height: 20), // Espacio entre las filas de botones
       Row(
+        
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Flexible(
-            flex: 1,
-            child: ElevatedButton(
-              onPressed: () {
-                // Acción cuando se presiona el tercer botón
-                Navigator.push(
-                  context,
+          
+          ElevatedButton(
+            onPressed: () {
+              // Acción cuando se presiona el tercer botón
+              Navigator.push( context,
                   MaterialPageRoute(builder: (context) => Dispositivos()),
                 );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 139, 81, 245), // Color de fondo
-                onPrimary: Colors.white, // Color del texto
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/imagenes/blanco.png',
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Dispositivos',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 139, 81, 245), // Color de fondo
+              onPrimary: Colors.white, // Color del texto
+              //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
             ),
+            child: Padding(
+          padding: EdgeInsets.all(15), // Padding de 10 unidades en todos los lados
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/imagenes/blanco.png',
+                width: 70,
+                height: 70,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Dispositivos',
+                style: TextStyle(fontSize: 17),
+              ),
+            ],
           ),
-          SizedBox(width: 20),
-          Flexible(
-            flex: 1,
-            child: ElevatedButton(
-              onPressed: () {
-                // Acción cuando se presiona el cuarto botón
-                Navigator.push(
-                  context,
+        ),
+      ),
+
+
+          SizedBox(width: 20), // Espacio entre los botones
+          ElevatedButton(
+            onPressed: () {
+              // Acción cuando se presiona el cuarto botón
+              Navigator.push( context,
                   MaterialPageRoute(builder: (context) => CalendarScreen()),
                 );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 111, 156, 92), // Color de fondo
-                onPrimary: Colors.white, // Color del texto
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/imagenes/persona.png',
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Seguimiento',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 111, 156, 92), // Color de fondo
+              onPrimary: Colors.white, // Color del texto
+              //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
             ),
+            child: Padding(
+          padding: EdgeInsets.all(15), // Padding de 10 unidades en todos los lados
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/imagenes/persona.png',
+                width: 70,
+                height: 70,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Seguimiento',
+                style: TextStyle(fontSize: 17),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-      SizedBox(height: 50),
-    ],
-  );
-}
+        ],
+        
+      ),
+SizedBox(height: 50),
+      ],
+                    
+    );
+  }
 
 
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Seguimiento extends StatelessWidget {
@@ -21,7 +22,7 @@ class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
     elevation: 0,
     backgroundColor: Colors.transparent,
     title: Row(
@@ -60,7 +61,9 @@ class CalendarScreen extends StatelessWidget {
           title: Text('Iniciar sesión'),
           onTap: () {
             // Acción para la opción 1
-            
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
           },
         ),
         ListTile(
