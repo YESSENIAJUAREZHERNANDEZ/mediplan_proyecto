@@ -4,7 +4,7 @@ import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/medicamentos.dart';
-import 'package:flutter_application_1/screens/seguimiento.dart';
+//import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -298,9 +298,9 @@ Widget _textsHeader(BuildContext context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
-              Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => CalendarScreen()),
-                );
+           //   Navigator.push( context,
+                //  MaterialPageRoute(builder: (context) => CalendarScreen()),
+                //);
             },
             style: ElevatedButton.styleFrom(
               primary: Color.fromARGB(255, 231, 197, 132), // Color de fondo
