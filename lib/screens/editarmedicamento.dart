@@ -38,6 +38,7 @@ class _MedicationsAppState extends State<MedicationsApp> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          
           title: Text('Eliminar medicamento'),
           content: Text('¿Seguro que quieres eliminar ${medication[index].nombre}?'),
           actions: [
@@ -65,6 +66,7 @@ class _MedicationsAppState extends State<MedicationsApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
   elevation: 0,

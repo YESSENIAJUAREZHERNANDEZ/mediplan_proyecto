@@ -156,6 +156,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
           Expanded(
@@ -183,13 +184,13 @@ class _NoteListScreenState extends State<NoteListScreen> {
                   child: TextField(
                     controller: _textEditingController,
                     decoration: InputDecoration(
-                      hintText: 'Enter a note',
+                      hintText: 'Ingresar recordatorio',
                     ),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _addNote,
-                  child: Text('Add'),
+                  child: Text('Agregar'),
                 ),
               ],
             ),

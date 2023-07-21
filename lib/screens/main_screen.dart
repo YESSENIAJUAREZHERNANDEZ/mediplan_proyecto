@@ -5,6 +5,7 @@ import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/editarecordatorios.dart';
 import 'package:flutter_application_1/screens/editarmedicamento.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/medicamentos.dart';
 import 'package:flutter_application_1/screens/tratamiento.dart';
 //import 'package:flutter_application_1/screens/seguimiento.dart';
@@ -304,6 +305,7 @@ Widget _textsHeader(BuildContext context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
+             
              
             },
             style: ElevatedButton.styleFrom(
