@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/alarma.dart';
+//import 'package:flutter_application_1/screens/alarma.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
+import 'package:flutter_application_1/screens/editarecordatorios.dart';
 import 'package:flutter_application_1/screens/editarmedicamento.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 //import 'package:flutter_application_1/screens/medicamentos.dart';
@@ -194,7 +195,7 @@ Widget _textsHeader(BuildContext context) {
             onPressed: () {
               // Acción cuando se presiona el primer botón
               Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => ReminderApp()),
+                  MaterialPageRoute(builder: (context) => NoteListScreen()),
                 );
             },
             style: ElevatedButton.styleFrom(
