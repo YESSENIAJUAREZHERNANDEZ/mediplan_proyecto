@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-       appBar: AppBar(
+         appBar: AppBar(
     elevation: 0,
     backgroundColor: Colors.transparent,
     title: Row(
@@ -25,10 +25,8 @@ class MainScreen extends StatelessWidget{
         SizedBox(width: 8),
         Text(
           'Medi plan',
-          style: TextStyle(
-            color: Color.fromARGB(255, 48, 24, 49),
-            fontSize: 16,
-          ),
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),
         ),
       ],
     ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/camara.dart';
+//import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/alarma.dart';
 //import 'package:flutter_application_1/screens/main_screen.dart';
 //import 'package:flutter_application_1/screens/splash_screen.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
-//import 'package:flutter_application_1/screens/splash_screen.dart';
+import 'package:flutter_application_1/screens/splash_screen.dart';
 //import 'package:flutter_application_1/screens/recordatorios.dart';
 //import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Medi plan',
-      home: CameraScreen(),
+      home: SplashScreen(),
       theme: ThemeData(
         textTheme: TextTheme(
           headline1: TextStyle(
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           headline2: TextStyle(
             fontSize: 32.0,
             fontWeight: FontWeight.bold,
-            color:Color.fromARGB(255, 35, 4, 53),
+            color:Color.fromARGB(255, 255, 255, 255),
           ),
           headline5: TextStyle(
             fontSize: 36.0,

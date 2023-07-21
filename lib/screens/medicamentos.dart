@@ -31,24 +31,33 @@ class _MedicationScreenState extends State<MedicationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-    elevation: 0,
-    backgroundColor: Colors.transparent,
-    title: Row(
-      children: [
-        IconButton(
-          icon: Image.asset('assets/iconos/icono2.png'),
-          onPressed: () {},
-        ),
-        SizedBox(width: 8),
-        Text(
-          'Medi plan',
-          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
-           ),
-        ),
-      ],
-    ),
+  appBar: AppBar(
+  elevation: 0,
+  backgroundColor: Colors.transparent,
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back, color: Colors.black), // Custom back button icon
+    onPressed: () {
+      // Navigate back to the previous screen manually
+      Navigator.pop(context);
+    },
   ),
+  title: Row(
+    children: [
+      IconButton(
+        icon: Image.asset('assets/iconos/icono2.png'),
+        onPressed: () {},
+      ),
+      SizedBox(width: 8),
+      Text(
+        'Medi plan',
+        style: TextStyle(
+          color: Color.fromARGB(255, 48, 24, 49),
+          fontSize: 16,
+        ),
+      ),
+    ],
+  ),
+),
  endDrawer: Drawer(
     child: ListView(
       children: [
