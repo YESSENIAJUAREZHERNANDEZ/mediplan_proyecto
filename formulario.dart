@@ -22,8 +22,6 @@ class ReminderPage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/app_logo.png',
-                width: 40, height: 40), // Coloca el logo de tu app aquí
             IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
@@ -65,10 +63,11 @@ class ReminderPage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   // Lógica para abrir el selector de hora
-                  TimeOfDay selectedTime = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
+                  TimeOfDay? selectedTime = await showTimePicker(
+  context: context,
+  initialTime: TimeOfDay.now(),
+);
+
 
                   // Manejar la hora seleccionada (si el usuario no canceló la selección)
                   if (selectedTime != null) {

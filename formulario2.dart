@@ -64,10 +64,16 @@ class ReminderPage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   // Lógica para abrir el selector de hora
-                  TimeOfDay selectedTime = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
+                  TimeOfDay? selectedTime = await showTimePicker(
+  context: context,
+  initialTime: TimeOfDay.now(),
+);
+
+if (selectedTime != null) {
+  TimeOfDay nonNullableTime = selectedTime;
+  // Ahora puedes usar nonNullableTime que es de tipo TimeOfDay (no nullable)
+}
+
 
                   // Manejar la hora seleccionada (si el usuario no canceló la selección)
                   if (selectedTime != null) {
@@ -169,13 +175,16 @@ class ReminderDatePage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   // Lógica para abrir el selector de fecha (calendario)
-                  DateTime selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(
-                        DateTime.now().year + 1), // Hasta un año en el futuro
-                  );
+                  DateTime? selectedDate = await showDatePicker(
+  context: context,
+  initialDate: DateTime.now(),
+  firstDate: DateTime.now(),
+  lastDate: DateTime(DateTime.now().year + 1), // Hasta un año en el futuro
+);
+
+if (selectedDate != null) {
+  // Puedes usar selectedDate, que es de tipo DateTime (no nullable)
+}
 
                   // Manejar la fecha seleccionada (si el usuario no canceló la selección)
                   if (selectedDate != null) {
