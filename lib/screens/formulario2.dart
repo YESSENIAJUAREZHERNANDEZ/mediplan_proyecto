@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ReminderPage(),
+      home: ReminderPage2(),
     );
   }
 }
 
-class ReminderPage extends StatelessWidget {
+class ReminderPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,9 +119,7 @@ class ReminderDatePage extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/app_logo.png',
-                width: 40, height: 40), // Coloca el logo de tu app aquí
+          children: [// Coloca el logo de tu app aquí
             IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
