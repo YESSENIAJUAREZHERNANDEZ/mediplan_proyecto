@@ -203,7 +203,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/imagenes/reloj.png',
+                'assets/inicio/uno.png',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
@@ -237,7 +237,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/imagenes/pills.png',
+                'assets/inicio/dos.png',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
@@ -278,7 +278,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/imagenes/blanco.png',
+                'assets/inicio/tres.png',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
@@ -311,7 +311,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/imagenes/persona.png',
+                'assets/inicio/dos.png',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
