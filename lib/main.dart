@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_application_1/screens/formulario.dart';
 //import 'package:flutter_application_1/screens/formulario2.dart';
+//import 'package:flutter_application_1/screens/editarmedicamento.dart';
+//import 'package:flutter_application_1/screens/formulario.dart';
+//import 'package:flutter_application_1/screens/formulario2.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/alarma.dart';
 //import 'package:flutter_application_1/screens/main_screen.dart';
