@@ -1,44 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/loginapp.dart';
 
-void main() {
-  runApp(Recordatorios());
+class Medication {
+  final String nombre;
+  final String descripcion;
+
+  Medication({required this.nombre, required this.descripcion});
 }
 
-class Recordatorios extends StatelessWidget {
+class MedicationsApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: NoteListScreen(),
-    );
-  }
+  _MedicationsAppState createState() => _MedicationsAppState();
 }
 
-class NoteListScreen extends StatefulWidget {
-  @override
-  _NoteListScreenState createState() => _NoteListScreenState();
-}
+class _MedicationsAppState extends State<MedicationsApp> {
+  List<Medication> medication = [];
 
-class _NoteListScreenState extends State<NoteListScreen> {
-  List<Note> notes = [];
-  TextEditingController _textEditingController = TextEditingController();
+  TextEditingController nombreController = TextEditingController();
+  TextEditingController descripcionController = TextEditingController();
 
-  void _addNote() {
-    setState(() {
-      notes.add(Note(
-        content: _textEditingController.text,
-      ));
-      _textEditingController.clear();
-    });
+  void addMedication() {
+    String nombre = nombreController.text;
+    String descripcion = descripcionController.text;
+
+    if (nombre.isNotEmpty && descripcion.isNotEmpty) {
+      setState(() {
+        medication.add(Medication(nombre: nombre, descripcion: descripcion));
+      });
+
+      nombreController.clear();
+      descripcionController.clear();
+    }
   }
 
-  void _deleteNote(int index) {
+  void removeMedication(int index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Eliminar nota'),
-          content: Text('¿Seguro que quieres eliminar esta nota?'),
+          title: Text('Eliminar medicamento'),
+          content: Text('¿Seguro que quieres eliminar ${medication[index].nombre}?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -49,7 +50,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  notes.removeAt(index);
+                  medication.removeAt(index);
                 });
                 Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
               },
@@ -63,83 +64,148 @@ class _NoteListScreenState extends State<NoteListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white, // Establece el fondo transparente
-        title: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                iconSize: 40.0,
-                icon: Image.asset('assets/iconos/icono2.png'),
-                onPressed: () {},
-              ),
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 20.0,
-                    icon: Image.asset('assets/imagenes/blanco.png'),
-                    onPressed: () {},
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+  elevation: 0,
+  backgroundColor: Colors.transparent,
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back, color: Colors.black), // Custom back button icon
+    onPressed: () {
+      // Navigate back to the previous screen manually
+      Navigator.pop(context);
+    },
+  ),
+  title: Row(
+    children: [
+      IconButton(
+        icon: Image.asset('assets/iconos/icono2.png'),
+        onPressed: () {},
+      ),
+      SizedBox(width: 8),
+      Text(
+        'Medi plan',
+        style: TextStyle(
+          color: Color.fromARGB(255, 48, 24, 49),
+          fontSize: 16,
+        ),
+      ),
+    ],
+  ),
+),
+ endDrawer: Drawer(
+    child: ListView(
+      children: [
+        DrawerHeader(
+  decoration: BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage('assets/imagenes/campo2.png'),
+      fit: BoxFit.cover,
+    ),
+  ),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.end,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Medi plan',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      Text(
+        'Configuración',
+        style: TextStyle(
+          fontSize: 16,
+          color: Color.fromARGB(255, 48, 24, 49),
+        ),
+      ),
+    ],
+  ),
+),
+
+        ListTile(
+          title: Text('Iniciar sesión',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 1
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+          },
+        ),
+        ListTile(
+          title: Text('Terminos y condiciones',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 2
+          },
+        ),
+        ListTile(
+          title: Text('Ayuda',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 3
+          },
+        ),
+      ],
+    ),
+  ),
+
+        body: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: nombreController,
+                    decoration: InputDecoration(
+                      labelText: 'Nombre del medicamento',
+                    ),
                   ),
-                  IconButton(
-                    iconSize: 40.0,
-                    icon: Image.asset('assets/iconos/menu.png'),
-                    onPressed: () {},
+                  TextField(
+                    controller: descripcionController,
+                    decoration: InputDecoration(
+                      labelText: 'Descripción del medicamento',
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: addMedication,
+                    child: Text('agregar medicamento'),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: notes.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Colors.yellow[100],
-                  child: ListTile(
-                    title: Text(notes[index].content),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: medication.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(medication[index].nombre),
+                    subtitle: Text(medication[index].descripcion),
                     trailing: IconButton(
                       icon: Icon(Icons.delete),
-                      onPressed: () => _deleteNote(index),
+                      onPressed: () {
+                        removeMedication(index);
+                      },
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _textEditingController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter a note',
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _addNote,
-                  child: Text('Add'),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class Note {
-  final String content;
-
-  Note({required this.content});
+void main() {
+  runApp(MedicationsApp());
 }

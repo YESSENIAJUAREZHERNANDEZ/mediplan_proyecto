@@ -6,17 +6,17 @@ class Recordatorios extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: NoteListScreen(),
+      home: NoteListScreen2(),
     );
   }
 }
 
-class NoteListScreen extends StatefulWidget {
+class NoteListScreen2 extends StatefulWidget {
   @override
   _NoteListScreenState createState() => _NoteListScreenState();
 }
 
-class _NoteListScreenState extends State<NoteListScreen> {
+class _NoteListScreenState extends State<NoteListScreen2> {
   List<Note> notes = [];
   TextEditingController _textEditingController = TextEditingController();
 

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/alarma.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
+import 'package:flutter_application_1/screens/editarmedicamento.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
-import 'package:flutter_application_1/screens/medicamentos.dart';
+//import 'package:flutter_application_1/screens/medicamentos.dart';
 import 'package:flutter_application_1/screens/tratamiento.dart';
 //import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
@@ -226,7 +227,7 @@ Widget _textsHeader(BuildContext context) {
             onPressed: () {
               // Acción cuando se presiona el segundo botón
               Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => MedicationScreen()),
+                  MaterialPageRoute(builder: (context) => MedicationsApp()),
                 );
             },
             style: ElevatedButton.styleFrom(

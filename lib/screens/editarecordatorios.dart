@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/loginapp.dart';
 
 void main() {
   runApp(Recordatorios());
@@ -64,36 +65,90 @@ class _NoteListScreenState extends State<NoteListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white, // Establece el fondo transparente
-        title: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                iconSize: 40.0,
-                icon: Image.asset('assets/iconos/icono2.png'),
-                onPressed: () {},
-              ),
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 20.0,
-                    icon: Image.asset('assets/imagenes/blanco.png'),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 40.0,
-                    icon: Image.asset('assets/iconos/menu.png'),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ],
+        appBar: AppBar(
+    elevation: 0,
+    backgroundColor: Colors.transparent,
+    title: Row(
+      children: [
+        IconButton(
+          icon: Image.asset('assets/iconos/icono2.png'),
+          onPressed: () {},
+        ),
+        SizedBox(width: 8),
+        Text(
+          'Medi plan',
+          style: TextStyle(
+            color: Color.fromARGB(255, 48, 24, 49),
+            fontSize: 16,
           ),
         ),
+      ],
+    ),
+  ),
+  endDrawer: Drawer(
+    child: ListView(
+      children: [
+        DrawerHeader(
+  decoration: BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage('assets/imagenes/campo2.png'),
+      fit: BoxFit.cover,
+    ),
+  ),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.end,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Medi plan',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
       ),
+      Text(
+        'Configuración',
+        style: TextStyle(
+          fontSize: 16,
+          color: Color.fromARGB(255, 48, 24, 49),
+        ),
+      ),
+    ],
+  ),
+),
+
+        ListTile(
+          title: Text('Iniciar sesión',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 1
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+          },
+        ),
+        ListTile(
+          title: Text('Terminos y condiciones',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 2
+          },
+        ),
+        ListTile(
+          title: Text('Ayuda',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 3
+          },
+        ),
+      ],
+    ),
+  ),
+
       body: Column(
         children: [
           Expanded(
