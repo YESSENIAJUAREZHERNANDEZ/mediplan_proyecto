@@ -2,24 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/resultadotrata.dart';
 
-class Medication {
+class Medication2 {
   final String nombre;
   final String descripcion;
 
-  Medication({required this.nombre, required this.descripcion});
+  Medication2({required this.nombre, required this.descripcion});
 }
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
+class Medications2 extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  List<Medication> medication = [];
+class _MyAppState extends State<Medications2> {
+  List<Medication2> medication = [];
   int currentDose = 0;
   int totalDoses = 10;
 
@@ -33,7 +29,7 @@ class _MyAppState extends State<MyApp> {
 
     if (nombre.isNotEmpty && descripcion.isNotEmpty) {
       setState(() {
-        medication.add(Medication(nombre: nombre, descripcion: descripcion));
+        medication.add(Medication2(nombre: nombre, descripcion: descripcion));
       });
 
       nombreController.clear();
