@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_application_1/screens/formulario.dart';
-import 'package:flutter_application_1/screens/formulario2.dart';
+//import 'package:flutter_application_1/screens/formulario2.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/alarma.dart';
 //import 'package:flutter_application_1/screens/main_screen.dart';
-//import 'package:flutter_application_1/screens/splash_screen.dart';
+import 'package:flutter_application_1/screens/splash_screen.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/splash_screen.dart';
 //import 'package:flutter_application_1/screens/recordatorios.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Medi plan',
-      home: ReminderPage2(),
+      home: SplashScreen(),
       theme: ThemeData(
         textTheme: TextTheme(
           headline1: TextStyle(
