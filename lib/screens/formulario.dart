@@ -20,9 +20,7 @@ class ReminderPage extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/imagenes/logo2.png',
-                width: 40, height: 40), // Coloca el logo de tu app aquí
+          children: [ // Coloca el logo de tu app aquí
             IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
