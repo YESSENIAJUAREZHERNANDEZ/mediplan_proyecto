@@ -4,6 +4,7 @@ import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/medicamentos.dart';
+import 'package:flutter_application_1/screens/tratamiento.dart';
 //import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -83,6 +84,9 @@ class MainScreen extends StatelessWidget{
            ),),
           onTap: () {
             // Acción para la opción 2
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => TreatmentProgress()),
+                );
           },
         ),
         ListTile(
