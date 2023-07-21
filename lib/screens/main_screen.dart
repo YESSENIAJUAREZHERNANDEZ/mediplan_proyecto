@@ -237,7 +237,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/inicio/dos.png',
+                'assets/inicio/dos.png', 
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
@@ -311,7 +311,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/inicio/dos.png',
+                'assets/inicio/identifacion.png',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
