@@ -1,4 +1,3 @@
-/*import 'package:flutter/material.dart';*/
 import 'package:flutter/material.dart';
 
 void main() {
@@ -65,7 +64,7 @@ class ReminderPage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   // Lógica para abrir el selector de hora
-                  TimeOfDay selectedTime = await showTimePicker(
+                  TimeOfDay? selectedTime = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.now(),
                   );

@@ -64,7 +64,7 @@ class ReminderPage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   // Lógica para abrir el selector de hora
-                  TimeOfDay selectedTime = await showTimePicker(
+                  TimeOfDay? selectedTime = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.now(),
                   );
@@ -169,7 +169,7 @@ class ReminderDatePage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   // Lógica para abrir el selector de fecha (calendario)
-                  DateTime selectedDate = await showDatePicker(
+                  DateTime? selectedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
