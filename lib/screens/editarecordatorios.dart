@@ -151,6 +151,13 @@ class _NoteListScreenState extends State<NoteListScreen> {
 
       body: Column(
         children: [
+                    Text(
+                  'Recordatorios',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
           Expanded(
             child: ListView.builder(
               itemCount: notes.length,

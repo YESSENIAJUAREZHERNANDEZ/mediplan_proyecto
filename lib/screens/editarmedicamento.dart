@@ -159,6 +159,13 @@ class _MedicationsAppState extends State<MedicationsApp> {
 
         body: Column(
           children: [
+                      Text(
+                  'Medicamentos',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Column(
