@@ -83,7 +83,7 @@ class MainScreen extends StatelessWidget{
           },
         ),
         ListTile(
-          title: Text('Terminos y condiciones',
+          title: Text('',
           style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
            ),),
           onTap: () {
@@ -94,7 +94,7 @@ class MainScreen extends StatelessWidget{
           },
         ),
         ListTile(
-          title: Text('Ayuda',
+          title: Text('',
           style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
            ),),
           onTap: () {
