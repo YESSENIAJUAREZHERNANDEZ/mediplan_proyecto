@@ -237,7 +237,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/inicio/dos.png', 
+                'assets\inicio\pasti.png', 
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
