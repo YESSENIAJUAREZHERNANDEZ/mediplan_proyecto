@@ -109,50 +109,70 @@ appBar: AppBar(
     ),
   ),
 
-      body: Center(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'assets/imagenes/glucometro.png',
-                //width: 70,
-                //height: 70,
-                fit: BoxFit.cover,
-              ),
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  'Dispositivos',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Center(
+  child: Text(
+    'Dispositivos',
+    style: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
+  ),
+),
+    ),
+          Center(
+            child: Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/imagenes/glucometro.png',
+                    //width: 70,
+                    //height: 70,
+                    fit: BoxFit.cover,
                   ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Acción del botón
-                  Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => Waiting()),
-                );
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'Glucometro AccuCheck',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ),
-                ),
-                child: Text(
-                  'Vinclular',
-                  style: TextStyle(
-                    color: Colors.white,
+                  ElevatedButton(
+                    onPressed: () {
+                      // Acción del botón
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Waiting()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Text(
+                      'Vincular',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

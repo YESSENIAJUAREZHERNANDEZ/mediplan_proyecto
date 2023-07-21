@@ -124,6 +124,19 @@ class _MedicationScreenState extends State<MedicationScreen> {
 
       body: Column(
         children: [
+          Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Center(
+  child: Text(
+    'Medicamentos',
+    style: TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
+  ),
+),
+    ),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextField(

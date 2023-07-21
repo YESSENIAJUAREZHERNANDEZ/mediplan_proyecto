@@ -4,7 +4,7 @@ import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/medicamentos.dart';
-import 'package:flutter_application_1/screens/seguimiento.dart';
+//import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -13,24 +13,26 @@ class MainScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-         appBar: AppBar(
-    elevation: 0,
-    backgroundColor: Colors.transparent,
-    title: Row(
-      children: [
-        IconButton(
-          icon: Image.asset('assets/iconos/icono2.png'),
-          onPressed: () {},
+    appBar: AppBar(
+  elevation: 0,
+  backgroundColor: Colors.transparent,
+  title: Row(
+    children: [
+      IconButton(
+        icon: Image.asset('assets/iconos/icono2.png'),
+        onPressed: () {},
+      ),
+      SizedBox(width: 8),
+      Text(
+        'Medi plan',
+        style: TextStyle(
+          color: Color.fromARGB(255, 48, 24, 49),
+          fontSize: 16,
         ),
-        SizedBox(width: 8),
-        Text(
-          'Medi plan',
-          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
-           ),
-        ),
-      ],
-    ),
+      ),
+    ],
   ),
+),
   endDrawer: Drawer(
     child: ListView(
       children: [
@@ -296,9 +298,7 @@ Widget _textsHeader(BuildContext context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
-              Navigator.push( context,
-                 MaterialPageRoute(builder: (context) => CalendarScreen()),
-                );
+             
             },
             style: ElevatedButton.styleFrom(
               primary: Color.fromARGB(255, 231, 197, 132), // Color de fondo
