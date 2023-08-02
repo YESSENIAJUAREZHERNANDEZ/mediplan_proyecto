@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/main_screen.dart';
+import 'package:flutter_application_1/screens/loginapp.dart';
+//import 'package:flutter_application_1/screens/main_screen.dart';
 
 class SplashScreen extends StatelessWidget{
   @override
@@ -41,7 +42,7 @@ class SplashScreen extends StatelessWidget{
               ),
               onPressed: () {
                 Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => MainScreen()),
+                  MaterialPageRoute(builder: (context) => LoginApp()),
                 );
                 },
             ),
