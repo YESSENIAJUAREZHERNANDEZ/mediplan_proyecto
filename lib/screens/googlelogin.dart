@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_application_1/screens/main_screen.dart';
 
-class LoginApp extends StatelessWidget {
+class LoginAppGoogle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
