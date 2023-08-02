@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "335239532891",
+    "project_id": "mediplan-e6c5d",
+    "storage_bucket": "mediplan-e6c5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335239532891:android:94c1cd6c924be143694a7e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335239532891-ma1vvnguid7iekquvmb84j6befb82mu4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_application_1",
+            "certificate_hash": "ce28d34423c76d2115d89d608d11ada3466cb3c9"
+          }
+        },
+        {
+          "client_id": "335239532891-lldjmve1jrt38iv968agkhkj7kspbh1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWntw-zY94OvvsNL1fgHwo-WU36enatFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335239532891-lldjmve1jrt38iv968agkhkj7kspbh1t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
