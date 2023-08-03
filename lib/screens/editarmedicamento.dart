@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MedicationsApp());
+}
+
 
 class Medication {
   final String nombre;
@@ -213,8 +222,4 @@ class _MedicationsAppState extends State<MedicationsApp> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MedicationsApp());
 }

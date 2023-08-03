@@ -1,42 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_1/screens/main_screen.dart';
-import 'package:flutter_application_1/screens/registro.dart';
 
-class LoginPage extends StatefulWidget {
+
+
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> _signInWithEmailAndPassword() async {
+  Future<void> _registerWithEmailAndPassword() async {
     try {
       if (_formKey.currentState!.validate()) {
-        final userCredential = await _auth.signInWithEmailAndPassword(
+        final userCredential = await _auth.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
 
         if (userCredential.user != null) {
-          // Successfully signed in, redirect to home page
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MainScreen(),
-            ),
-          );
+          // Successfully registered, you can do something after registration if needed
+          Navigator.pop(context); // Go back to the previous screen (homepage in this case)
         } else {
           // Something went wrong
           // You can show an error message to the user
         }
       }
     } catch (e) {
-      print('Error signing in: $e');
+      print('Error registering: $e');
       // You can show an error message to the user
     }
   }
@@ -45,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Iniciar sesión'),
+        title: Text('Registro'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -74,6 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Ingrese su contraseña';
+                  } else if (value.length < 6) {
+                    return 'La contraseña debe tener al menos 6 caracteres';
                   }
                   return null;
                 },
@@ -83,43 +80,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _signInWithEmailAndPassword,
-                child: Text('Iniciar sesión'),
+                onPressed: _registerWithEmailAndPassword,
+                child: Text('Registrarse'),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 143, 158, 244), // Color llamativo para el botón
+                  primary: Colors.pink[200], // Color llamativo para el botón
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
               ),
-
-              ElevatedButton(
-             onPressed: () {
-                 //Lógica para iniciar sesión con Google
-                Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
-                );
-
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 255, 255, 255), // Color de fondo
-                onPrimary: Colors.black, // Color del texto
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                  //Image.asset(
-                    //'assets/iconos/google.png', // Ruta de la imagen de Google
-                  // height: 24.0,
-                  //),
-                 SizedBox(width: 8.0),
-                  Text('No tiene una cuenta  '),
-                  Text('Registro', style: TextStyle(fontSize: 18.0,
-            color: Color.fromARGB(255, 121, 5, 59),),),
-                ],
-             ),
-            ),
             ],
           ),
         ),
