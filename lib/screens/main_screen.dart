@@ -181,7 +181,11 @@ Widget _textsHeader(BuildContext context) {
           padding: const EdgeInsets.only(left: 0.0),
           child: Text(
             'Inicio',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0XFFB7B7D2),
+          ),
           ),
         ),
         
