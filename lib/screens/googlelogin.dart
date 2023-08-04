@@ -13,6 +13,8 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String _errorMessage = '';
+
 
   Future<void> _signInWithEmailAndPassword() async {
     try {
@@ -33,13 +35,43 @@ class _LoginPageState extends State<LoginPage> {
         } else {
           // Something went wrong
           // You can show an error message to the user
+          setState(() {
+          _showErrorDialog('El inicio de sesión ha fallado. Verifica tu correo electrónico y contraseña.');
+        });
         }
       }
     } catch (e) {
       print('Error signing in: $e');
       // You can show an error message to the user
+       setState(() {
+       _showErrorDialog('Ha ocurrido un error al intentar iniciar sesión. Por favor, inténtalo nuevamente.');
+    });
     }
   }
+
+void _showErrorDialog(String message) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Column(
+        children: [
+          Icon(Icons.error, size: 40, color: Color.fromARGB(255, 230, 177, 32)), // Aquí puedes utilizar la imagen que desees
+          SizedBox(width: 8),
+          Text('Error de inicio de sesión'),
+        ],
+      ),
+      content: Text(message),
+      actions: <Widget>[
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Aceptar'),
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +125,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-
               ElevatedButton(
              onPressed: () {
                  //Lógica para iniciar sesión con Google
