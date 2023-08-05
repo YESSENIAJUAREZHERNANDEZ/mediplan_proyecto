@@ -4,7 +4,7 @@ import 'package:flutter_application_1/screens/splash_dos.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/alarma.dart';
 //import 'package:flutter_application_1/screens/main_screen.dart';
-import 'package:flutter_application_1/screens/splash_screen.dart';
+//import 'package:flutter_application_1/screens/splash_screen.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/splash_screen.dart';
 //import 'package:flutter_application_1/screens/recordatorios.dart';

@@ -5,16 +5,30 @@ import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/editarecordatorios.dart';
 import 'package:flutter_application_1/screens/editarmedicamento.dart';
+//import 'package:flutter_application_1/screens/googlelogin.dart';
 //import 'package:flutter_application_1/screens/formulario.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:flutter_application_1/screens/splash_dos.dart';
 //import 'package:flutter_application_1/screens/medicamentos.dart';
 import 'package:flutter_application_1/screens/tratamiento.dart';
 //import 'package:flutter_application_1/screens/seguimiento.dart';
 //import 'package:flutter_application_1/screens/signup.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 class MainScreen extends StatelessWidget{
+   void _signOut(BuildContext context) async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.remove('isUserLoggedIn'); // Eliminar el estado de inicio de sesión
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Splashdos(), // Redirigir a la página de inicio de sesión
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -72,7 +86,7 @@ class MainScreen extends StatelessWidget{
 ),
 
         ListTile(
-          title: Text('Iniciar sesión',
+          title: Text('Información de la cuenta',
           style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
            ),),
           onTap: () {
@@ -83,14 +97,13 @@ class MainScreen extends StatelessWidget{
           },
         ),
         ListTile(
-          title: Text('',
-          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
-           ),),
+          title: Text(
+            'Cerrar sesión',
+            style: TextStyle(color: Color.fromARGB(255, 48, 24, 49), fontSize: 16),
+          ),
           onTap: () {
-            // Acción para la opción 2
-            Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => TreatmentProgress()),
-                );
+            // Llamar a la función para cerrar sesión
+            _signOut(context);
           },
         ),
         ListTile(

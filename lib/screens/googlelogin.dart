@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/screens/main_screen.dart';
 import 'package:flutter_application_1/screens/registro.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,37 +18,40 @@ class _LoginPageState extends State<LoginPage> {
 
 
   Future<void> _signInWithEmailAndPassword() async {
-    try {
-      if (_formKey.currentState!.validate()) {
-        final userCredential = await _auth.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-        );
+  try {
+    if (_formKey.currentState!.validate()) {
+      final userCredential = await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
 
-        if (userCredential.user != null) {
-          // Successfully signed in, redirect to home page
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MainScreen(),
-            ),
-          );
-        } else {
-          // Something went wrong
-          // You can show an error message to the user
-          setState(() {
+      if (userCredential.user != null) {
+        // Successfully signed in, redirect to home page
+        final preferences = await SharedPreferences.getInstance();
+        await preferences.setBool('isUserLoggedIn', true); // Guardar estado de inicio de sesión
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainScreen(),
+          ),
+        );
+      } else {
+        // Something went wrong
+        // You can show an error message to the user
+        setState(() {
           _showErrorDialog('El inicio de sesión ha fallado. Verifica tu correo electrónico y contraseña.');
         });
-        }
       }
-    } catch (e) {
-      print('Error signing in: $e');
-      // You can show an error message to the user
-       setState(() {
-       _showErrorDialog('Ha ocurrido un error al intentar iniciar sesión. Por favor, inténtalo nuevamente.');
-    });
     }
+  } catch (e) {
+    print('Error signing in: $e');
+    // You can show an error message to the user
+    setState(() {
+      _showErrorDialog('Ha ocurrido un error al intentar iniciar sesión. Por favor, inténtalo nuevamente.');
+    });
   }
+}
+
 
 void _showErrorDialog(String message) {
   showDialog(
@@ -55,9 +59,9 @@ void _showErrorDialog(String message) {
     builder: (context) => AlertDialog(
       title: Column(
         children: [
-          Icon(Icons.error, size: 40, color: Color.fromARGB(255, 230, 177, 32)), // Aquí puedes utilizar la imagen que desees
+          Icon(Icons.error, size: 40, color: Color.fromARGB(255, 207, 78, 78)), // Aquí puedes utilizar la imagen que desees
           SizedBox(width: 8),
-          Text('Error de inicio de sesión'),
+          Text('Error'),
         ],
       ),
       content: Text(message),
@@ -73,10 +77,30 @@ void _showErrorDialog(String message) {
   );
 }
 
+@override
+void initState() {
+  super.initState();
+  _checkLoggedIn(); // Verificar si el usuario ya ha iniciado sesión al cargar la página
+}
+
+Future<void> _checkLoggedIn() async {
+  final preferences = await SharedPreferences.getInstance();
+  final isLoggedIn = preferences.getBool('isUserLoggedIn') ?? false;
+  if (isLoggedIn) {
+    // Usuario ya inició sesión previamente, redirigir a la página principal
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MainScreen(),
+      ),
+    );
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 251, 254, 255),
+      backgroundColor: Color.fromARGB(255, 78, 157, 196),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -85,16 +109,25 @@ void _showErrorDialog(String message) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
-                alignment: Alignment.topCenter,
                 child: Image.asset(
                   'assets/iconos/icono.png',
                   width: 70,
                   height: 70,
                 ),
               ),
-                Text("Iniciar Sesión", style: TextStyle(fontSize: 28,fontFamily:'Roboto', color:Color.fromARGB(255, 6, 11, 53)),),
+                Text("Iniciar Sesión", style: TextStyle(fontSize: 26,fontFamily:'Droid Sans', color:Color.fromARGB(255, 6, 11, 53)),),
                 //Text("Bienvenido", style: TextStyle(fontSize: 30, fontFamily:'Roboto' ,color:Color.fromARGB(255, 6, 11, 53)),),
                   SizedBox(height: 16.0),
+                Text(
+                  'Ingrese los siguientes datos:',
+                  style: TextStyle(
+                    fontFamily: 'Droid Sans',
+                    fontSize: 15.0,
+                    color: Color.fromARGB(255, 57, 57, 59),
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+                SizedBox(height: 18.0),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -107,39 +140,47 @@ void _showErrorDialog(String message) {
                 decoration: InputDecoration(
                   labelText: 'Ingrese su correo electronico:',
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: const Color.fromARGB(255, 255, 255, 255),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   prefixIcon: Icon(
                     Icons.email, // Icono de correo electrónico incorporado
                     color: Colors.grey[600], // Color del icono
+                    size: 20.0, 
                   ),
                 ),
               ),
               SizedBox(height: 20),
               TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Ingrese su contraseña';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  labelText: 'Ingrese su contraseña:',
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  prefixIcon: Icon(
-                    Icons.lock, // Icono de correo electrónico incorporado
-                    color: Colors.grey[600], // Color del icono
+              controller: _passwordController,
+              obscureText: true,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Ingrese su contraseña';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                labelText: 'Ingrese su contraseña:',
+                filled: true,
+                fillColor: const Color.fromARGB(255, 255, 255, 255),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide( // Cambiar color del borde
+                    color: const Color.fromARGB(255, 255, 255, 255)!, // Color del borde
+                    width: 1.0, // Ancho del borde
                   ),
                 ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // Ajustar el ancho del TextField
+                prefixIcon: Icon(
+                  Icons.lock, // Icono de candado incorporado
+                  color: Colors.grey[600], // Color del icono
+                  size: 20.0,
+                ),
               ),
+            ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _signInWithEmailAndPassword,

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/googlelogin.dart';
 import 'package:flutter_application_1/screens/registro.dart';
+import 'package:flutter_application_1/screens/main_screen.dart'; // Importa la página principal
+import 'package:firebase_auth/firebase_auth.dart'; // Importa FirebaseAuth
+import 'package:shared_preferences/shared_preferences.dart'; // Importa SharedPreferences
+
 
 void main() => runApp(MyApp());
 
