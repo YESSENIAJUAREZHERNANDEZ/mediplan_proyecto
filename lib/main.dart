@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
-//import 'package:flutter_application_1/screens/editarmedicamento.dart';
-//import 'package:flutter_application_1/screens/camara.dart';
-//import 'package:flutter_application_1/screens/alarma.dart';
-//import 'package:flutter_application_1/screens/main_screen.dart';
-//import 'package:flutter_application_1/screens/splash_screen.dart';
-//import 'package:flutter_application_1/screens/camara.dart';
-//import 'package:flutter_application_1/screens/splash_screen.dart';
-//import 'package:flutter_application_1/screens/recordatorios.dart';
-//import 'package:flutter_application_1/screens/seguimiento.dart';
-//import 'package:flutter_application_1/screens/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_1/screens/main_screen.dart'; // Import the MainScreen widget
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,16 +10,45 @@ void main() async {
   runApp(MyApp());
 }
 
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _MyAppState extends State<MyApp> {
+  bool isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoggedIn();
+  }
+
+  // Method to check if the user is logged in or not
+  Future<void> checkLoggedIn() async {
+    final preferences = await SharedPreferences.getInstance();
+    isLoggedIn = preferences.getBool('isUserLoggedIn') ?? false;
+
+    // Update the state to trigger a rebuild after retrieving the login status
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Check if the login status is retrieved before building the UI
+    if (isLoggedIn == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Medi plan',
-      home: Splashdos(),
-      theme: ThemeData(
+      // Show MainScreen if the user is logged in, otherwise show Splashdos
+      home: isLoggedIn ? MainScreen() : Splashdos(),
+      
+ theme: ThemeData(
         textTheme: TextTheme(
           headline1: TextStyle(
             fontSize: 36.0,
@@ -64,3 +85,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

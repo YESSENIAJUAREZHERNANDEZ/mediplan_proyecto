@@ -135,10 +135,13 @@ Future<void> _checkLoggedIn() async {
                   if (value!.isEmpty) {
                     return 'Ingrese su correo electrónico';
                   }
+                  if (!value.contains('@')) {
+                    return 'El correo electrónico debe incluir el símbolo "@"';
+                  }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Ingrese su correo electronico:',
+                  labelText: 'Ingrese su correo electrónico:',
                   filled: true,
                   fillColor: const Color.fromARGB(255, 255, 255, 255),
                   border: OutlineInputBorder(
@@ -146,8 +149,8 @@ Future<void> _checkLoggedIn() async {
                   ),
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   prefixIcon: Icon(
-                    Icons.email, // Icono de correo electrónico incorporado
-                    color: Colors.grey[600], // Color del icono
+                    Icons.email,
+                    color: Colors.grey[600],
                     size: 20.0, 
                   ),
                 ),
