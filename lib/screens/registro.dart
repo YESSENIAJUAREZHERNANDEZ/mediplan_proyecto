@@ -39,11 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Registro'),
-      ),
+      backgroundColor: Color.fromARGB(255, 78, 157, 196),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
+        
         child: Form(
           key: _formKey,
           child: Column(
@@ -87,6 +86,27 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+              ),
+
+              Text(
+                'Al continuar acepta nuestros',
+                style: TextStyle(
+                   fontSize: 12,
+                  color: Color.fromARGB(255, 64, 66, 78),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  // Lógica para los términos y condiciones
+                },
+                child: Text(
+                  'Términos y condiciones',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: 12,
+                    color: Color.fromARGB(255, 58, 65, 128), // Color del texto blanco
                   ),
                 ),
               ),

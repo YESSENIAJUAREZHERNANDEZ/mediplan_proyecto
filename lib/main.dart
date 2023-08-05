@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/splash_dos.dart';
 //import 'package:flutter_application_1/screens/editarmedicamento.dart';
 //import 'package:flutter_application_1/screens/camara.dart';
 //import 'package:flutter_application_1/screens/alarma.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Medi plan',
-      home: SplashScreen(),
+      home: Splashdos(),
       theme: ThemeData(
         textTheme: TextTheme(
           headline1: TextStyle(

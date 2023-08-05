@@ -76,9 +76,7 @@ void _showErrorDialog(String message) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Iniciar sesión'),
-      ),
+      backgroundColor: Color.fromARGB(255, 251, 254, 255),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -86,6 +84,17 @@ void _showErrorDialog(String message) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Image.asset(
+                  'assets/iconos/icono.png',
+                  width: 70,
+                  height: 70,
+                ),
+              ),
+                Text("Iniciar Sesión", style: TextStyle(fontSize: 28,fontFamily:'Roboto', color:Color.fromARGB(255, 6, 11, 53)),),
+                //Text("Bienvenido", style: TextStyle(fontSize: 30, fontFamily:'Roboto' ,color:Color.fromARGB(255, 6, 11, 53)),),
+                  SizedBox(height: 16.0),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -96,7 +105,16 @@ void _showErrorDialog(String message) {
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Correo electrónico',
+                  labelText: 'Ingrese su correo electronico:',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.email, // Icono de correo electrónico incorporado
+                    color: Colors.grey[600], // Color del icono
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -110,7 +128,16 @@ void _showErrorDialog(String message) {
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Contraseña',
+                  labelText: 'Ingrese su contraseña:',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.lock, // Icono de correo electrónico incorporado
+                    color: Colors.grey[600], // Color del icono
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -118,39 +145,42 @@ void _showErrorDialog(String message) {
                 onPressed: _signInWithEmailAndPassword,
                 child: Text('Iniciar sesión'),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 143, 158, 244), // Color llamativo para el botón
+                  primary: Color.fromARGB(255, 78, 157, 196), // Color llamativo para el botón
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
               ),
-              ElevatedButton(
-             onPressed: () {
-                 //Lógica para iniciar sesión con Google
-                Navigator.push( context,
+              SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'No tiene una cuenta? ',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 64, 66, 78),
+                      fontSize: 12,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Lógica para el registro
+                      Navigator.push( context,
                   MaterialPageRoute(builder: (context) => RegisterPage()),
                 );
-
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 255, 255, 255), // Color de fondo
-                onPrimary: Colors.black, // Color del texto
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                  //Image.asset(
-                    //'assets/iconos/google.png', // Ruta de la imagen de Google
-                  // height: 24.0,
-                  //),
-                 SizedBox(width: 8.0),
-                  Text('No tiene una cuenta  '),
-                  Text('Registro', style: TextStyle(fontSize: 18.0,
-            color: Color.fromARGB(255, 121, 5, 59),),),
+                    },
+                    child: Text(
+                      'Registro',
+                      style: TextStyle(
+                        fontSize: 12,
+                        decoration: TextDecoration.underline,
+                        color: Color.fromARGB(255, 58, 65, 128), // Color del texto blanco
+                      ),
+                    ),
+                  ),
                 ],
-             ),
-            ),
+              ),
             ],
           ),
         ),
