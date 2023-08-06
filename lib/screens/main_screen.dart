@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/barrita.dart';
 //import 'package:flutter_application_1/screens/alarma.dart';
 import 'package:flutter_application_1/screens/camara.dart';
+import 'package:flutter_application_1/screens/dato.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/editarecordatorios.dart';
 import 'package:flutter_application_1/screens/editarmedicamento.dart';
 //import 'package:flutter_application_1/screens/googlelogin.dart';
 //import 'package:flutter_application_1/screens/formulario.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:flutter_application_1/screens/medicamentos.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 //import 'package:flutter_application_1/screens/medicamentos.dart';
 import 'package:flutter_application_1/screens/tratamiento.dart';
@@ -113,7 +115,7 @@ class MainScreen extends StatelessWidget{
           onTap: () {
             // Acción para la opción 3
             Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => Medications2()),
+                  MaterialPageRoute(builder: (context) => MedicationListScreen()),
                 );
           },
         ),

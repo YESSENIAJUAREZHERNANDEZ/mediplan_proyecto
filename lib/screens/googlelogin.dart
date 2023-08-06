@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/screens/main_screen.dart';
+import 'package:flutter_application_1/screens/recuperar.dart';
 import 'package:flutter_application_1/screens/registro.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -115,14 +116,14 @@ Future<void> _checkLoggedIn() async {
                   height: 70,
                 ),
               ),
-                Text("Iniciar Sesión", style: TextStyle(fontSize: 26,fontFamily:'Droid Sans', color:Color.fromARGB(255, 6, 11, 53)),),
+                Text("Iniciar Sesión", style: TextStyle(fontSize: 26,fontFamily:'Droid Sans', color:Color.fromARGB(255, 255, 255, 255)),),
                 //Text("Bienvenido", style: TextStyle(fontSize: 30, fontFamily:'Roboto' ,color:Color.fromARGB(255, 6, 11, 53)),),
                   SizedBox(height: 16.0),
                 Text(
-                  'Ingrese los siguientes datos:',
+                  'Ingrese los siguientes datos:                        ',
                   style: TextStyle(
                     fontFamily: 'Droid Sans',
-                    fontSize: 15.0,
+                    fontSize: 16.0,
                     color: Color.fromARGB(255, 57, 57, 59),
                   ),
                   textAlign: TextAlign.left,
@@ -133,7 +134,7 @@ Future<void> _checkLoggedIn() async {
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Ingrese su correo electrónico';
+                    return 'Correo electrónico';
                   }
                   if (!value.contains('@')) {
                     return 'El correo electrónico debe incluir el símbolo "@"';
@@ -141,7 +142,7 @@ Future<void> _checkLoggedIn() async {
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Ingrese su correo electrónico:',
+                  labelText: 'Correo electrónico:',
                   filled: true,
                   fillColor: const Color.fromARGB(255, 255, 255, 255),
                   border: OutlineInputBorder(
@@ -161,12 +162,12 @@ Future<void> _checkLoggedIn() async {
               obscureText: true,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Ingrese su contraseña';
+                  return 'Contraseña';
                 }
                 return null;
               },
               decoration: InputDecoration(
-                labelText: 'Ingrese su contraseña:',
+                labelText: 'Contraseña:',
                 filled: true,
                 fillColor: const Color.fromARGB(255, 255, 255, 255),
                 border: OutlineInputBorder(
@@ -187,10 +188,12 @@ Future<void> _checkLoggedIn() async {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _signInWithEmailAndPassword,
-                child: Text('Iniciar sesión'),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 110, vertical: 14),
+                  child: Text('Empezar'),
+                ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 78, 157, 196), // Color llamativo para el botón
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  primary: Color.fromARGB(255, 64, 62, 138),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -201,7 +204,7 @@ Future<void> _checkLoggedIn() async {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'No tiene una cuenta? ',
+                    'Olvido su contraseña? ',
                     style: TextStyle(
                       color: Color.fromARGB(255, 64, 66, 78),
                       fontSize: 12,
@@ -211,11 +214,11 @@ Future<void> _checkLoggedIn() async {
                     onTap: () {
                       // Lógica para el registro
                       Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
+                  MaterialPageRoute(builder: (context) => PasswordResetPage()),
                 );
                     },
                     child: Text(
-                      'Registro',
+                      'Recuperar',
                       style: TextStyle(
                         fontSize: 12,
                         decoration: TextDecoration.underline,

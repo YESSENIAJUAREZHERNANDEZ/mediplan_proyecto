@@ -17,7 +17,6 @@ void main() async {
 }
 
 class MedicationsApp extends StatefulWidget {
-  
   @override
   _MedicationsAppState createState() => _MedicationsAppState();
 }
@@ -29,7 +28,7 @@ class _MedicationsAppState extends State<MedicationsApp> {
   TextEditingController descripcionController = TextEditingController();
 
   DatabaseReference _medicationsRef =
-      FirebaseDatabase.instance.reference().child('medications');
+      FirebaseDatabase.instance.reference().child('medicamentos');
 
   @override
 void initState() {
