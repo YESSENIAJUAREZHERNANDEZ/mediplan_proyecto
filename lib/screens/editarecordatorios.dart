@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() {
   runApp(Recordatorios());
 }
 
@@ -23,29 +19,19 @@ class NoteListScreen extends StatefulWidget {
   @override
   _NoteListScreenState createState() => _NoteListScreenState();
 }
-final databaseReference = FirebaseDatabase.instance.reference();
+
 class _NoteListScreenState extends State<NoteListScreen> {
   List<Note> notes = [];
   TextEditingController _textEditingController = TextEditingController();
 
   void _addNote() {
-    String content = _textEditingController.text;
-    if (content.isNotEmpty) {
-      setState(() {
-        notes.add(Note(
-          content: content,
-        ));
-        _textEditingController.clear();
-      });
-
-      // Push the new reminder to the database
-      databaseReference.child("reminders").push().set({
-        "content": content,
-      });
-    }
+    setState(() {
+      notes.add(Note(
+        content: _textEditingController.text,
+      ));
+      _textEditingController.clear();
+    });
   }
-
-  
 
   void _deleteNote(int index) {
     showDialog(
