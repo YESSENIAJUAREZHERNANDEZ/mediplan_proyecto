@@ -17,6 +17,7 @@ void main() async {
 }
 
 class MedicationsApp extends StatefulWidget {
+  
   @override
   _MedicationsAppState createState() => _MedicationsAppState();
 }
