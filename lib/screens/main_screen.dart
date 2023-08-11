@@ -85,9 +85,7 @@ class MainScreen extends StatelessWidget{
            ),),
           onTap: () {
             // Acción para la opción 1
-            Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => ReminderScreen()),
-                );
+            
           },
         ),
         ListTile(
