@@ -89,7 +89,7 @@ void initState() {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Eliminar medicamento'),
-          content: Text('¿Seguro que quieres eliminar este medicamento?'),
+          content: Text('¿Seguro que quiere eliminar este medicamento?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -225,13 +225,13 @@ void initState() {
                   TextField(
                     controller: nombreController,
                     decoration: InputDecoration(
-                      labelText: 'Nombre del medicamento',
+                      labelText: 'Nombre de medicamento',
                     ),
                   ),
                   TextField(
                     controller: descripcionController,
                     decoration: InputDecoration(
-                      labelText: 'Descripción del medicamento',
+                      labelText: 'Cantidad',
                     ),
                   ),
                   ElevatedButton(
