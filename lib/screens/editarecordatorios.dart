@@ -115,7 +115,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 241, 238), // Fondo azul
+      backgroundColor: Color.fromARGB(255, 238, 237, 241), // Fondo azul
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -226,12 +226,13 @@ class _NoteListScreenState extends State<NoteListScreen> {
               itemCount: notes.length,
               itemBuilder: (context, index) {
                 return Card(
-                  color: Color.fromARGB(255, 58, 190, 157),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   child: ListTile(
                     title: Text(notes[index].content),
                     trailing: IconButton(
                       icon: Icon(Icons.timer_rounded),
                       onPressed: () {_showAddReminderDialog(context);},
+                      color: Color.fromARGB(255, 83, 102, 185),
                     ),
                   ),
                 );
@@ -274,7 +275,14 @@ class _NoteListScreenState extends State<NoteListScreen> {
                 onChanged: (value) {
                   name = value;
                 },
-                decoration: InputDecoration(labelText: 'Dosis: '),
+                decoration: InputDecoration(labelText: 'Dosis: ',
+                filled: true, // Habilitar el fondo relleno
+                      fillColor: Color.fromARGB(255, 220, 233, 240), // Color de fondo blanco
+                      border: OutlineInputBorder( // Borde redondeado
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none, // Sin borde
+                      ),
+                ),
               ),
               SizedBox(height: 16),
               DropdownButtonFormField<String>(
@@ -296,46 +304,79 @@ class _NoteListScreenState extends State<NoteListScreen> {
                     child: Text(value),
                   );
                 }).toList(),
-                decoration: InputDecoration(labelText: 'Frecuencia: '),
+                decoration: InputDecoration(labelText: 'Frecuencia: ',
+                filled: true, // Habilitar el fondo relleno
+                      fillColor: Color.fromARGB(255, 220, 233, 240), // Color de fondo blanco
+                      border: OutlineInputBorder( // Borde redondeado
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none, // Sin borde
+                      ),
+                ),
               ),
               SizedBox(height: 16),
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: InkWell(
-                      onTap: () async {
-                        final DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: selectedDate,
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2100),
-                        );
-                        if (pickedDate != null) {
-                          setState(() {
-                            selectedDate = pickedDate;
-                          });
-                        }
-                      },
-                      child: Text('A partir: ${selectedDate.toString().substring(0, 10)}'),
+                  child: InkWell(
+                    onTap: () async {
+                      final DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: selectedDate,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2100),
+                      );
+                      if (pickedDate != null) {
+                        setState(() {
+                          selectedDate = pickedDate;
+                        });
+                      }
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 220, 233, 240),  // Color de fondo 
+                        borderRadius: BorderRadius.circular(10.0),  // Bordes redondeados
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          'A partir: ${selectedDate.toString().substring(0, 10)}',
+                        ),
+                      ),
                     ),
                   ),
+                ),
+
                   SizedBox(width: 8),
                   Expanded(
-                    child: InkWell(
-                      onTap: () async {
-                        final TimeOfDay? pickedTime = await showTimePicker(
-                          context: context,
-                          initialTime: selectedTime,
-                        );
-                        if (pickedTime != null) {
-                          setState(() {
-                            selectedTime = pickedTime;
-                          });
-                        }
-                      },
-                      child: Text('Desde: ${selectedTime.format(context)}'),
+                  child: InkWell(
+                    onTap: () async {
+                      final TimeOfDay? pickedTime = await showTimePicker(
+                        context: context,
+                        initialTime: selectedTime,
+                      );
+                      if (pickedTime != null) {
+                        setState(() {
+                          selectedTime = pickedTime;
+                        });
+                      }
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 220, 233, 240),  // Color de fondo
+                        borderRadius: BorderRadius.circular(10.0),  // Bordes redondeados
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          'Desde: ${selectedTime.format(context)}',
+                        ),
+                      ),
                     ),
                   ),
+                ),
+
                 ],
               ),
             ],
