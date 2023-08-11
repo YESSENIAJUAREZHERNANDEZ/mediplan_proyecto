@@ -4,6 +4,7 @@ import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 void main() {
   runApp(Recordatorios());
 }
@@ -35,7 +36,10 @@ class NoteListScreen extends StatefulWidget {
 }
 
 class _NoteListScreenState extends State<NoteListScreen> {
+  
   List<Reminder> reminders = [];
+  int selectedMedicationIndex = -1; // Valor inicial para indicar que no se ha seleccionado ninguna medicación
+
 
   void addReminder(String name, DateTime dateTime) {
     setState(() {
@@ -64,7 +68,8 @@ class _NoteListScreenState extends State<NoteListScreen> {
             event.snapshot.value as Map<dynamic, dynamic>;
         values.forEach((key, values) {
           medications.add(Note(
-            content: "${values['nombre']}: ${values['descripcion']}",
+            content: "${values['nombre']}",
+            //}: ${values['descripcion']
           ));
         });
         setState(() {
@@ -115,7 +120,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 238, 237, 241), // Fondo azul
+      backgroundColor: Color.fromARGB(255, 223, 238, 248), // Fondo azul
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -221,36 +226,35 @@ class _NoteListScreenState extends State<NoteListScreen> {
               ),
               textAlign: TextAlign.left, // Alinear el texto a la izquierda
             ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: notes.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  child: ListTile(
-                    title: Text(notes[index].content),
-                    trailing: IconButton(
-                      icon: Icon(Icons.timer_rounded),
-                      onPressed: () {_showAddReminderDialog(context);},
-                      color: Color.fromARGB(255, 83, 102, 185),
-                    ),
-                  ),
-                );
-              },
+          Column(
+  children: [
+    for (int index = 0; index < notes.length; index++)
+      Card(
+        color: Color.fromARGB(255, 255, 255, 255),
+        child: Column(
+          children: [
+            ListTile(
+              title: Text(notes[index].content),
+              trailing: IconButton(
+                icon: Icon(Icons.timer),
+                onPressed: () {
+                  _showAddReminderDialog(context);
+                },
+                color: Color.fromARGB(255, 95, 142, 212),
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: reminders.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text('Dosis: ${reminders[index].name} '),
-                  subtitle: Text(
-                      '${reminders[index].dateTime.toString()}'),
-                );
-              },
-            ),
-          ),
+            if (index < reminders.length)
+              ListTile(
+                title: Text('Toma establecida: $frecuencia'), // Cambio aquí
+                subtitle: Text(
+                  '${reminders[index].dateTime.toString()}'),
+              ),
+          ],
+        ),
+      ),
+  ],
+)
+
          // AQUÍ IRÍA EL PADDING -notas-
         ],
       ),

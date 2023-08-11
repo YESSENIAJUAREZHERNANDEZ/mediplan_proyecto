@@ -30,6 +30,7 @@ class Dispositivos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 223, 227, 248), // Fondo azul
 appBar: AppBar(
   elevation: 0,
   backgroundColor: Colors.transparent,
@@ -126,28 +127,38 @@ appBar: AppBar(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            'Sus dosis al alcance',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ),
+          SizedBox(height: 6), 
+            Text(
+              '___',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey, // Cambiar el color de letra a gris
+              ),
+              textAlign: TextAlign.left, // Alinear el texto a la izquierda
+            ),
           Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Center(
-  child: Text(
-    'Alarmas del hogar',
-    style: TextStyle(
-      fontSize: 20.0,
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-    ),
-  ),
-),
     ),
           Center(
             child: Card(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  
+          SizedBox(height: 16),
                   Image.asset(
-                    'assets/imagenes/sistema-de-alarmas.png',
-                    width: 200,
-                    height: 200,
+                    'assets/imagenes/teletrabajo.png',
+                    width: 80,
+                    height: 80,
                     fit: BoxFit.cover,
                   ),
                   Padding(
@@ -155,7 +166,7 @@ appBar: AppBar(
                     child: Text(
                       'Habitación puerta 1',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey,
                       ),
@@ -176,7 +187,7 @@ appBar: AppBar(
                   ),
                 ),
                     child: Text(
-                      'Establecer conexión',
+                      '+',
                       style: TextStyle(
                         color: Colors.white,
                       ),

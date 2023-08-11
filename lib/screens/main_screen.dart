@@ -8,6 +8,7 @@ import 'package:flutter_application_1/screens/formulario.dart';
 import 'package:flutter_application_1/screens/formulario2.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/recordatorios.dart';
+import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +27,7 @@ class MainScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 223, 238, 248), // Fondo azul
     appBar: AppBar(
   elevation: 0,
   backgroundColor: Colors.transparent,
@@ -284,7 +286,7 @@ Widget _textsHeader(BuildContext context) {
                 );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 79, 153, 125),  // Color de fondo
+              primary: Color.fromARGB(255, 233, 100, 144),  // Color de fondo
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -295,7 +297,7 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/inicio/tres.png',
+                'assets/iconos/espera.png',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
@@ -315,11 +317,13 @@ Widget _textsHeader(BuildContext context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
-             
+             Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => CalendarScreen()),
+                );
              
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 231, 197, 132), // Color de fondo
+              primary: Color.fromARGB(255, 209, 134, 98), // Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),

@@ -42,9 +42,7 @@ dependencies:
   firebase_auth: ^4.7.2
   firebase_database: ^10.2.4
   shared_preferences: ^2.2.0
-
-
-  # table_calendar: ^3.0.9
+  syncfusion_flutter_datepicker: ^22.2.8
 
 
 dev_dependencies:
