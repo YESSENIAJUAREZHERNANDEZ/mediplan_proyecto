@@ -118,6 +118,7 @@ void initState() {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Color.fromARGB(255, 237, 241, 238), // Fondo azul
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -218,6 +219,16 @@ void initState() {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(height: 16), 
+            Text(
+              '___',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey, // Cambiar el color de letra a gris
+              ),
+              textAlign: TextAlign.left, // Alinear el texto a la izquierda
+            ),
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Column(
@@ -226,17 +237,41 @@ void initState() {
                     controller: nombreController,
                     decoration: InputDecoration(
                       labelText: 'Nombre de medicamento',
+                    filled: true, // Habilitar el fondo relleno
+                      fillColor: Colors.white, // Color de fondo blanco
+                      border: OutlineInputBorder( // Borde redondeado
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none, // Sin borde
+                      ),
                     ),
                   ),
+                  SizedBox(height: 7), // Espacio de 16 unidades de altura
                   TextField(
                     controller: descripcionController,
                     decoration: InputDecoration(
                       labelText: 'Cantidad',
+                      filled: true, // Habilitar el fondo relleno
+                      fillColor: Colors.white, // Color de fondo blanco
+                      border: OutlineInputBorder( // Borde redondeado
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none, // Sin borde
+                      ),
                     ),
                   ),
+                  SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: addMedication,
-                    child: Text('Agregar medicamento'),
+                    child: Text('Agregar medicamento',style: TextStyle(
+                        fontSize: 15, // Tamaño de fuente del texto
+                        color: Colors.white, // Color del texto
+                      ),),
+                     style: ElevatedButton.styleFrom(
+                      primary: const Color.fromARGB(255, 32, 143, 115), // Color de fondo
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Radio de esquinas redondeadas
+                      ),
+                      minimumSize: Size(double.infinity, 45),
+                    ),
                   ),
                 ],
               ),
