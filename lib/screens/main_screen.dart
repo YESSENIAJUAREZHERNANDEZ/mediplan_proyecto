@@ -10,6 +10,7 @@ import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/recordatorios.dart';
 import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
+import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -282,7 +283,7 @@ Widget _textsHeader(BuildContext context) {
             onPressed: () {
               // Acción cuando se presiona el tercer botón
               Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => Dispositivos()),
+                  MaterialPageRoute(builder: (context) => Mood()),
                 );
             },
             style: ElevatedButton.styleFrom(
