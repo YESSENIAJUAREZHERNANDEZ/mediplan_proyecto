@@ -24,6 +24,7 @@ class Recordatorios extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: NoteListScreen(),
+      
     );
   }
 }
@@ -34,7 +35,16 @@ class NoteListScreen extends StatefulWidget {
 }
 
 class _NoteListScreenState extends State<NoteListScreen> {
+  List<Reminder> reminders = [];
+
+  void addReminder(String name, DateTime dateTime) {
+    setState(() {
+      reminders.add(Reminder(name: name, dateTime: dateTime));
+    });
+  }
+
   List<Note> notes = [];
+  String frecuencia = 'Cada 1 hora';
   TextEditingController _textEditingController = TextEditingController();
 
   DatabaseReference _medicationsRef =
@@ -105,6 +115,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 237, 241, 238), // Fondo azul
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -200,50 +211,174 @@ class _NoteListScreenState extends State<NoteListScreen> {
               color: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
+          SizedBox(height: 16), 
+            Text(
+              '___',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey, // Cambiar el color de letra a gris
+              ),
+              textAlign: TextAlign.left, // Alinear el texto a la izquierda
+            ),
           Expanded(
             child: ListView.builder(
               itemCount: notes.length,
               itemBuilder: (context, index) {
                 return Card(
-                  color: Colors.yellow[100],
+                  color: Color.fromARGB(255, 58, 190, 157),
                   child: ListTile(
                     title: Text(notes[index].content),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => _deleteNote(index),
+                      icon: Icon(Icons.timer_rounded),
+                      onPressed: () {_showAddReminderDialog(context);},
                     ),
                   ),
                 );
               },
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _textEditingController,
-                    decoration: InputDecoration(
-                      hintText: 'Ingresar recordatorio',
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _addNote,
-                  child: Text('Agregar'),
-                ),
-              ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: reminders.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text('Dosis: ${reminders[index].name} '),
+                  subtitle: Text(
+                      '${reminders[index].dateTime.toString()}'),
+                );
+              },
             ),
           ),
+         // AQUÍ IRÍA EL PADDING -notas-
         ],
       ),
     );
   }
+
+
+    Future<void> _showAddReminderDialog(BuildContext context) async {
+    String name = '';
+    DateTime selectedDate = DateTime.now();
+    TimeOfDay selectedTime = TimeOfDay.now();
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Agregar recordatorio'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                onChanged: (value) {
+                  name = value;
+                },
+                decoration: InputDecoration(labelText: 'Dosis: '),
+              ),
+              SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                value: frecuencia, // Valor actualmente seleccionado.
+                onChanged: (newValue) {
+                  setState(() {
+                    frecuencia = newValue!;
+                  });
+                },
+                items: <String>[
+                  'Cada 1 hora',
+                  'Cada 3 horas',
+                  'Cada 6 horas',
+                  'Cada 12 horas',
+                  'Cada 24 horas',
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Frecuencia: '),
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: InkWell(
+                      onTap: () async {
+                        final DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2100),
+                        );
+                        if (pickedDate != null) {
+                          setState(() {
+                            selectedDate = pickedDate;
+                          });
+                        }
+                      },
+                      child: Text('A partir: ${selectedDate.toString().substring(0, 10)}'),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () async {
+                        final TimeOfDay? pickedTime = await showTimePicker(
+                          context: context,
+                          initialTime: selectedTime,
+                        );
+                        if (pickedTime != null) {
+                          setState(() {
+                            selectedTime = pickedTime;
+                          });
+                        }
+                      },
+                      child: Text('Desde: ${selectedTime.format(context)}'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Agregar'),
+              onPressed: () {
+                if (name.isNotEmpty) {
+                  addReminder(name, DateTime(
+                    selectedDate.year,
+                    selectedDate.month,
+                    selectedDate.day,
+                    selectedTime.hour,
+                    selectedTime.minute,
+                  ));
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
 
 class Note {
   final String content;
 
   Note({required this.content});
+}
+
+class Reminder {
+  final String name;
+  final DateTime dateTime;
+
+  Reminder({required this.name, required this.dateTime});
 }

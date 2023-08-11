@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//PASO "2"
 void main() {
   runApp(MyApp());
 }
@@ -8,12 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ReminderPage(),
+      home: Form2(),
     );
   }
 }
 
-class ReminderPage extends StatelessWidget {
+class Form2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +22,8 @@ class ReminderPage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Image.asset('assets/iconos/icono.png',
+                width: 40, height: 40), // Coloca el logo de tu app aquí
             IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
@@ -34,8 +37,7 @@ class ReminderPage extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors
-                .grey[200], // Cambiar el color del background a gris clarito
+            color: Colors.grey[200],
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
@@ -47,7 +49,7 @@ class ReminderPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black, // Cambiar el color del texto a negro
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: 20),
@@ -55,11 +57,11 @@ class ReminderPage extends StatelessWidget {
                 '¿A qué hora quiere escuchar el recordatorio?',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.black, // Cambiar el color del texto a negro
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: 20),
-              GestureDetector(
+              InkWell(
                 onTap: () async {
                   // Lógica para abrir el selector de hora
                   TimeOfDay? selectedTime = await showTimePicker(
@@ -73,8 +75,7 @@ class ReminderPage extends StatelessWidget {
                   }
                 },
                 child: TextFormField(
-                  readOnly:
-                      true, // Evita que el teclado aparezca al hacer tap en el input
+                  readOnly: true,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -83,7 +84,7 @@ class ReminderPage extends StatelessWidget {
                       borderSide: BorderSide.none,
                     ),
                     hintText: 'Seleccionar hora',
-                    suffixIcon: Icon(Icons.access_time), // Icono de reloj
+                    suffixIcon: Icon(Icons.access_time),
                   ),
                   style: TextStyle(
                     fontSize: 18,
@@ -91,8 +92,7 @@ class ReminderPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                  height: 30), // Espacio más grande entre el input y el botón
+              SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
                   // Lógica para pasar a la siguiente interfaz

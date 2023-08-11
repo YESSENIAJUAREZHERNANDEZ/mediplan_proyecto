@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//PASO "3"
 void main() {
   runApp(MyApp());
 }
@@ -8,12 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ReminderPage(),
+      home: Form3(),
     );
   }
 }
 
-class ReminderPage extends StatelessWidget {
+class Form3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

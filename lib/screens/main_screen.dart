@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/barrita.dart';
-//import 'package:flutter_application_1/screens/alarma.dart';
+import 'package:flutter_application_1/screens/alarma.dart';
 import 'package:flutter_application_1/screens/camara.dart';
-import 'package:flutter_application_1/screens/dato.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/editarecordatorios.dart';
 import 'package:flutter_application_1/screens/editarmedicamento.dart';
-//import 'package:flutter_application_1/screens/googlelogin.dart';
-//import 'package:flutter_application_1/screens/formulario.dart';
+import 'package:flutter_application_1/screens/formulario.dart';
+import 'package:flutter_application_1/screens/formulario2.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
-import 'package:flutter_application_1/screens/medicamentos.dart';
+import 'package:flutter_application_1/screens/recordatorios.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
-//import 'package:flutter_application_1/screens/medicamentos.dart';
-import 'package:flutter_application_1/screens/tratamiento.dart';
-//import 'package:flutter_application_1/screens/seguimiento.dart';
-//import 'package:flutter_application_1/screens/signup.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class MainScreen extends StatelessWidget{
    void _signOut(BuildContext context) async {
@@ -94,7 +86,7 @@ class MainScreen extends StatelessWidget{
           onTap: () {
             // Acción para la opción 1
             Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  MaterialPageRoute(builder: (context) => ReminderScreen()),
                 );
           },
         ),

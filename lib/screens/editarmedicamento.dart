@@ -36,6 +36,7 @@ class MedicationsApp extends StatefulWidget {
 
 class _MedicationsAppState extends State<MedicationsApp> {
   List<Medication> medication = [];
+  int _counter = 0;
 
   TextEditingController nombreController = TextEditingController();
   TextEditingController descripcionController = TextEditingController();
@@ -248,8 +249,9 @@ void initState() {
                   SizedBox(height: 7), // Espacio de 16 unidades de altura
                   TextField(
                     controller: descripcionController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: 'Cantidad',
+                      labelText: 'Cantidad (Cajas)',
                       filled: true, // Habilitar el fondo relleno
                       fillColor: Colors.white, // Color de fondo blanco
                       border: OutlineInputBorder( // Borde redondeado

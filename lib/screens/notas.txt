@@ -394,3 +394,36 @@ endDrawer: Drawer(
       ],
     ),
   ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Padding
+   Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _textEditingController,
+                    decoration: InputDecoration(
+                      hintText: 'Ingresar recordatorio',
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: _addNote,
+                  child: Text('Agregar'),
+                ),
+              ],
+            ),
+          ),
