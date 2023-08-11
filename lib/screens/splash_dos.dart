@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class Splashdos extends StatelessWidget {
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,20 +74,37 @@ class Splashdos extends StatelessWidget {
               ),
               SizedBox(height: 7),
               ElevatedButton(
-                onPressed: () {
-                  // Lógica para el botón de inicio de sesión
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  child: Text('Iniciar sesión con Google'),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 64, 62, 138),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
+  onPressed: () {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Tutorial'),
+          content: Image.asset('assets/imagenes/Tutorial.jpg'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        );
+      },
+    );
+  },
+  child: Padding(
+    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+    child: Text('Tutorial'),
+  ),
+  style: ElevatedButton.styleFrom(
+    primary: Color.fromARGB(255, 64, 62, 138),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+  ),
+),
+
               SizedBox(height: 20),
              Row(
                 mainAxisAlignment: MainAxisAlignment.center,

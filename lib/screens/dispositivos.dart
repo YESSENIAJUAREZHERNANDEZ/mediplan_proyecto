@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/waiting.dart';
+import 'package:flutter_application_1/screens/splash_dos.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -15,6 +17,16 @@ class MyApp extends StatelessWidget {
 }
 
 class Dispositivos extends StatelessWidget {
+  void _signOut(BuildContext context) async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.remove('isUserLoggedIn'); // Eliminar el estado de inicio de sesión
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Splashdos(), // Redirigir a la página de inicio de sesión
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,26 +91,28 @@ appBar: AppBar(
 ),
 
         ListTile(
-          title: Text('Iniciar sesión',
+          title: Text('Información de la cuenta',
           style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
            ),),
           onTap: () {
             // Acción para la opción 1
             Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  MaterialPageRoute(builder: (context) => LoginScreen() ),
                 );
           },
         ),
         ListTile(
-          title: Text('Terminos y condiciones',
-          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
-           ),),
+          title: Text(
+            'Cerrar sesión',
+            style: TextStyle(color: Color.fromARGB(255, 48, 24, 49), fontSize: 16),
+          ),
           onTap: () {
-            // Acción para la opción 2
+            // Llamar a la función para cerrar sesión
+            
           },
         ),
         ListTile(
-          title: Text('Ayuda',
+          title: Text('',
           style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
            ),),
           onTap: () {
@@ -116,7 +130,7 @@ appBar: AppBar(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Center(
   child: Text(
-    'Dispositivos',
+    'Alarmas del hogar',
     style: TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
@@ -131,15 +145,15 @@ appBar: AppBar(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    'assets/imagenes/glucometro.png',
-                    //width: 70,
-                    //height: 70,
+                    'assets/imagenes/sistema-de-alarmas.png',
+                    width: 200,
+                    height: 200,
                     fit: BoxFit.cover,
                   ),
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
-                      'Glucometro AccuCheck',
+                      'Habitación puerta 1',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -156,13 +170,13 @@ appBar: AppBar(
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.purple,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
+                  primary: Color.fromARGB(255, 64, 62, 138),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
                     child: Text(
-                      'Vincular',
+                      'Establecer conexión',
                       style: TextStyle(
                         color: Colors.white,
                       ),

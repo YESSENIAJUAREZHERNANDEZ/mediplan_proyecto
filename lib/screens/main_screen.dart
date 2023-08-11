@@ -114,9 +114,6 @@ class MainScreen extends StatelessWidget{
            ),),
           onTap: () {
             // Acción para la opción 3
-            Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => MedicationListScreen()),
-                );
           },
         ),
       ],
@@ -137,7 +134,7 @@ class MainScreen extends StatelessWidget{
 
 
 Widget _textsHeader(BuildContext context) {
-  double progressValue = 0.7; // Valor del progreso (70%)
+  double progressValue = 0.2; // Valor del progreso (70%)
 
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),

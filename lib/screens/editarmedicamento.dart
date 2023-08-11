@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/screens/googlelogin.dart';
+import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:flutter_application_1/screens/splash_dos.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Medication {
   final String nombre;
@@ -17,6 +20,16 @@ void main() async {
 }
 
 class MedicationsApp extends StatefulWidget {
+     void _signOut(BuildContext context) async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.remove('isUserLoggedIn'); // Eliminar el estado de inicio de sesión
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Splashdos(), // Redirigir a la página de inicio de sesión
+      ),
+    );
+  }
   @override
   _MedicationsAppState createState() => _MedicationsAppState();
 }
@@ -28,7 +41,7 @@ class _MedicationsAppState extends State<MedicationsApp> {
   TextEditingController descripcionController = TextEditingController();
 
   DatabaseReference _medicationsRef =
-      FirebaseDatabase.instance.reference().child('medicamentos');
+      FirebaseDatabase.instance.reference().child('medications');
 
   @override
 void initState() {
@@ -132,79 +145,70 @@ void initState() {
           ),
         ),
         endDrawer: Drawer(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/imagenes/campo2.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Medi plan',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Configuración',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color.fromARGB(255, 48, 24, 49),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  'Iniciar sesión',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 48, 24, 49),
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text(
-                  'Terminos y condiciones',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 48, 24, 49),
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () {
-                  // Action for option 2
-                },
-              ),
-              ListTile(
-                title: Text(
-                  'Ayuda',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 48, 24, 49),
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () {
-                  // Action for option 3
-                },
-              ),
-            ],
-          ),
+    child: ListView(
+      children: [
+        DrawerHeader(
+  decoration: BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage('assets/imagenes/campo2.png'),
+      fit: BoxFit.cover,
+    ),
+  ),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.end,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Medi plan',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
+      ),
+      Text(
+        'Configuración',
+        style: TextStyle(
+          fontSize: 16,
+          color: Color.fromARGB(255, 48, 24, 49),
+        ),
+      ),
+    ],
+  ),
+),
+
+        ListTile(
+          title: Text('Información de la cuenta',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 1
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => LoginScreen() ),
+                );
+          },
+        ),
+        ListTile(
+          title: Text(
+            'Cerrar sesión',
+            style: TextStyle(color: Color.fromARGB(255, 48, 24, 49), fontSize: 16),
+          ),
+          onTap: () {
+            // Llamar a la función para cerrar sesión
+            
+          },
+        ),
+        ListTile(
+          title: Text('',
+          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
+           ),),
+          onTap: () {
+            // Acción para la opción 3
+          },
+        ),
+      ],
+    ),
+  ),
         body: Column(
           children: [
             Text(

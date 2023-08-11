@@ -4,9 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
+  
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -44,6 +47,8 @@ class _RegisterPageState extends State<RegisterPage> {
       // You can show an error message to the user
     }
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

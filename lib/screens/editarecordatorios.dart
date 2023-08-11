@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:flutter_application_1/screens/splash_dos.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(Recordatorios());
 }
 
 class Recordatorios extends StatelessWidget {
+   void _signOut(BuildContext context) async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.remove('isUserLoggedIn'); // Eliminar el estado de inicio de sesión
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Splashdos(), // Redirigir a la página de inicio de sesión
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,6 +36,33 @@ class NoteListScreen extends StatefulWidget {
 class _NoteListScreenState extends State<NoteListScreen> {
   List<Note> notes = [];
   TextEditingController _textEditingController = TextEditingController();
+
+  DatabaseReference _medicationsRef =
+      FirebaseDatabase.instance.reference().child('medications');
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchMedications();
+  }
+
+  void _fetchMedications() {
+    _medicationsRef.onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        List<Note> medications = [];
+        Map<dynamic, dynamic> values =
+            event.snapshot.value as Map<dynamic, dynamic>;
+        values.forEach((key, values) {
+          medications.add(Note(
+            content: "${values['nombre']}: ${values['descripcion']}",
+          ));
+        });
+        setState(() {
+          notes = medications;
+        });
+      }
+    });
+  }
 
   void _addNote() {
     setState(() {
@@ -65,27 +105,27 @@ class _NoteListScreenState extends State<NoteListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-    elevation: 0,
-    backgroundColor: Colors.transparent,
-    title: Row(
-      children: [
-        IconButton(
-          icon: Image.asset('assets/iconos/icono2.png'),
-          onPressed: () {},
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Row(
+          children: [
+            IconButton(
+              icon: Image.asset('assets/iconos/icono2.png'),
+              onPressed: () {},
+            ),
+            SizedBox(width: 8),
+            Text(
+              'Medi plan',
+              style: TextStyle(
+                color: Color.fromARGB(255, 48, 24, 49),
+                fontSize: 16,
+              ),
+            ),
+          ],
         ),
-        SizedBox(width: 8),
-        Text(
-          'Medi plan',
-          style: TextStyle(
-            color: Color.fromARGB(255, 48, 24, 49),
-            fontSize: 16,
-          ),
-        ),
-      ],
-    ),
-  ),
-  endDrawer: Drawer(
+      ),
+      endDrawer: Drawer(
     child: ListView(
       children: [
         DrawerHeader(
@@ -119,26 +159,28 @@ class _NoteListScreenState extends State<NoteListScreen> {
 ),
 
         ListTile(
-          title: Text('Iniciar sesión',
+          title: Text('Información de la cuenta',
           style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
            ),),
           onTap: () {
             // Acción para la opción 1
             Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  MaterialPageRoute(builder: (context) => LoginScreen() ),
                 );
           },
         ),
         ListTile(
-          title: Text('Terminos y condiciones',
-          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
-           ),),
+          title: Text(
+            'Cerrar sesión',
+            style: TextStyle(color: Color.fromARGB(255, 48, 24, 49), fontSize: 16),
+          ),
           onTap: () {
-            // Acción para la opción 2
+            // Llamar a la función para cerrar sesión
+            
           },
         ),
         ListTile(
-          title: Text('Ayuda',
+          title: Text('',
           style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
            ),),
           onTap: () {
@@ -148,17 +190,16 @@ class _NoteListScreenState extends State<NoteListScreen> {
       ],
     ),
   ),
-
       body: Column(
         children: [
-                    Text(
-                  'Recordatorios',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
+          Text(
+            'Recordatorios',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: notes.length,
@@ -206,4 +247,3 @@ class Note {
 
   Note({required this.content});
 }
-
