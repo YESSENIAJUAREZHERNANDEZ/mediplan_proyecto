@@ -175,10 +175,7 @@ appBar: AppBar(
                   ElevatedButton(
                     onPressed: () {
                       // Acción del botón
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Waiting()),
-                      );
+                      
                     },
                     style: ElevatedButton.styleFrom(
                   primary: Color.fromARGB(255, 64, 62, 138),
