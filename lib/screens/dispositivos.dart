@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
-import 'package:flutter_application_1/screens/waiting.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

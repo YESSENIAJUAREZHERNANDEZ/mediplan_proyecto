@@ -43,6 +43,7 @@ dependencies:
   firebase_database: ^10.2.4
   shared_preferences: ^2.2.0
   syncfusion_flutter_datepicker: ^22.2.8
+  flutter_local_notifications: ^15.1.0+1
 
 
 

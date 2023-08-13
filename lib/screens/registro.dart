@@ -126,7 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide( // Cambiar color del borde
-                    color: const Color.fromARGB(255, 255, 255, 255)!, // Color del borde
+                    color: const Color.fromARGB(255, 255, 255, 255), // Color del borde
                     width: 1.0, // Ancho del borde
                   ),
                 ),

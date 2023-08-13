@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/alarma.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/editarecordatorios.dart';
 import 'package:flutter_application_1/screens/editarmedicamento.dart';
-import 'package:flutter_application_1/screens/formulario.dart';
-import 'package:flutter_application_1/screens/formulario2.dart';
-import 'package:flutter_application_1/screens/loginapp.dart';
-import 'package:flutter_application_1/screens/recordatorios.dart';
 import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
-import 'package:flutter_application_1/screens/splash_screen.dart';
-import 'package:flutter_application_1/screens/waiting.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
