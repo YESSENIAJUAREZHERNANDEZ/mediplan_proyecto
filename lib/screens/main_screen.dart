@@ -3,8 +3,10 @@ import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/editarecordatorios.dart';
 import 'package:flutter_application_1/screens/editarmedicamento.dart';
+import 'package:flutter_application_1/screens/formulario2.dart';
 import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
+import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -82,6 +84,9 @@ class MainScreen extends StatelessWidget{
            ),),
           onTap: () {
             // Acción para la opción 1
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => UserProfileScreen()),
+                );
             
           },
         ),
@@ -278,7 +283,7 @@ Widget _textsHeader(BuildContext context) {
               // Acción cuando se presiona el tercer botón
               Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Dispositivos()),
+                        MaterialPageRoute(builder: (context) => Noti()),
                       );
               
             },

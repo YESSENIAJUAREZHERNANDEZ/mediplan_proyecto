@@ -265,7 +265,8 @@ void initState() {
                     child: Text('Agregar medicamento',style: TextStyle(
                         fontSize: 15, // Tamaño de fuente del texto
                         color: Colors.white, // Color del texto
-                      ),),
+                      ),
+                      ),
                      style: ElevatedButton.styleFrom(
                       primary: const Color.fromARGB(255, 32, 143, 115), // Color de fondo
                       shape: RoundedRectangleBorder(
