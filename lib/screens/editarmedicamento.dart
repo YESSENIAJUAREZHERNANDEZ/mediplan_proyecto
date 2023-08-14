@@ -118,7 +118,7 @@ void initState() {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 237, 241, 238), // Fondo azul
+        backgroundColor: Color.fromARGB(255, 223, 238, 248), // Fondo azul
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -268,7 +268,7 @@ void initState() {
                       ),
                       ),
                      style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 32, 143, 115), // Color de fondo
+                      primary: const Color.fromARGB(255, 78, 157, 196), // Color de fondo
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10), // Radio de esquinas redondeadas
                       ),

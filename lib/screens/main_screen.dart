@@ -24,25 +24,12 @@ class MainScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 223, 238, 248), // Fondo azul
+      backgroundColor: Color.fromARGB(255, 244, 244, 254), // Fondo azul
     appBar: AppBar(
+      automaticallyImplyLeading: false,
   elevation: 0,
-  backgroundColor: Colors.transparent,
+  backgroundColor: Color.fromARGB(255, 94, 81, 233),
   title: Row(
-    children: [
-      IconButton(
-        icon: Image.asset('assets/iconos/icono2.png'),
-        onPressed: () {},
-      ),
-      SizedBox(width: 8),
-      Text(
-        'Medi plan',
-        style: TextStyle(
-          color: Color.fromARGB(255, 48, 24, 49),
-          fontSize: 16,
-        ),
-      ),
-    ],
   ),
 ),
   endDrawer: Drawer(
@@ -126,77 +113,44 @@ class MainScreen extends StatelessWidget{
 
 
 Widget _textsHeader(BuildContext context) {
-  double progressValue = 0.2; // Valor del progreso (70%)
-
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Progreso de tratamiento',
-          style: Theme.of(context).textTheme.headline1,
+  return Column(
+    children: <Widget>[
+      Container(
+        width: MediaQuery.of(context).size.width, // Ancho de la pantalla
+        child: Image.asset(
+          'assets/imagenes/encabezado.jpg', // Reemplaza con la ruta de la imagen que deseas usar
+          fit: BoxFit.cover,
         ),
-        SizedBox(height: 10.0), // Espacio entre el texto y la barra de progreso
-        LinearPercentIndicator(
-          alignment: MainAxisAlignment.spaceBetween, // Alineación del indicador de porcentaje
-          width: MediaQuery.of(context).size.width - 60,
-          lineHeight: 70.0, // Altura de la barra de progreso
-          percent: progressValue, // Valor del progreso (70%)
-          linearGradient: LinearGradient(
-            colors: [Color.fromARGB(255, 201, 213, 251), Color.fromARGB(255, 208, 201, 251)], // Colores del gradiente
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          backgroundColor: const Color.fromARGB(255, 240, 240, 240), // Color de fondo de la barra de progreso
-          linearStrokeCap: LinearStrokeCap.roundAll, // Borde redondeado
-          center: Container(
-            width: double.infinity,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '${(progressValue * 100).toStringAsFixed(0)}%',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(fontWeight: FontWeight.bold,
-            color:Color.fromARGB(255, 74, 61, 150),fontSize: 30.0,),
-                  ),
-                ),
-              ],
-            ),
-          ), // Indicador de porcentaje
-        ), // Barra de progreso
-      ],
-    ),
+        
+      ),
+        SizedBox(height: 20), // Espacio entre las filas de botones
+    ],  
   );
 }
 
 
 
 
-
-  
-
-   Widget _forYou(context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 0.0),
-          child: Text(
-            'Inicio',
-            style: TextStyle(
-            fontSize: 14.0,
+Widget _forYou(context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start, // Cambiado a alineación izquierda
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(left: 16.0), // Añadido padding izquierdo
+        child: Text(
+          'Categorias',
+          style: TextStyle(
+            fontSize: 23.0,
             fontWeight: FontWeight.w600,
-            color: Color(0XFFB7B7D2),
-          ),
+            color: Color.fromARGB(255, 33, 33, 95),
           ),
         ),
-        
+      ),
       SizedBox(height: 10),
-      ],
-    );
-  }
+    ],
+  );
+}
+
 
   Widget _recent(context) {
     return Column(
@@ -212,7 +166,7 @@ Widget _textsHeader(BuildContext context) {
                 );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 146, 176, 227), // Color de fondo
+              primary: Color.fromARGB(255, 122, 160, 226), // Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
@@ -245,7 +199,7 @@ Widget _textsHeader(BuildContext context) {
                 );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 136, 108, 189), // Color de fondo
+              primary: Color.fromARGB(255, 194, 108, 189), // Color de fondo
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -288,7 +242,7 @@ Widget _textsHeader(BuildContext context) {
               
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 233, 100, 144),  // Color de fondo
+              primary: Color.fromARGB(255, 201, 125, 63), // Color de fondo 255, 104, 169, 115
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -299,15 +253,15 @@ Widget _textsHeader(BuildContext context) {
           child: Column(
             children: [
               Image.asset(
-                'assets/iconos/espera.png',
+                'assets/imagenes/apagar.png',
                 width: 70,
                 height: 70,
                 fit: BoxFit.cover,
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 13),
               Text(
-                'Dispositivos',
-                style: TextStyle(fontSize: 17),
+                'Alerta visual',
+                style: TextStyle(fontSize: 16.6),
               ),
             ],
           ),
@@ -325,7 +279,7 @@ Widget _textsHeader(BuildContext context) {
              
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 209, 134, 98), // Color de fondo
+              primary: Color.fromARGB(255, 104, 169, 115), // Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
@@ -342,7 +296,7 @@ Widget _textsHeader(BuildContext context) {
               ),
               SizedBox(height: 10),
               Text(
-                'Seguimiento',
+                ' Calendario  ',
                 style: TextStyle(fontSize: 17),
               ),
             ],
@@ -352,7 +306,7 @@ Widget _textsHeader(BuildContext context) {
         ],
         
       ),
-SizedBox(height: 50),
+SizedBox(height: 10),
       ],
                     
     );
