@@ -7,6 +7,7 @@ import 'package:flutter_application_1/screens/formulario2.dart';
 import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:flutter_application_1/screens/splash_screen.dart';
+import 'package:flutter_application_1/screens/terminos.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,33 +67,118 @@ class MainScreen extends StatelessWidget{
 ),
 
         ListTile(
-          title: Text('Información de la cuenta',
-          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
-           ),),
-          onTap: () {
-            // Acción para la opción 1
-            Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => UserProfileScreen()),
-                );
-            
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Cerrar sesión',
-            style: TextStyle(color: Color.fromARGB(255, 48, 24, 49), fontSize: 16),
+  title: Stack(
+    children: [
+      Icon(
+        Icons.face_outlined,  // Cambia esto al icono que desees
+        size: 25,
+        color: Colors.grey, // Color de fondo gris para el ícono
+      ),
+      Positioned.fill(
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Información de la cuenta',
+            style: TextStyle(
+              color: Color.fromARGB(255, 48, 24, 49),
+              fontSize: 16,
+            ),
           ),
+        ),
+      ),
+    ],
+  ),
+  onTap: () {
+    // Acción para la opción 3
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UserProfileScreen()),
+    );
+  },
+),
+
+        ListTile(
+  title: Stack(
+    children: [
+      Icon(
+        Icons.library_books_outlined,  // Cambia esto al icono que desees
+        size: 25,
+        color: Colors.grey, // Color de fondo gris para el ícono
+      ),
+      Positioned.fill(
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Terminos y Condiciones ',
+            style: TextStyle(
+              color: Color.fromARGB(255, 48, 24, 49),
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    ],
+  ),
+  onTap: () {
+    // Acción para la opción 3
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Terminos()),
+    );
+  },
+),
+
+                ListTile(
+  title: Stack(
+    children: [
+      Icon(
+        Icons.question_mark,  // Cambia esto al icono que desees
+        size: 25,
+        color: Colors.grey, // Color de fondo gris para el ícono
+      ),
+      Positioned.fill(
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Ayuda                                ',
+            style: TextStyle(
+              color: Color.fromARGB(255, 48, 24, 49),
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    ],
+  ),
+  onTap: () {
+    // Acción para la opción 3
+  },
+),
+        ListTile(
+          title: Stack(
+    children: [
+      Icon(
+        Icons.logout,  // Cambia esto al icono que desees
+        size: 25,
+        color: Colors.grey, // Color de fondo gris para el ícono
+      ),
+      Positioned.fill(
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Cerrar sesion                   ',
+            style: TextStyle(
+              color: Color.fromARGB(255, 48, 24, 49),
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    ],
+  ),
           onTap: () {
             // Llamar a la función para cerrar sesión
             _signOut(context);
-          },
-        ),
-        ListTile(
-          title: Text('',
-          style: TextStyle( color: Color.fromARGB(255, 48, 24, 49), fontSize: 16,
-           ),),
-          onTap: () {
-            // Acción para la opción 3
           },
         ),
       ],
