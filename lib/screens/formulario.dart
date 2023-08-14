@@ -1,109 +1,196 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-//PASO "2"
 void main() {
-  runApp(MyApp());
+  runApp(CalendarScreen());
 }
 
-class MyApp extends StatelessWidget {
+class CalendarScreen extends StatefulWidget {
+  @override
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<CalendarScreen> {
+  String _selectedDate = '';
+  String _range = '';
+
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    setState(() {
+      if (args.value is PickerDateRange) {
+        _range =
+            '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} - ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+      } else if (args.value is DateTime) {
+        _selectedDate = DateFormat('dd/MM/yyyy').format(args.value);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Form2(),
-    );
-  }
-}
-
-class Form2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/iconos/icono.png',
-                width: 40, height: 40), // Coloca el logo de tu app aquí
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                // Lógica para abrir el menú
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Color.fromARGB(255, 223, 238, 248), // Fondo azul
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Row(
             children: [
-              Text(
-                'Paso 2 - Recordatorio',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+              IconButton(
+                icon: Image.asset('assets/iconos/icono2.png'),
+                onPressed: () {},
               ),
-              SizedBox(height: 20),
+              SizedBox(width: 8),
               Text(
-                '¿A qué hora quiere escuchar el recordatorio?',
+                'Medi plan',
                 style: TextStyle(
+                  color: Color.fromARGB(255, 48, 24, 49),
                   fontSize: 16,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 20),
-              InkWell(
-                onTap: () async {
-                  // Lógica para abrir el selector de hora
-                  TimeOfDay? selectedTime = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-
-                  // Manejar la hora seleccionada (si el usuario no canceló la selección)
-                  if (selectedTime != null) {
-                    print('Hora seleccionada: ${selectedTime.format(context)}');
-                  }
-                },
-                child: TextFormField(
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    hintText: 'Seleccionar hora',
-                    suffixIcon: Icon(Icons.access_time),
-                  ),
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  // Lógica para pasar a la siguiente interfaz
-                },
-                child: Text(
-                  'Siguiente',
-                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ],
           ),
+        ),
+        endDrawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/imagenes/campo2.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Medi plan',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'Configuración',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 48, 24, 49),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Información de la cuenta',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 48, 24, 49),
+                    fontSize: 16,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Cerrar sesión',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 48, 24, 49),
+                    fontSize: 16,
+                  ),
+                ),
+                onTap: () {
+                  // Call logout function
+                },
+              ),
+              ListTile(
+                title: Text(
+                  '',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 48, 24, 49),
+                    fontSize: 16,
+                  ),
+                ),
+                onTap: () {
+                  // Action for option 3
+                },
+              ),
+            ],
+          ),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Center(
+                child: Text(
+                  'Calendario de tratamiento',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Center(
+              child: Text(
+                'Periodo de medicación del mes',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 85, 42, 87),
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              child: SfDateRangePicker(
+                onSelectionChanged: _onSelectionChanged,
+                selectionMode: DateRangePickerSelectionMode.range,
+                initialSelectedRange: PickerDateRange(
+                  DateTime.now().subtract(const Duration(days: 4)),
+                  DateTime.now().add(const Duration(days: 3)),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Días de tratamiento : $_selectedDate',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Inicio un: $_range',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
