@@ -43,7 +43,7 @@ class MyHomePage extends StatelessWidget {
         },
       ),
     )
-    ..loadRequest(Uri.parse("https://www.pinterest.com.mx"));
+    ..loadRequest(Uri.parse("https://mediplanapp-643eb.web.app/terminos.html"));
 
   @override
   Widget build(BuildContext context) {

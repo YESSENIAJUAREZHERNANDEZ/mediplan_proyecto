@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/ayuda.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
 import 'package:flutter_application_1/screens/editarecordatorios.dart';
@@ -152,6 +153,10 @@ class MainScreen extends StatelessWidget{
   ),
   onTap: () {
     // Acción para la opción 3
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Ayuda()),
+    );
   },
 ),
         ListTile(
