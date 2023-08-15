@@ -9,6 +9,7 @@ import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'package:flutter_application_1/screens/terminos.dart';
+import 'package:flutter_application_1/text/inicio.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -328,7 +329,7 @@ Widget _forYou(context) {
               // Acción cuando se presiona el tercer botón
               Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Noti()),
+                        MaterialPageRoute(builder: (context) => Plan()),
                       );
               
             },
