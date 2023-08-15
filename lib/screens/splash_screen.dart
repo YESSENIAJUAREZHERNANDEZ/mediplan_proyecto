@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
     await flutterLocalNotificationsPlugin.show(
       0,
       'Medi plan',
-      'Toma tu medicina prro',
+      'Se establecio un recordatorio para la toma de su medicamento',
       platformChannelSpecifics,
     );
   }

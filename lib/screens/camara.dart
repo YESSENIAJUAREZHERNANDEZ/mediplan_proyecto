@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
+import 'package:flutter_application_1/text/inicio.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -21,6 +22,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 223, 238, 248), // Fondo azul
     appBar: AppBar(
   elevation: 0,
   backgroundColor: Colors.transparent,
@@ -138,14 +140,14 @@ class _CameraScreenState extends State<CameraScreen> {
           'Apunte la camara de su telefono',
           style: TextStyle(
             fontSize: 16.0,
-            color: Colors.grey,
+            color: Color.fromARGB(255, 85, 42, 87),
           ),
         ),
         Text(
           'a la parte frontal del medicamento',
           style: TextStyle(
             fontSize: 16.0,
-            color: Colors.grey,
+            color: Color.fromARGB(255, 85, 42, 87),
           ),
         ),
         SizedBox(height: 20), // Espacio entre el primer texto y la imagen
@@ -156,11 +158,19 @@ class _CameraScreenState extends State<CameraScreen> {
         ),
         SizedBox(height: 20), // Espacio entre la imagen y el botón
         ElevatedButton(
-          onPressed: _openCamera,
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 255, 255)), // Cambiar el color de fondo del botón
-            foregroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 78, 157, 196)), // Cambiar el color del texto del botón
-          ),
+          onPressed:(){
+            Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Plan()),
+    );
+          },
+          style: ElevatedButton.styleFrom(
+                      primary: const Color.fromARGB(255, 78, 157, 196), // Color de fondo
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Radio de esquinas redondeadas
+                      ),
+                      minimumSize: Size(double.minPositive, 45),
+                    ),
           child: Text(
             'Iniciar escaneo',
             style: TextStyle(fontSize: 18), // Cambiar el tamaño de fuente del botón

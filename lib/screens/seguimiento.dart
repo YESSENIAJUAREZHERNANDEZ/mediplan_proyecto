@@ -162,7 +162,7 @@ class MyAppState extends State<CalendarScreen> {
                 onSelectionChanged: _onSelectionChanged,
                 selectionMode: DateRangePickerSelectionMode.range,
                 initialSelectedRange: PickerDateRange(
-                  DateTime.now().subtract(const Duration(days: 4)),
+                  DateTime.now().subtract(const Duration(days: 0)),
                   DateTime.now().add(const Duration(days: 3)),
                 ),
               ),

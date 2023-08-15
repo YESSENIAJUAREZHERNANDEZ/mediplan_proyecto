@@ -54,9 +54,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('OCR APP'),
-      ),
       body: FutureBuilder(
         future: _future,
         builder: (context, snapshot) {
@@ -83,9 +80,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 30.0),
                             child: MaterialButton(
-                              color: Colors.blue[300],
+                              color: Color.fromARGB(255, 69, 20, 134),
                               onPressed: _scan,
-                              child: const Text('Click para escanear'),
+                              child: const Text('Escanear',
+      style: TextStyle(
+        fontSize: 25.0, // Ajusta el tamaño de la fuente según tu preferencia
+        color: Colors.white, // Opcional: Cambia el color del texto
+      ),
+      ),
                             ),
                           )
                         ],

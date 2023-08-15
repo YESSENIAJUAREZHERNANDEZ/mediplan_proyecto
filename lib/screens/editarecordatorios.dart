@@ -51,6 +51,8 @@ class _NoteListScreenState extends State<NoteListScreen> {
   String frecuencia = 'Cada 1 hora';
   TextEditingController _textEditingController = TextEditingController();
 
+  DatabaseReference _remindersRef = FirebaseDatabase.instance.reference().child('reminders');
+
   DatabaseReference _medicationsRef =
       FirebaseDatabase.instance.reference().child('medications');
 
@@ -58,6 +60,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
   void initState() {
     super.initState();
     _fetchMedications();
+    _fetchReminders(); // Agregar esta línea para cargar los recordatorios
   }
 
   void _fetchMedications() {
@@ -74,6 +77,25 @@ class _NoteListScreenState extends State<NoteListScreen> {
         });
         setState(() {
           notes = medications;
+        });
+      }
+    });
+  }
+
+   void _fetchReminders() {
+    _remindersRef.onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        List<Reminder> fetchedReminders = [];
+        Map<dynamic, dynamic> values =
+            event.snapshot.value as Map<dynamic, dynamic>;
+        values.forEach((key, values) {
+          fetchedReminders.add(Reminder(
+            name: values['name'],
+            dateTime: DateTime.parse(values['dateTime']),
+          ));
+        });
+        setState(() {
+          reminders = fetchedReminders;
         });
       }
     });
@@ -245,7 +267,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
             ),
             if (index < reminders.length)
               ListTile(
-                title: Text('Toma establecida: $frecuencia'), // Cambio aquí
+                title: Text( 'Toma establecida: ${reminders[index].name}'), // Cambio aquí
                 subtitle: Text(
                   '${reminders[index].dateTime.toString()}'),
               ),
@@ -298,8 +320,8 @@ class _NoteListScreenState extends State<NoteListScreen> {
                 },
                 items: <String>[
                   'Cada 1 hora',
-                  'Cada 3 horas',
                   'Cada 6 horas',
+                  'Cada 8 horas',
                   'Cada 12 horas',
                   'Cada 24 horas',
                 ].map<DropdownMenuItem<String>>((String value) {
@@ -403,6 +425,11 @@ class _NoteListScreenState extends State<NoteListScreen> {
                     selectedTime.hour,
                     selectedTime.minute,
                   ));
+                   // Guardar la información en Firebase
+                _remindersRef.push().set({
+                  'name': name,
+                  'dateTime': selectedDate.toString(),
+                });
                   Navigator.of(context).pop();
                 }
               },
@@ -410,6 +437,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
           ],
         );
       },
+      
     );
   }
 
