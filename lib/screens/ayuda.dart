@@ -49,7 +49,8 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Webview Example'),
+        elevation: 0,
+          backgroundColor: Color.fromARGB(255, 52, 152, 219),
       ),
       body: SizedBox(
           width: double.infinity,

@@ -20,6 +20,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil'),
+        elevation: 0,
+  backgroundColor: Color.fromARGB(255, 94, 81, 233),
       ),
       body: Stack(
         children: [
@@ -41,22 +43,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: NetworkImage(_user.photoURL ?? ''),
+                      backgroundImage: AssetImage(_user.photoURL ?? 'assets/iconos/icono2.png'),
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'Hola, ${_user.displayName ?? 'Yessenia'}',
+                      'Bienvenido ${_user.displayName ?? ''}',
                       style: TextStyle(
-                        fontSize: 24, // Tamaño de fuente del texto
+                        fontSize: 21, // Tamaño de fuente del texto
                         color: Colors.white, // Color del texto
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 15),
                     Text(
                       'Correo Electrónico: ${_user.email}',
                       style: TextStyle(
-                        fontSize: 16, // Tamaño de fuente del texto
-                        color: Colors.white, // Color del texto
+                        fontSize: 14, // Tamaño de fuente del texto
+                        color: const Color.fromARGB(255, 185, 200, 207), // Color del texto
                       ),
                     ),
                   ],
