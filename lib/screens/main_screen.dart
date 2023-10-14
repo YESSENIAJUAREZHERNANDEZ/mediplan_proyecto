@@ -327,7 +327,7 @@ Widget _forYou(context) {
               // Acción cuando se presiona el tercer botón
               Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Noti()),
+                        MaterialPageRoute(builder: (context) => Dispositivos()),
                       );
               
             },

@@ -3,9 +3,21 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('icono'); // Cambia al nombre de tu icono
+
+  final InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   runApp(Recordatorios());
 }
 
@@ -101,6 +113,31 @@ class _NoteListScreenState extends State<NoteListScreen> {
     });
   }
 
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+    Future<void> _showNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'com_tuapp_id.notificaciones_mediplan',
+      'Notificaciones 2',
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: 'icono', // Cambia al nombre de tu icono
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Medi plan',
+      'Se establecio un recordatorio para la toma de su medicamento',
+      platformChannelSpecifics,
+    );
+  }
+
+
   void _addNote() {
     setState(() {
       notes.add(Note(
@@ -149,9 +186,10 @@ class _NoteListScreenState extends State<NoteListScreen> {
         title: Row(
           children: [
             IconButton(
-              icon: Image.asset('assets/iconos/icono2.png'),
-              onPressed: () {},
-            ),
+          icon: Image.asset('assets/iconos/icono2.png'),
+          onPressed: () {    
+          },
+        ),
             SizedBox(width: 8),
             Text(
               'Medi plan',
@@ -238,7 +276,16 @@ class _NoteListScreenState extends State<NoteListScreen> {
               color: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
-          SizedBox(height: 16), 
+          ElevatedButton(
+          onPressed: _showNotification,
+          style: ElevatedButton.styleFrom(
+             elevation: 0, // Elimina la sombra
+          primary: const Color.fromARGB(255, 223, 238, 248), // Color de fondo del botón
+        ),
+          child: Text('Mostrar Notificación',style: TextStyle(
+      color: const Color.fromARGB(255, 223, 238, 248), // Color del texto dentro del botón
+    ),),
+        ),
             Text(
               '___',
               style: TextStyle(
