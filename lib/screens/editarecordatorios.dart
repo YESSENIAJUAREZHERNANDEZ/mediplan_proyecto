@@ -309,7 +309,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
                 onPressed: () {
                   _showAddReminderDialog(context);
                 },
-                color: Color.fromARGB(255, 95, 142, 212),
+                color: Color.fromARGB(255, 99, 64, 116),
               ),
             ),
             if (index < reminders.length)

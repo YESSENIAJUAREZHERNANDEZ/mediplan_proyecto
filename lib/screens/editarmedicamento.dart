@@ -47,6 +47,7 @@ class _MedicationsAppState extends State<MedicationsApp> {
 void initState() {
   super.initState();
   _medicationsRef.onValue.listen((event) {
+    
     if (event.snapshot.value != null) {
       setState(() {
         medication.clear();
@@ -56,10 +57,12 @@ void initState() {
           medication.add(Medication(
             nombre: values['nombre'],
             descripcion: values['descripcion'],
+            
           ));
         });
       });
     }
+
   });
 }
 

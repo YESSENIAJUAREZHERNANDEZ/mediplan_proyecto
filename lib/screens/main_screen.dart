@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/notification/homepage.dart';
+import 'package:flutter_application_1/notification/principal.dart';
 import 'package:flutter_application_1/screens/ayuda.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
@@ -9,6 +11,8 @@ import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'package:flutter_application_1/screens/terminos.dart';
+import 'package:flutter_application_1/ver2/editarmedicamento.dart';
+import 'package:flutter_application_1/ver2/form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainScreen extends StatelessWidget{
@@ -92,7 +96,7 @@ class MainScreen extends StatelessWidget{
     // Acción para la opción 3
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => UserProfileScreen()),
+      MaterialPageRoute(builder: (context) => Terminos()),
     );
   },
 ),
@@ -251,9 +255,9 @@ Widget _forYou(context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el primer botón
-              Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => NoteListScreen()),
-                );
+             Navigator.push( context,
+                MaterialPageRoute(builder: (context) => NoteListScreen()),
+             );
             },
             style: ElevatedButton.styleFrom(
               primary: Color.fromARGB(255, 122, 160, 226), // Color de fondo
@@ -284,9 +288,9 @@ Widget _forYou(context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el segundo botón
-              Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => MedicationsApp()),
-                );
+            Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => MedicationsNew()),
+               );
             },
             style: ElevatedButton.styleFrom(
               primary: Color.fromARGB(255, 194, 108, 189), // Color de fondo
@@ -325,14 +329,17 @@ Widget _forYou(context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el tercer botón
-              Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Dispositivos()),
-                      );
+             // Navigator.push(
+               //         context,
+                 //       MaterialPageRoute(builder: (context) => Dispositivos()),
+                 //     );
+                  Navigator.push( context,
+                  MaterialPageRoute(builder: (context) => Aver(title: 'Flutter Local Notifications')),
+               );
               
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 201, 125, 63), // Color de fondo 255, 104, 169, 115
+              primary: Color.fromRGBO(221, 156, 59, 1), // Color de fondo 255, 104, 169, 115
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -350,7 +357,7 @@ Widget _forYou(context) {
               ),
               SizedBox(height: 13),
               Text(
-                'Alerta visual',
+                '      Alerta      ',
                 style: TextStyle(fontSize: 16.6),
               ),
             ],
@@ -364,8 +371,8 @@ Widget _forYou(context) {
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
              Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => CalendarScreen()),
-                );
+                 MaterialPageRoute(builder: (context) => CalendarScreen()),
+               );
              
             },
             style: ElevatedButton.styleFrom(

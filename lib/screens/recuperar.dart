@@ -8,11 +8,8 @@ class PasswordResetPage extends StatelessWidget {
   Future<void> _resetPassword() async {
     try {
       await _auth.sendPasswordResetEmail(email: _emailController.text.trim());
-      // El correo electrónico de restablecimiento de contraseña ha sido enviado.
-      // Puedes mostrar un mensaje al usuario para que revise su bandeja de entrada o spam.
     } catch (e) {
       print('Error al restablecer la contraseña: $e');
-      // Puedes mostrar un mensaje de error al usuario si algo sale mal.
     }
   }
 

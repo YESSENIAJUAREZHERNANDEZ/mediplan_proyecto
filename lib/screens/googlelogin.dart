@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         // Something went wrong
         // You can show an error message to the user
         setState(() {
-          _showErrorDialog('El inicio de sesión ha fallado. Verifica tu correo electrónico y contraseña.');
+          _showErrorDialog('Verifique su correo electrónico y contraseña.');
         });
       }
     }
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
     print('Error signing in: $e');
     // You can show an error message to the user
     setState(() {
-      _showErrorDialog('Ha ocurrido un error al intentar iniciar sesión. Por favor, inténtalo nuevamente.');
+      _showErrorDialog('La contraseña es incorrecta, intente nuevamente');
     });
   }
 }
