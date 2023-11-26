@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/notification/homepage.dart';
-import 'package:flutter_application_1/notification/principal.dart';
+import 'package:flutter_application_1/pruebas/alarm.dart';
 import 'package:flutter_application_1/screens/ayuda.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
@@ -329,13 +328,10 @@ Widget _forYou(context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el tercer botón
-             // Navigator.push(
-               //         context,
-                 //       MaterialPageRoute(builder: (context) => Dispositivos()),
-                 //     );
-                  Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => Aver(title: 'Flutter Local Notifications')),
-               );
+              Navigator.push(
+                       context,
+                     MaterialPageRoute(builder: (context) => AlarmManagerExampleApp()),
+                      );
               
             },
             style: ElevatedButton.styleFrom(
