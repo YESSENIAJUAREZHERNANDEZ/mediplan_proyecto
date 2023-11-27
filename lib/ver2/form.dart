@@ -1,97 +1,175 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; 
+import 'package:firebase_database/firebase_database.dart';
 
-class MedicationForm extends StatelessWidget {
+class AddMedicationScreen extends StatelessWidget {
+  final DatabaseReference medicationsRef;
+
+  AddMedicationScreen({required this.medicationsRef});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    TextEditingController nombreController = TextEditingController();
+    TextEditingController descripcionController = TextEditingController();
+    TextEditingController propositoController = TextEditingController();
+    TextEditingController administracionController = TextEditingController();
+
+    void addMedication() {
+      String nombre = nombreController.text;
+      String descripcion = descripcionController.text;
+      String proposito= propositoController.text;
+      String administracion = administracionController.text;
+
+      if (nombre.isNotEmpty && descripcion.isNotEmpty) {
+        medicationsRef.push().set({
+          'nombre': nombre,
+          'descripcion': descripcion,
+          'proposito': proposito,
+          'administracion': administracion,
+        }).then((_) {
+          Navigator.pop(context); 
+        }).catchError((error) {
+          print('Error adding medication: $error');
+        });
+      }
+    }
+
+return Scaffold(
         appBar: AppBar(
-          title: Text('Formulario Flutter'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Text(
-                  'Agregar medicamento',
-                 style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+        title: Row(
+          children: [
+            IconButton(
+              icon: Image.asset('assets/iconos/icono2.png'),
+              onPressed: () {},
+            ),
+            SizedBox(width: 8),
+            Text(
+              'Medi plan',
+              style: TextStyle(
+                color: Color.fromARGB(255, 48, 24, 49),
+                fontSize: 16,
               ),
-                ),
-              ),
-              SizedBox(height: 20.0),
-    
-              SizedBox(height: 10.0),
-              Text(
-                'Por favor, complete el formulario:',
-                style: TextStyle(
-                  fontSize: 16.0,
-                ),
-              ),
-
-              // ACÁ EMPIEZA 1
-              SizedBox(height: 20.0),
-              Text(
-                'Nombre de medicamento',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Ingresa aquí',
-                ),
-              ),
-
-              // ACÁ EMPIEZA 2
-              SizedBox(height: 20.0),
-              Text(
-                'Dosis',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                keyboardType: TextInputType.number, // Tipo de teclado numérico
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Solo permite números
-                ],
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Ingresa cantidad aquí',
-                ),
-              ),
-            
-                          // ACÁ EMPIEZA 1
-              SizedBox(height: 20.0),
-              Text(
-                'Propósito de medicación',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Ingresa aquí',
-                ),
-              ),
-
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
+  body: SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        Center(
+          child: Text(
+            'Nuevo medicamento',
+            style: TextStyle(
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        SizedBox(height: 25),
+        Text(
+          'Nombre del medicamento:',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.blueGrey,
+          ),
+        ),
+        TextField(
+          controller: nombreController,
+          decoration: InputDecoration(
+            hintText: 'Paracetamol, Nolotil, etc',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
+        Text(
+          'Dosis prescrita:',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.blueGrey,
+          ),
+        ),
+        TextField(
+          controller: descripcionController,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            hintText: 'Dosis/cantidad',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
+        Text(
+          'Propósito del medicamento:',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.blueGrey,
+          ),
+        ),
+        TextField(
+          controller: propositoController,
+          decoration: InputDecoration(
+            hintText: 'Dolor de cabeza, estomago, etc',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
+        Text(
+          'Vía de administración:',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.blueGrey,
+          ),
+        ),
+        TextField(
+          controller: administracionController,
+          decoration: InputDecoration(
+            hintText: 'vía oral, vía intravenosa, etc',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+        SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: addMedication,
+          child: Text(
+            'AGREGAR',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            primary: const Color.fromARGB(255, 78, 157, 196),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            minimumSize: Size(double.infinity, 45),
+          ),
+        ),
+      ],
+    ),
+  ),
+  ),
+);
+
+
+
   }
 }

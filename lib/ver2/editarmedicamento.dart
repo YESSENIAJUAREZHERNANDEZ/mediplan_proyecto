@@ -9,8 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Medication {
   final String nombre;
   final String descripcion;
+  final String proposito;
+  final String administracion;
 
-  Medication({required this.nombre, required this.descripcion});
+  Medication({required this.nombre, required this.descripcion, required this.proposito, required this.administracion});
 }
 
 void main() async {
@@ -40,6 +42,8 @@ class _MedicationsAppState extends State<MedicationsNew> {
 
   TextEditingController nombreController = TextEditingController();
   TextEditingController descripcionController = TextEditingController();
+  TextEditingController propositoController= TextEditingController();
+  TextEditingController administracionController = TextEditingController();
 
   DatabaseReference _medicationsRef =
       FirebaseDatabase.instance.reference().child('medications');
@@ -48,74 +52,41 @@ class _MedicationsAppState extends State<MedicationsNew> {
 void initState() {
   super.initState();
   _medicationsRef.onValue.listen((event) {
-    
     if (event.snapshot.value != null) {
       setState(() {
         medication.clear();
-        Map<dynamic, dynamic> values =
-            event.snapshot.value as Map<dynamic, dynamic>; // Cast the value here
+        Map<dynamic, dynamic> values = event.snapshot.value as Map<dynamic, dynamic>;
         values.forEach((key, values) {
+          String nombre = values['nombre'] ?? ''; // Verificación para evitar valores nulos
+          String descripcion = values['descripcion'] ?? '';
+          String proposito = values['proposito'] ?? '';
+          String administracion = values['administracion'] ?? '';
+
           medication.add(Medication(
-            nombre: values['nombre'],
-            descripcion: values['descripcion'],
-            
+            nombre: nombre,
+            descripcion: descripcion,
+            proposito: proposito,
+            administracion: administracion,
           ));
         });
       });
     }
-
   });
 }
 
 
-  void addMedication() {
-    String nombre = nombreController.text;
-    String descripcion = descripcionController.text;
 
-    if (nombre.isNotEmpty && descripcion.isNotEmpty) {
-      _medicationsRef.push().set({
-        'nombre': nombre,
-        'descripcion': descripcion,
-      }).then((_) {
-        setState(() {
-          nombreController.clear();
-          descripcionController.clear();
-        });
-      }).catchError((error) {
-        print('Error adding medication: $error');
-      });
-    }
-  }
 
-  void removeMedication(String key) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Eliminar medicamento'),
-          content: Text('¿Seguro que quiere eliminar este medicamento?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                _medicationsRef.child(key).remove().then((_) {
-                  Navigator.of(context).pop(); // Close the dialog
-                }).catchError((error) {
-                  print('Error removing medication: $error');
-                });
-              },
-              child: Text('Eliminar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  void addMedication(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => AddMedicationScreen(medicationsRef: _medicationsRef),
+    ),
+  );
+}
+
+
 
 @override
 Widget build(BuildContext context) {
@@ -173,12 +144,7 @@ Widget build(BuildContext context) {
             child: Column(
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MedicationForm()),
-                    );
-                  },
+                  onPressed: () => addMedication(context),
                   child: Text(
                     'Agregar medicamento',
                     style: TextStyle(
@@ -199,21 +165,62 @@ Widget build(BuildContext context) {
           ),
 Expanded(
   child: ListView.builder(
-    itemCount: medication.length,
-    itemBuilder: (context, index) {
-      String key = _medicationsRef.push().key!;
-      return Column(
-        children: [
-          ListTile(
-            leading: Icon(Icons.medical_services, color: Colors.green,), // Agregar un ícono de medicina
-            title: Text(medication[index].nombre),
-            subtitle: Text(medication[index].descripcion),
+  itemCount: medication.length,
+  itemBuilder: (context, index) {
+    String key = _medicationsRef.push().key!;
+    return Column(
+      children: [
+        ListTile(
+          leading: GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Eliminar medicamento'),
+                    content: Text('¿Seguro que quiere eliminar este medicamento?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Cerrar el diálogo
+                        },
+                        child: Text('Cancelar'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          _medicationsRef.child(key).remove().then((_) {
+                            setState(() {
+                              medication.removeAt(index);
+                              Navigator.of(context).pop(); // Cerrar el diálogo después de eliminar
+                            });
+                          }).catchError((error) {
+                            print('Error removing medication: $error');
+                          });
+                        },
+                        child: Text('Eliminar'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.medical_services, color: Colors.green,),
           ),
-          Divider(), // Agregar una línea de separación entre elementos
-        ],
-      );
-    },
-  ),
+          title: Text('${medication[index].nombre}'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Propósito: ${medication[index].proposito}'),
+              Text('Vía de Administración: ${medication[index].administracion}'),
+            ],
+          ),
+        ),
+        Divider(),
+      ],
+    );
+  },
+),
+
 ),
 
         ],

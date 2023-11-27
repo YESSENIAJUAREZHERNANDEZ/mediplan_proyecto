@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pruebas/alarm.dart';
 import 'package:flutter_application_1/screens/ayuda.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
@@ -13,6 +12,21 @@ import 'package:flutter_application_1/screens/terminos.dart';
 import 'package:flutter_application_1/ver2/editarmedicamento.dart';
 import 'package:flutter_application_1/ver2/form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+// Asegúrate de importar tu archivo app_pages.dart
+import 'package:get/get.dart';
+import 'package:flutter_application_1/oIoGET/app/bindings/home_bindings.dart';
+import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
+import 'package:flutter_application_1/oIoGET/app/ruts/app_routes.dart';
+
+class AppPages{
+  AppPages._();
+
+  static const INITIAL = Routes.HOME;
+  static final routes= [
+    GetPage(name: Routes.HOME, page:() => HomeView(),binding: HomeBinding()),
+  ];
+}
 
 class MainScreen extends StatelessWidget{
    void _signOut(BuildContext context) async {
@@ -328,10 +342,7 @@ Widget _forYou(context) {
           ElevatedButton(
             onPressed: () {
               // Acción cuando se presiona el tercer botón
-              Navigator.push(
-                       context,
-                     MaterialPageRoute(builder: (context) => AlarmManagerExampleApp()),
-                      );
+              Get.toNamed(Routes.HOME); 
               
             },
             style: ElevatedButton.styleFrom(
