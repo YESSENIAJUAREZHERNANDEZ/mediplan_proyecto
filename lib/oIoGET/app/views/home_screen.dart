@@ -14,6 +14,8 @@ class _HomeViewState extends State<HomeView> {
    void shareToWhatsApp(BuildContext context, String address) {
     AppinioSocialShare appinioSocialShare = AppinioSocialShare();
     appinioSocialShare.shareToWhatsapp(address);
+
+
   }
 
   @override
@@ -47,12 +49,26 @@ class _HomeViewState extends State<HomeView> {
   String _latitude = "Getting Latitude..";
   String _longitude = "Getting Longitude..";
   String _address = "Getting Adress..";
+  
+
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black38,
-      body: Center(
+       backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color.fromARGB(255, 62, 44, 141), Color.fromARGB(255, 143, 103, 175)], // Cambia los colores según tus preferencias
+                ),
+              ),
+            ),
+            Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -68,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                 height: 4,
               ),
               const Text(
-                "Location",
+                "Su ubicación actual es:",
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.white,
@@ -115,6 +131,9 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
+        ],
+        )
     );
+    
 }
 }

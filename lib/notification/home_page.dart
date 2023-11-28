@@ -83,12 +83,6 @@ class ScheduleBtn extends StatelessWidget {
             );
           },
         ),
-        ElevatedButton.icon(
-          label: Text('Elevated Button'),
-          icon: Icon(Icons.web),
-          onPressed: () {
-          },
-        ),
       ],
     );
   }

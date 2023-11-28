@@ -8,7 +8,9 @@ class NotificationService {
 
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings('icono');
+        const AndroidInitializationSettings('flutter_logo');
+
+           
 
     var initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
@@ -34,7 +36,10 @@ class NotificationService {
   Future showNotification(
       {int id = 0, String? title, String? body, String? payLoad}) async {
     return notificationsPlugin.show(
-        id, title, body, await notificationDetails());
+         0,
+      'Medi plan',
+      'Se establecio un recordatorio para la toma de su medicamento',
+       await notificationDetails());
   }
 
   Future scheduleNotification(
@@ -47,13 +52,10 @@ class NotificationService {
         id,
         title,
         body,
-        tz.TZDateTime.from(
-          scheduledNotificationDateTime,
-          tz.local,
-        ),
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
         await notificationDetails(),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
+        UILocalNotificationDateInterpretation.absoluteTime);
   }
 }

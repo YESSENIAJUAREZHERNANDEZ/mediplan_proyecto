@@ -260,7 +260,7 @@ Widget _forYou(context) {
             onPressed: () {
               // NoteListScreen
              Navigator.push( context,
-                MaterialPageRoute(builder: (context) => Hope()),
+                MaterialPageRoute(builder: (context) => Recordatorios()),
              );
             },
             style: ElevatedButton.styleFrom(
