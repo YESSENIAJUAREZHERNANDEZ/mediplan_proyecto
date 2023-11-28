@@ -11,9 +11,10 @@ import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'package:flutter_application_1/screens/terminos.dart';
 import 'package:flutter_application_1/ver2/editarmedicamento.dart';
 import 'package:flutter_application_1/ver2/form.dart';
+import 'package:flutter_application_1/ver2/recordatorio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Asegúrate de importar tu archivo app_pages.dart
+// Asegúrate de importar tu archivo app_pages.dart 0
 import 'package:get/get.dart';
 import 'package:flutter_application_1/oIoGET/app/bindings/home_bindings.dart';
 import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
@@ -267,9 +268,9 @@ Widget _forYou(context) {
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
-              // Acción cuando se presiona el primer botón
+              // NoteListScreen
              Navigator.push( context,
-                MaterialPageRoute(builder: (context) => NoteListScreen()),
+                MaterialPageRoute(builder: (context) => RecordatoriosNew()),
              );
             },
             style: ElevatedButton.styleFrom(
@@ -341,9 +342,8 @@ Widget _forYou(context) {
           
           ElevatedButton(
             onPressed: () {
-              // Acción cuando se presiona el tercer botón
-              Get.toNamed(Routes.HOME); 
-              
+              //Get.toNamed(Routes.HOME); 
+           
             },
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(221, 156, 59, 1), // Color de fondo 255, 104, 169, 115

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -7,24 +6,58 @@ void main() {
   runApp(CalendarScreen());
 }
 
-class CalendarScreen extends StatefulWidget {
-  @override
-  MyAppState createState() => MyAppState();
+class Event {
+  final DateTime date;
+
+  Event(this.date);
 }
 
-class MyAppState extends State<CalendarScreen> {
-  String _selectedDate = '';
-  String _range = '';
+class CalendarScreen extends StatefulWidget {
+  @override
+  _CalendarScreenState createState() => _CalendarScreenState();
+}
 
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    setState(() {
-      if (args.value is PickerDateRange) {
-        _range =
-            '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} - ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
-      } else if (args.value is DateTime) {
-        _selectedDate = DateFormat('dd/MM/yyyy').format(args.value);
-      }
-    });
+class _CalendarScreenState extends State<CalendarScreen> {
+  List<Event> events = [];
+
+  void _showAddEventDialog(BuildContext context, DateTime selectedDate) {
+    TextEditingController _eventController = TextEditingController();
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Agregar Evento'),
+          content: TextField(
+            controller: _eventController,
+            decoration: InputDecoration(labelText: 'Nombre del Evento'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Guardar'),
+              onPressed: () {
+                String eventName = _eventController.text;
+                events.add(Event(selectedDate));
+                setState(() {});
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  bool _isDateWithEvent(DateTime date) {
+    return events.any((event) =>
+        DateFormat('dd/MM/yyyy').format(event.date) ==
+        DateFormat('dd/MM/yyyy').format(date));
   }
 
   @override
@@ -53,80 +86,6 @@ class MyAppState extends State<CalendarScreen> {
             ],
           ),
         ),
-        endDrawer: Drawer(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/imagenes/campo2.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Medi plan',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Configuración',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color.fromARGB(255, 48, 24, 49),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  'Información de la cuenta',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 48, 24, 49),
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text(
-                  'Cerrar sesión',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 48, 24, 49),
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () {
-                  // Call logout function
-                },
-              ),
-              ListTile(
-                title: Text(
-                  '',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 48, 24, 49),
-                    fontSize: 16,
-                  ),
-                ),
-                onTap: () {
-                  // Action for option 3
-                },
-              ),
-            ],
-          ),
-        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -144,60 +103,33 @@ class MyAppState extends State<CalendarScreen> {
               ),
             ),
             SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Center(
-              child: Text(
-                'Periodo de medicación del mes',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 85, 42, 87),
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            ),
-            SizedBox(height: 10),
             Expanded(
               child: SfDateRangePicker(
-                onSelectionChanged: _onSelectionChanged,
-                selectionMode: DateRangePickerSelectionMode.range,
-                initialSelectedRange: PickerDateRange(
-                  DateTime.now().subtract(const Duration(days: 0)),
-                  DateTime.now().add(const Duration(days: 3)),
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 165, 114, 194),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Días de tratamiento  $_selectedDate',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                selectionMode: DateRangePickerSelectionMode.single,
+                initialSelectedDate: DateTime.now(),
+                onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+                  if (args.value is DateTime) {
+                    _showAddEventDialog(context, args.value);
+                  }
+                },
+                cellBuilder: (BuildContext context,
+                    DateRangePickerCellDetails details) {
+                  DateTime date = details.date;
+                  bool hasEvent = _isDateWithEvent(date);
+                  return Container(
+                    color: hasEvent ? Colors.green.withOpacity(0.3) : null,
+                    child: Center(
+                      child: Text(
+                        date.day.toString(),
+                        style: TextStyle(
+                          color: hasEvent ? Colors.black : Colors.black54,
+                        ),
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Inicio un: $_range',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
-            SizedBox(height: 25), // Espacio entre las filas de botones
           ],
         ),
       ),

@@ -72,7 +72,7 @@ class _NoteListScreenState extends State<NoteListScreen> {
   void initState() {
     super.initState();
     _fetchMedications();
-    _fetchReminders(); // Agregar esta línea para cargar los recordatorios
+    _fetchReminders(); 
   }
 
   void _fetchMedications() {
@@ -84,7 +84,6 @@ class _NoteListScreenState extends State<NoteListScreen> {
         values.forEach((key, values) {
           medications.add(Note(
             content: "${values['nombre']}",
-            //}: ${values['descripcion']
           ));
         });
         setState(() {
