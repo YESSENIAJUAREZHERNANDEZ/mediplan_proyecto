@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/oIoGET/app/bindings/home_bindings.dart';
+import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
 import 'package:flutter_application_1/screens/ayuda.dart';
 import 'package:flutter_application_1/screens/camara.dart';
 import 'package:flutter_application_1/screens/dispositivos.dart';
@@ -12,22 +14,9 @@ import 'package:flutter_application_1/screens/terminos.dart';
 import 'package:flutter_application_1/ver2/editarmedicamento.dart';
 import 'package:flutter_application_1/ver2/form.dart';
 import 'package:flutter_application_1/ver2/recordatorio.dart';
+import 'package:flutter_application_1/ver2/rem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Asegúrate de importar tu archivo app_pages.dart 0
-import 'package:get/get.dart';
-import 'package:flutter_application_1/oIoGET/app/bindings/home_bindings.dart';
-import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
-import 'package:flutter_application_1/oIoGET/app/ruts/app_routes.dart';
-
-class AppPages{
-  AppPages._();
-
-  static const INITIAL = Routes.HOME;
-  static final routes= [
-    GetPage(name: Routes.HOME, page:() => HomeView(),binding: HomeBinding()),
-  ];
-}
 
 class MainScreen extends StatelessWidget{
    void _signOut(BuildContext context) async {
@@ -270,7 +259,7 @@ Widget _forYou(context) {
             onPressed: () {
               // NoteListScreen
              Navigator.push( context,
-                MaterialPageRoute(builder: (context) => RecordatoriosNew()),
+                MaterialPageRoute(builder: (context) => Remi()),
              );
             },
             style: ElevatedButton.styleFrom(
@@ -342,8 +331,10 @@ Widget _forYou(context) {
           
           ElevatedButton(
             onPressed: () {
-              //Get.toNamed(Routes.HOME); 
-           
+              //Get.toNamed(Routes.HOME);   " or "Get.lazyPut(()=>HomeController())
+               Navigator.push( context,
+                MaterialPageRoute(builder: (context) => HomeView()),
+             );
             },
             style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(221, 156, 59, 1), // Color de fondo 255, 104, 169, 115
