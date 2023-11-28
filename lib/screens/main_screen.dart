@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/notification/main.dart';
 import 'package:flutter_application_1/oIoGET/app/bindings/home_bindings.dart';
 import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
 import 'package:flutter_application_1/screens/ayuda.dart';
@@ -259,7 +260,7 @@ Widget _forYou(context) {
             onPressed: () {
               // NoteListScreen
              Navigator.push( context,
-                MaterialPageRoute(builder: (context) => Remi()),
+                MaterialPageRoute(builder: (context) => Hope()),
              );
             },
             style: ElevatedButton.styleFrom(
