@@ -61,6 +61,8 @@ class _NoteListScreenState extends State<NoteListScreen> {
 
   List<Note> notes = [];
   String frecuencia = 'Cada 1 hora';
+  String medicamento = 'Paracetamol';
+
   TextEditingController _textEditingController = TextEditingController();
 
   DatabaseReference _remindersRef = FirebaseDatabase.instance.reference().child('reminders');

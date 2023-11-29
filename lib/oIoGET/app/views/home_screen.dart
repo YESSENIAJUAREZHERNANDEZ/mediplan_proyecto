@@ -93,23 +93,6 @@ class _HomeViewState extends State<HomeView> {
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                _latitude,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                _longitude,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
               const SizedBox(
                 height: 10,
               ),
@@ -120,13 +103,30 @@ class _HomeViewState extends State<HomeView> {
                   color: Colors.white,
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               ElevatedButton(
-                child: Icon(Icons.share),
-                onPressed: (){
-                 // Share.share(_address);
-                 shareToWhatsApp(context, _address); 
-                }
-              )
+                          onPressed: () {
+                            // Share.share(_address);
+                            shareToWhatsApp(context, _address);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color.fromARGB(255, 248, 119, 162), // Cambia el color del botón a negro
+                            shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    minimumSize: Size(double.minPositive, 45),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.share),
+                              const SizedBox(width: 4),
+                              Text('Compartir'),
+                            ],
+                          ),
+                        ),
             ],
           ),
         ),

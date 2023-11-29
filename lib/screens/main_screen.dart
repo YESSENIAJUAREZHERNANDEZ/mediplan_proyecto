@@ -100,7 +100,7 @@ class MainScreen extends StatelessWidget{
     // Acción para la opción 3
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Terminos()),
+      MaterialPageRoute(builder: (context) => UserProfileScreen()),
     );
   },
 ),
