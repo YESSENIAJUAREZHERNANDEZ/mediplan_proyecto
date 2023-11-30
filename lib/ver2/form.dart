@@ -14,22 +14,24 @@ class AddMedicationScreen extends StatelessWidget {
     TextEditingController administracionController = TextEditingController();
 
     void addMedication() {
+      String id = medicationsRef.push().key ?? ''; // Generar un ID único
       String nombre = nombreController.text;
       String descripcion = descripcionController.text;
       String proposito= propositoController.text;
       String administracion = administracionController.text;
 
       if (nombre.isNotEmpty && descripcion.isNotEmpty) {
-        medicationsRef.push().set({
-          'nombre': nombre,
-          'descripcion': descripcion,
-          'proposito': proposito,
-          'administracion': administracion,
-        }).then((_) {
-          Navigator.pop(context); 
-        }).catchError((error) {
-          print('Error adding medication: $error');
-        });
+        medicationsRef.child(id).set({
+  'nombre': nombre,
+  'descripcion': descripcion,
+  'proposito': proposito,
+  'administracion': administracion,
+}).then((_) {
+  Navigator.pop(context); 
+}).catchError((error) {
+  print('Error adding medication: $error');
+});
+
       }
     }
 

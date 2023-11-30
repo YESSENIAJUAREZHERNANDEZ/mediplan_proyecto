@@ -7,18 +7,21 @@ import 'package:flutter_application_1/ver2/form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Medication {
+  final String id; // Nuevo campo para almacenar el ID único
   final String nombre;
   final String descripcion;
   final String proposito;
   final String administracion;
 
   Medication({
+    required this.id,
     required this.nombre,
     required this.descripcion,
     required this.proposito,
     required this.administracion,
   });
 }
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,18 +67,19 @@ class _MedicationsAppState extends State<MedicationsNew> {
           Map<dynamic, dynamic> values =
               event.snapshot.value as Map<dynamic, dynamic>;
           values.forEach((key, values) {
-            String nombre = values['nombre'] ?? '';
-            String descripcion = values['descripcion'] ?? '';
-            String proposito = values['proposito'] ?? '';
-            String administracion = values['administracion'] ?? '';
+  String nombre = values['nombre'] ?? '';
+  String descripcion = values['descripcion'] ?? '';
+  String proposito = values['proposito'] ?? '';
+  String administracion = values['administracion'] ?? '';
 
-            medication.add(Medication(
-              nombre: nombre,
-              descripcion: descripcion,
-              proposito: proposito,
-              administracion: administracion,
-            ));
-          });
+  medication.add(Medication(
+    id: key, // Asignar el ID único a cada medicamento
+    nombre: nombre,
+    descripcion: descripcion,
+    proposito: proposito,
+    administracion: administracion,
+  ));
+});
         });
       }
     });
@@ -90,50 +94,56 @@ class _MedicationsAppState extends State<MedicationsNew> {
     );
   }
 
-  void editMedication(BuildContext context, Medication medication) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EditMedicationScreen(
-          medicationsRef: _medicationsRef,
-          medication: medication,
-        ),
+void editMedication(BuildContext context, Medication medication) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => EditMedicationScreen(
+        medicationsRef: _medicationsRef,
+        medication: medication,
       ),
-    );
-  }
+    ),
+  );
+}
 
-  void deleteMedication(BuildContext context, String key, medicationsRef) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Eliminar medicamento'),
-          content: Text('¿Seguro que quiere eliminar este medicamento?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el diálogo
-              },
-              child: Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                medicationsRef.child(key).remove().then(() {
-                  setState(() {
-                    medication.removeWhere((element) => element.nombre == key);
-                    Navigator.of(context).pop(); // Cerrar el diálogo después de eliminar
-                  });
-                }).catchError((error) {
-                  print('Error removing medication: $error');
+
+void deleteMedication(BuildContext context, String key, medicationsRef) {
+  print('ID del medicamento a eliminar: $key');
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Eliminar medicamento'),
+        content: Text('¿Seguro que quiere eliminar este medicamento?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Cerrar el diálogo
+            },
+            child: Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () async {
+              try {
+                print('Intentando eliminar...');
+                await medicationsRef.child(key).remove();
+                setState(() {
+                  medication.removeWhere((element) => element.id == key);
                 });
-              },
-              child: Text('Eliminar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+                print('Medicamento eliminado');
+                Navigator.of(context).pop(); // Cerrar el diálogo después de eliminar
+              } catch (error) {
+                print('Error removing medication: $error');
+              }
+            },
+            child: Text('Eliminar'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -323,18 +333,19 @@ class _EditMedicationScreenState extends State<EditMedicationScreen> {
             TextField(controller: administracionController),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                widget.medicationsRef.child(widget.medication.nombre).update({
-                  'nombre': nombreController.text,
-                  'descripcion': descripcionController.text,
-                  'proposito': propositoController.text,
-                  'administracion': administracionController.text,
-                }).then((_) {
-                  Navigator.pop(context);
-                });
-              },
-              child: Text('Guardar Cambios'),
-            ),
+  onPressed: () {
+    widget.medicationsRef.child(widget.medication.id).update({
+      'nombre': nombreController.text,
+      'descripcion': descripcionController.text,
+      'proposito': propositoController.text,
+      'administracion': administracionController.text,
+    }).then((_) {
+      Navigator.pop(context);
+    });
+  },
+  child: Text('Guardar Cambios'),
+),
+
           ],
         ),
       ),
