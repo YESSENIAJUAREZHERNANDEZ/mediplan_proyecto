@@ -53,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 78, 157, 196),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -63,12 +63,12 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               Align(
                 child: Image.asset(
-                  'assets/iconos/icono.png',
+                  'assets/iconos/icono2.png',
                   width: 70,
                   height: 70,
                 ),
               ),
-                Text("Registro                               ", style: TextStyle(fontSize: 26,fontFamily:'Droid Sans', color:Color.fromARGB(255, 255, 255, 255)),),
+                Text("Registro                               ", style: TextStyle(fontSize: 26,fontFamily:'Droid Sans', color:Color.fromARGB(255, 52, 65, 97), ),),
                 //Text("Bienvenido", style: TextStyle(fontSize: 30, fontFamily:'Roboto' ,color:Color.fromARGB(255, 6, 11, 53)),),
                   SizedBox(height: 16.0),
                 Text(
@@ -154,7 +154,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Text('Registrar cuenta'),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 64, 62, 138),
+                  primary: Color.fromARGB(255, 52, 65, 97), 
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

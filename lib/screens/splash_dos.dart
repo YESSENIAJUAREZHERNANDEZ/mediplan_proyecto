@@ -44,7 +44,7 @@ class Splashdos extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 62, 21, 90),  // Color del texto blanco
+                  color: Color.fromARGB(255, 52, 65, 97), 
                 ),
               ),
               SizedBox(height: 10),
@@ -98,7 +98,7 @@ class Splashdos extends StatelessWidget {
     child: Text('Tutorial'),
   ),
   style: ElevatedButton.styleFrom(
-    primary: Color.fromARGB(255, 64, 62, 138),
+    primary: Color.fromARGB(255, 52, 65, 97), 
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(30),
     ),
