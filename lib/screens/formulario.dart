@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -7,15 +6,21 @@ void main() {
   runApp(CalendarScreen());
 }
 
-
 class CalendarScreen extends StatefulWidget {
   @override
-  MyAppState createState() => MyAppState();
+  _CalendarScreenState createState() => _CalendarScreenState();
 }
 
-class MyAppState extends State<CalendarScreen> {
+class _CalendarScreenState extends State<CalendarScreen> {
   String _selectedDate = '';
   String _range = '';
+  List<DateTime> medicationDates = [
+    DateTime(2023, 11, 1),
+    DateTime(2023, 11, 5),
+    DateTime(2023, 11, 10),
+  ];
+
+  DateRangePickerController _datePickerController = DateRangePickerController();
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
@@ -27,7 +32,6 @@ class MyAppState extends State<CalendarScreen> {
       }
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -149,51 +153,71 @@ class MyAppState extends State<CalendarScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Center(
-              child: Text(
-                'Periodo de medicación del mes',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 85, 42, 87),
-                  fontSize: 16,
+                child: Text(
+                  'Periodo de medicación del mes',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 85, 42, 87),
+                    fontSize: 16,
+                  ),
                 ),
               ),
-            ),
             ),
             SizedBox(height: 10),
             Expanded(
               child: SfDateRangePicker(
-                onSelectionChanged: _onSelectionChanged,
-                selectionMode: DateRangePickerSelectionMode.range,
-                initialSelectedRange: PickerDateRange(
-                  DateTime.now().subtract(const Duration(days: 4)),
-                  DateTime.now().add(const Duration(days: 3)),
+                controller: _datePickerController,
+                monthViewSettings: DateRangePickerMonthViewSettings(
+                  blackoutDates: medicationDates,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Días de tratamiento : $_selectedDate',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
+            Center(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 165, 114, 194),
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Días de tratamiento  $_selectedDate',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Inicio un: $_range',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
+                    SizedBox(height: 8),
+                    Text(
+                      'Inicio un: $_range',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
+            SizedBox(height: 25), // Espacio entre las filas de botones
           ],
         ),
+      ),
+    );
+  }
+}
+
+class LoginScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
+      body: Center(
+        child: Text('Login Screen'),
       ),
     );
   }

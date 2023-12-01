@@ -107,43 +107,38 @@ void editMedication(BuildContext context, Medication medication) {
 }
 
 
-void deleteMedication(BuildContext context, String key, medicationsRef) {
-  print('ID del medicamento a eliminar: $key');
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Eliminar medicamento'),
-        content: Text('¿Seguro que quiere eliminar este medicamento?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(); // Cerrar el diálogo
-            },
-            child: Text('Cancelar'),
-          ),
-          TextButton(
-            onPressed: () async {
-              try {
-                print('Intentando eliminar...');
-                await medicationsRef.child(key).remove();
-                setState(() {
-                  medication.removeWhere((element) => element.id == key);
+  void deleteMedication(BuildContext context, String key, medicationsRef) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Eliminar medicamento'),
+          content: Text('¿Seguro que quiere eliminar este medicamento?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cerrar el diálogo
+              },
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                medicationsRef.child(key).remove().then(() {
+                  setState(() {
+                    medication.removeWhere((element) => element.nombre == key);
+                    Navigator.of(context).pop(); // Cerrar el diálogo después de eliminar
+                  });
+                }).catchError((error) {
+                  print('Error removing medication: $error');
                 });
-                print('Medicamento eliminado');
-                Navigator.of(context).pop(); // Cerrar el diálogo después de eliminar
-              } catch (error) {
-                print('Error removing medication: $error');
-              }
-            },
-            child: Text('Eliminar'),
-          ),
-        ],
-      );
-    },
-  );
-}
-
+              },
+              child: Text('Eliminar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +175,7 @@ void deleteMedication(BuildContext context, String key, medicationsRef) {
         body: Column(
           children: [
             Text(
-              'Medicamentos',
+              'Recordatorios',
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,

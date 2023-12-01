@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/muppet/mediform.dart';
-import 'package:flutter_application_1/notification/main.dart';
 import 'package:flutter_application_1/oIoGET/app/bindings/home_bindings.dart';
 import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
 import 'package:flutter_application_1/screens/ayuda.dart';
@@ -38,7 +37,7 @@ class MainScreen extends StatelessWidget{
     appBar: AppBar(
       automaticallyImplyLeading: false,
   elevation: 0,
-  backgroundColor: Color.fromARGB(255, 94, 81, 233),
+  backgroundColor: Color.fromARGB(255, 52, 65, 97),
   title: Row(
   ),
 ),
@@ -217,7 +216,7 @@ Widget _textsHeader(BuildContext context) {
       Container(
         width: MediaQuery.of(context).size.width, // Ancho de la pantalla
         child: Image.asset(
-          'assets/imagenes/encabezado.jpg', // Reemplaza con la ruta de la imagen que deseas usar
+          'assets/imagenes/encabezado2.jpg', // Reemplaza con la ruta de la imagen que deseas usar
           fit: BoxFit.cover,
         ),
         
@@ -261,11 +260,11 @@ Widget _forYou(context) {
             onPressed: () {
               // NoteListScreen
              Navigator.push( context,
-                MaterialPageRoute(builder: (context) => Recordatorios()),
+                MaterialPageRoute(builder: (context) => MedicationsNew()),
              );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 122, 160, 226), // Color de fondo
+              primary: Color.fromARGB(255, 52, 65, 97), // Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
@@ -298,7 +297,7 @@ Widget _forYou(context) {
                );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 194, 108, 189), // Color de fondo
+              primary: Color.fromARGB(255, 123, 59, 51), // Color de fondo
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -339,7 +338,7 @@ Widget _forYou(context) {
              );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromRGBO(221, 156, 59, 1), // Color de fondo 255, 104, 169, 115
+              primary: Color.fromARGB(255, 87, 120, 160), // Color de fondo 255, 104, 169, 115
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -357,7 +356,7 @@ Widget _forYou(context) {
               ),
               SizedBox(height: 13),
               Text(
-                '      Alerta      ',
+                '   Ubicación  ',
                 style: TextStyle(fontSize: 16.6),
               ),
             ],
@@ -371,12 +370,12 @@ Widget _forYou(context) {
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
              Navigator.push( context,
-                 MaterialPageRoute(builder: (context) => Muppet()),
+                 MaterialPageRoute(builder: (context) => CalendarScreen()),
                );
              
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 104, 169, 115), // Color de fondo
+              primary: Color.fromARGB(255, 207, 175, 115) ,// Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
