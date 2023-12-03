@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/muppet/mediform.dart';
 
 class splashmedicamentos extends StatelessWidget {
   @override
@@ -63,7 +62,7 @@ class SplashScreen extends StatelessWidget {
                 // Navegar a la segunda pantalla
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddMedicationScreen()),
+                  MaterialPageRoute(builder: (context) => SecondScreen()),
                 );
               },
               style: ElevatedButton.styleFrom(
