@@ -38,7 +38,8 @@ class MainScreen extends StatelessWidget{
     appBar: AppBar(
       automaticallyImplyLeading: false,
   elevation: 0,
-  backgroundColor: Color.fromARGB(255, 52, 65, 97),
+  //backgroundColor: Color.fromARGB(255, 52, 65, 97),
+  backgroundColor: Color.fromARGB(255, 94, 81, 233),
   title: Row(
     
   ),
@@ -218,7 +219,7 @@ Widget _textsHeader(BuildContext context) {
       Container(
         width: MediaQuery.of(context).size.width, // Ancho de la pantalla
         child: Image.asset(
-          'assets/imagenes/encabezado2.jpg', // Reemplaza con la ruta de la imagen que deseas usar
+          'assets/imagenes/encabezado.jpg', // Reemplaza con la ruta de la imagen que deseas usar
           fit: BoxFit.cover,
         ),
         

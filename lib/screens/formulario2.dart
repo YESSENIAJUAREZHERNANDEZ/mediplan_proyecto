@@ -89,7 +89,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
               ),
               // Mostrar el historial de medicamentos
-              SizedBox(height: 15),
+              SizedBox(height: 50),
               Text(
                       'Historial',
                       style: TextStyle(

@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+class Medication {
+  final String id; 
+  final String nombre; // Por si acaso
+  final String fecha;
+  final String administracion;
+  Medication({
+    required this.id,
+    required this.nombre, 
+    required this.fecha,
+    required this.administracion,
+  });
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(ColoresCalendar());
+}
+
+
 class ColoresCalendar extends StatefulWidget {
   @override
   _ColoresCalendarState createState() => _ColoresCalendarState();
 }
 
 class _ColoresCalendarState extends State<ColoresCalendar> {
-  DateRangePickerController _datePickerController =
-      DateRangePickerController();
+   DateRangePickerController _datePickerController = DateRangePickerController();
 
-  bool blockGestures = true; // Variable para controlar el bloqueo de gestos
+  bool blockGestures = true;
+  List<Medication> medication = [];
+  DatabaseReference _medicationsRef =
+      FirebaseDatabase.instance.reference().child('medications');
 
   @override
   initState() {
-    _datePickerController.selectedRanges = <PickerDateRange>[
-      PickerDateRange(
-          DateTime(2023, 12, 01).subtract(Duration(days: 4)),
-          DateTime.now().add(Duration(days: 4))),
-      PickerDateRange(DateTime.now().add(Duration(days: 11)),
-          DateTime.now().add(Duration(days: 16)))
-    ];
+    // Lógica para obtener la fecha legible desde Firebase y dividirla en sus componentes
+
+
+    String firebaseDate = "2023-12-03"; // Aquí obtendrás la fecha de Firebase
+    List<String> dateComponents = firebaseDate.split('-');
+    int year = int.parse(dateComponents[0]);
+    int month = int.parse(dateComponents[1]);
+    int day = int.parse(dateComponents[2]);
+
+    // Usar los componentes de fecha en el SfDateRangePicker
+    _datePickerController.selectedRange =
+        PickerDateRange(DateTime(year, month, day), DateTime(2023, 12, 05));
     super.initState();
   }
 
@@ -28,7 +58,7 @@ class _ColoresCalendarState extends State<ColoresCalendar> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-               appBar: AppBar(
+        appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
@@ -55,20 +85,20 @@ class _ColoresCalendarState extends State<ColoresCalendar> {
           ),
         ),
         body: AbsorbPointer(
-          absorbing: blockGestures, // true para bloquear, false para permitir
+          absorbing: blockGestures,
           child: SfDateRangePicker(
-            view: DateRangePickerView.month,
-            selectionMode: DateRangePickerSelectionMode.multiRange,
-            controller: _datePickerController,
-          ),
+          view: DateRangePickerView.month,
+          selectionMode: DateRangePickerSelectionMode.range,
+          controller: _datePickerController,
+        ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
-              blockGestures = !blockGestures; // Cambia el estado de bloqueo
+              blockGestures = !blockGestures;
             });
           },
-          child: Icon(Icons.block), // Icono para cambiar el bloqueo
+          child: Icon(Icons.block),
         ),
       ),
     );
