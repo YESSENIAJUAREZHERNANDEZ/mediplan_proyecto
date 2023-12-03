@@ -3,13 +3,10 @@ import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/screens/main_screen.dart'; // Import the MainScreen widget
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-tz.initializeTimeZones();
   runApp(MyApp());
 }
 

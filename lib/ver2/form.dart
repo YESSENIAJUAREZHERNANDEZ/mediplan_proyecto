@@ -25,60 +25,75 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
     TextEditingController administracionController = TextEditingController();
 
     void addMedication() {
-      String nombre = nombreController.text.toUpperCase();
-      String descripcion = descripcionController.text;
-      String proposito = propositoController.text;
-      String administracion = administracionController.text;
+  String nombre = nombreController.text.toUpperCase();
+  String descripcion = descripcionController.text;
+  String proposito = propositoController.text;
+  String administracion = administracionController.text;
 
-      if (nombre.isNotEmpty && descripcion.isNotEmpty) {
-        widget.medicationsRef
-            .orderByChild('nombre')
-            .equalTo(nombre)
-            .once()
-            .then((DatabaseEvent event) {
-          DataSnapshot snapshot = event.snapshot;
-          Map<dynamic, dynamic>? values = snapshot.value as Map<dynamic, dynamic>?;
+  if (nombre.isNotEmpty && descripcion.isNotEmpty && _selectedDate != null) {
+    widget.medicationsRef
+        .orderByChild('nombre')
+        .equalTo(nombre)
+        .once()
+        .then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      Map<dynamic, dynamic>? values =
+          snapshot.value as Map<dynamic, dynamic>?;
 
-          if (values != null) {
-            bool exists =
-                values.entries.any((entry) => entry.value['nombre'] == nombre);
-            if (exists) {
-              final snackBar = SnackBar(
-                content: Text('El medicamento ya existe en la base de datos.'),
-                duration: Duration(seconds: 3),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            } else {
-              String id = widget.medicationsRef.push().key ?? '';
-              widget.medicationsRef.child(id).set({
-                'nombre': nombre,
-                'descripcion': descripcion,
-                'proposito': proposito,
-                'administracion': administracion,
-              }).then((_) {
-                Navigator.pop(context);
-              }).catchError((error) {
-                print('Error adding medication: $error');
-              });
-            }
-          } else {
-            String id = widget.medicationsRef.push().key ?? '';
-            widget.medicationsRef.child(id).set({
-              'nombre': nombre,
-              'descripcion': descripcion,
-              'proposito': proposito,
-              'administracion': administracion,
-            }).then((_) {
-              Navigator.pop(context);
-            }).catchError((error) {
-              print('Error adding medication: $error');
-            });
-          }
+      if (values != null) {
+        bool exists = values.entries
+            .any((entry) => entry.value['nombre'] == nombre);
+        if (exists) {
+          final snackBar = SnackBar(
+            content: Text(
+                'El medicamento ya existe en la base de datos.'),
+            duration: Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          String id = widget.medicationsRef.push().key ?? '';
+
+          // Obtener el timestamp de la fecha seleccionada
+          int selectedTimestamp = _selectedDate!.millisecondsSinceEpoch;
+
+          // Guardar los datos en Firebase, incluyendo el timestamp
+          widget.medicationsRef.child(id).set({
+            'nombre': nombre,
+            'descripcion': descripcion,
+            'proposito': proposito,
+            'administracion': administracion,
+            'timestamp': selectedTimestamp, // Agregar timestamp
+          }).then((_) {
+            Navigator.pop(context);
+          }).catchError((error) {
+            print('Error adding medication: $error');
+          });
+        }
+      } else {
+        String id = widget.medicationsRef.push().key ?? '';
+
+        // Obtener el timestamp de la fecha seleccionada
+        int selectedTimestamp = _selectedDate!.millisecondsSinceEpoch;
+
+        // Guardar los datos en Firebase, incluyendo el timestamp
+        widget.medicationsRef.child(id).set({
+          'nombre': nombre,
+          'descripcion': descripcion,
+          'proposito': proposito,
+          'administracion': administracion,
+          'timestamp': selectedTimestamp, // Agregar timestamp
+        }).then((_) {
+          Navigator.pop(context);
         }).catchError((error) {
-          print('Error searching for medication: $error');
+          print('Error adding medication: $error');
         });
       }
-    }
+    }).catchError((error) {
+      print('Error searching for medication: $error');
+    });
+  }
+}
+
 
      Future<void> _selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
@@ -214,9 +229,15 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                   color: Colors.blueGrey,
                 ),
               ),
-              TextField(
+               TextFormField(
+                readOnly: true,
+                onTap: () => _selectDate(context),
+                controller: TextEditingController(
+                  text: _selectedDate != null
+                      ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                      : 'Seleccionar fecha',
+                ),
                 decoration: InputDecoration(
-                  hintText: '04/12/2023',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
