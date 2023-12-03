@@ -13,8 +13,8 @@ import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'package:flutter_application_1/screens/terminos.dart';
 import 'package:flutter_application_1/ver2/editarmedicamento.dart';
+import 'package:flutter_application_1/ver2/eventoos.dart';
 import 'package:flutter_application_1/ver2/form.dart';
-import 'package:flutter_application_1/ver2/recordatorio.dart';
 import 'package:flutter_application_1/ver2/rem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -370,7 +370,7 @@ Widget _forYou(context) {
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
              Navigator.push( context,
-                 MaterialPageRoute(builder: (context) => CalendarScreen()),
+                 MaterialPageRoute(builder: (context) => ColoresCalendar()),
                );
              
             },

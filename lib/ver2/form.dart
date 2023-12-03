@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class AddMedicationScreen extends StatelessWidget {
+class AddMedicationScreen extends StatefulWidget {
   final DatabaseReference medicationsRef;
 
   AddMedicationScreen({required this.medicationsRef});
+
+  @override
+  _AddMedicationScreenState createState() => _AddMedicationScreenState();
+}
+
+
+class _AddMedicationScreenState extends State<AddMedicationScreen> {
   String dropdownValue = 'ml / Jarabe';
+  DateTime? _selectedDate;
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,58 +25,74 @@ class AddMedicationScreen extends StatelessWidget {
     TextEditingController administracionController = TextEditingController();
 
     void addMedication() {
-  String nombre = nombreController.text;
-  String descripcion = descripcionController.text;
-  String proposito = propositoController.text;
-  String administracion = administracionController.text;
+      String nombre = nombreController.text.toUpperCase();
+      String descripcion = descripcionController.text;
+      String proposito = propositoController.text;
+      String administracion = administracionController.text;
 
-  if (nombre.isNotEmpty && descripcion.isNotEmpty) {
-    medicationsRef.orderByChild('nombre').equalTo(nombre).once().then((DatabaseEvent event) {
-      // Acceder a los datos desde el evento
-      DataSnapshot snapshot = event.snapshot;
-      
-      Map<dynamic, dynamic>? values = snapshot.value as Map<dynamic, dynamic>?;
+      if (nombre.isNotEmpty && descripcion.isNotEmpty) {
+        widget.medicationsRef
+            .orderByChild('nombre')
+            .equalTo(nombre)
+            .once()
+            .then((DatabaseEvent event) {
+          DataSnapshot snapshot = event.snapshot;
+          Map<dynamic, dynamic>? values = snapshot.value as Map<dynamic, dynamic>?;
 
-      if (values != null) {
-        bool exists = values.entries.any((entry) => entry.value['nombre'] == nombre);
-        if (exists) {
-        final snackBar = SnackBar(
-          content: Text('El medicamento ya existe en la base de datos.'),
-          duration: Duration(seconds: 3), // Duración del SnackBar
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } else {
-          String id = medicationsRef.push().key ?? '';
-          medicationsRef.child(id).set({
-            'nombre': nombre,
-            'descripcion': descripcion,
-            'proposito': proposito,
-            'administracion': administracion,
-          }).then((_) {
-            Navigator.pop(context);
-          }).catchError((error) {
-            print('Error adding medication: $error');
-          });
-        }
-      } else {
-        String id = medicationsRef.push().key ?? '';
-        medicationsRef.child(id).set({
-          'nombre': nombre,
-          'descripcion': descripcion,
-          'proposito': proposito,
-          'administracion': administracion,
-        }).then((_) {
-          Navigator.pop(context);
+          if (values != null) {
+            bool exists =
+                values.entries.any((entry) => entry.value['nombre'] == nombre);
+            if (exists) {
+              final snackBar = SnackBar(
+                content: Text('El medicamento ya existe en la base de datos.'),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else {
+              String id = widget.medicationsRef.push().key ?? '';
+              widget.medicationsRef.child(id).set({
+                'nombre': nombre,
+                'descripcion': descripcion,
+                'proposito': proposito,
+                'administracion': administracion,
+              }).then((_) {
+                Navigator.pop(context);
+              }).catchError((error) {
+                print('Error adding medication: $error');
+              });
+            }
+          } else {
+            String id = widget.medicationsRef.push().key ?? '';
+            widget.medicationsRef.child(id).set({
+              'nombre': nombre,
+              'descripcion': descripcion,
+              'proposito': proposito,
+              'administracion': administracion,
+            }).then((_) {
+              Navigator.pop(context);
+            }).catchError((error) {
+              print('Error adding medication: $error');
+            });
+          }
         }).catchError((error) {
-          print('Error adding medication: $error');
+          print('Error searching for medication: $error');
         });
       }
-    }).catchError((error) {
-      print('Error searching for medication: $error');
-    });
-  }
-}
+    }
 
+     Future<void> _selectDate(BuildContext context) async {
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: _selectedDate ?? DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
+      );
+      if (picked != null && picked != _selectedDate) {
+        setState(() {
+          _selectedDate = picked;
+        });
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -113,7 +139,7 @@ class AddMedicationScreen extends StatelessWidget {
               ),
               SizedBox(height: 25),
               Text(
-                'Nombre del medicamento:',
+                'Nombre del medicamento (en Mayusculas):',
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.blueGrey,
@@ -121,11 +147,15 @@ class AddMedicationScreen extends StatelessWidget {
               ),
               TextField(
                 controller: nombreController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^[A-Z ]+')),
+                ],
                 decoration: InputDecoration(
                   hintText: 'Paracetamol, Nolotil, etc',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
+                   prefixIcon: Icon(Icons.medication),
                 ),
               ),
               SizedBox(height: 20),
@@ -136,7 +166,6 @@ class AddMedicationScreen extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               ),
-              SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -144,10 +173,11 @@ class AddMedicationScreen extends StatelessWidget {
                       controller: descripcionController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintText: 'Dosis/cantidad',
+                        hintText: 'Cantidad',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
+                        prefixIcon: Icon(Icons.medication_liquid_rounded),
                       ),
                     ),
                   ),
@@ -156,15 +186,17 @@ class AddMedicationScreen extends StatelessWidget {
                     value: dropdownValue,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        dropdownValue = newValue;
+                        setState(() {
+                          dropdownValue = newValue;
+                        });
                       }
                     },
                     items: <String>[
                       'ml / Jarabe',
                       'Gotas',
                       'Pastillas',
-                      'mg',
-                      'unidad/ inyecciones'
+                      'unidad/mg',
+                      'inyecciones'
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -173,6 +205,40 @@ class AddMedicationScreen extends StatelessWidget {
                     }).toList(),
                   ),
                 ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Día de inicio de tratamiento:',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.blueGrey,
+                ),
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: '04/12/2023',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  prefixIcon: Icon(Icons.calendar_today_rounded),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Duración del tratamiento (en días):',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.blueGrey,
+                ),
+              ),
+              TextField(
+                controller: administracionController,
+                decoration: InputDecoration(
+                  hintText: 'vía oral, vía intravenosa, etc',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
               ),
               SizedBox(height: 20),
               Text(
@@ -189,29 +255,12 @@ class AddMedicationScreen extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
+                  prefixIcon: Icon(Icons.medical_information),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
-                'Vía de administración:',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.blueGrey,
-                ),
-              ),
-              TextField(
-                controller: administracionController,
-                decoration: InputDecoration(
-                  hintText: 'vía oral, vía intravenosa, etc',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
+
               SizedBox(height: 16),
-              
               ElevatedButton(
-                
                 onPressed: addMedication,
                 child: Text(
                   'AGREGAR',
