@@ -4,6 +4,8 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
+
 class Medication {
   final String id; 
   final String nombre; // Por si acaso
@@ -19,6 +21,7 @@ class Medication {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await Firebase.initializeApp();
   runApp(ColoresCalendar());
 }

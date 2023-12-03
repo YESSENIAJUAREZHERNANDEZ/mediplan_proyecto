@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:timezone/data/latest.dart' as tz;
+import 'ver2/services/noti_service.dart';
+
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/screens/main_screen.dart'; // Import the MainScreen widget
@@ -6,11 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
+  tz.initializeTimeZones();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
   @override
   _MyAppState createState() => _MyAppState();
 }

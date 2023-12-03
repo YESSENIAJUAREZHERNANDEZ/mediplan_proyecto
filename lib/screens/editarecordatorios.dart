@@ -4,9 +4,11 @@ import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
+    tz.initializeTimeZones();
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();

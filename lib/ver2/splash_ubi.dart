@@ -1,24 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/ver2/form.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
-//NOTIFICACIÓN
-import 'package:timezone/data/latest.dart' as tz;
-import 'services/noti_service.dart';
+import 'package:flutter_application_1/ver2/eventoos.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  //seokjin day
-  NotificationService().initNotification();
-  tz.initializeTimeZones();
-  //   tz.initializeTimeZones(); 
-  runApp(splashmedicamentos());
-}
-
-
-class splashmedicamentos extends StatelessWidget {
-  const splashmedicamentos({super.key});
+class splashubi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,10 +16,6 @@ class splashmedicamentos extends StatelessWidget {
 }
 
 class SplashScreen extends StatelessWidget {
-
-  DatabaseReference _medicationsRef =
-      FirebaseDatabase.instance.reference().child('medications');
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +53,7 @@ class SplashScreen extends StatelessWidget {
             
             SizedBox(height: 20),
             Image.asset(
-          'assets/imagenes/futa.png', // Reemplaza con la ruta de la imagen que deseas usar
+          'assets/imagenes/cha.png', // Reemplaza con la ruta de la imagen que deseas usar
           width: 150,
               height: 150,
         ),
@@ -89,7 +68,7 @@ class SplashScreen extends StatelessWidget {
             ),
             SizedBox(height: 7),
             Text(
-              'Organice el tratamiento',
+              'Mantenga un registro',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -98,7 +77,7 @@ class SplashScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'De todos los medicamentos que toma',
+              'Como reporte de su tratamiento mensual',
               style: TextStyle(
                 fontSize: 17,
                 color: Colors.black87,
@@ -110,7 +89,7 @@ class SplashScreen extends StatelessWidget {
                 // Navegar a la segunda pantalla
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddMedicationScreen(medicationsRef: _medicationsRef)),
+                  MaterialPageRoute(builder: (context) => ColoresCalendar()),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -129,25 +108,6 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Segunda Pantalla'),
-      ),
-      body: Center(
-        child: Text(
-          'Esta es la segunda pantalla',
-          style: TextStyle(
-            fontSize: 24,
-          ),
         ),
       ),
     );

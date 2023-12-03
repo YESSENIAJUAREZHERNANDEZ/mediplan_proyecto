@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 class Medication {
   final String nombre;
@@ -14,6 +15,7 @@ class Medication {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await Firebase.initializeApp();
   runApp(MedicationsApp());
 }

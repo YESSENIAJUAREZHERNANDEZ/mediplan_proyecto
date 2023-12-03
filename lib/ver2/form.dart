@@ -3,6 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart'; 
 
+//Notificación
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+import 'services/noti_service.dart';
+
+DateTime scheduleTime = DateTime.now();
+
 class AddMedicationScreen extends StatefulWidget {
   final DatabaseReference medicationsRef;
 
@@ -16,7 +22,7 @@ class AddMedicationScreen extends StatefulWidget {
 class _AddMedicationScreenState extends State<AddMedicationScreen> {
   String dropdownValue = 'ml / Jarabe';
   DateTime? _selectedDate;
-
+  late String medicationId; 
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +100,6 @@ void addMedication() {
 }
 
 
-
      Future<void> _selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
         context: context,
@@ -146,7 +151,7 @@ void addMedication() {
                 child: Text(
                   'Nuevo medicamento',
                   style: TextStyle(
-                    fontSize: 22.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -154,7 +159,7 @@ void addMedication() {
               ),
               SizedBox(height: 25),
               Text(
-                'Nombre del medicamento (en Mayusculas):',
+                'Nombre medicamento (en Mayusculas):',
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.blueGrey,
@@ -260,10 +265,31 @@ void addMedication() {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  prefixIcon: Icon(Icons.access_time_filled),
+                  prefixIcon: Icon(Icons.calendar_month),
                 ),
               ),
               SizedBox(height: 20),
+              Text(
+                'Establecer recordatorio:',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.blueGrey,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Ajusta el espaciado entre los elementos
+                children: [
+                  Flexible(
+                    flex: 4, // Puedes ajustar este valor para dar más ancho al DatePickerTxt
+                    child: DatePickerTxt(),
+                  ), // Espacio entre los elementos (puedes ajustarlo)
+                  Flexible(
+                    flex: 3, // Puedes ajustar este valor para dar más ancho al botón
+                    child: ScheduleBtn(),
+                  ),
+                ],
+              ),
+            SizedBox(height: 20),
               Text(
                 'Propósito del medicamento:',
                 style: TextStyle(
@@ -281,7 +307,7 @@ void addMedication() {
                   prefixIcon: Icon(Icons.medical_information),
                 ),
               ),
-
+      
               SizedBox(height: 16),
               ElevatedButton(
                 onPressed: addMedication,
@@ -304,6 +330,79 @@ void addMedication() {
           ),
         ),
       ),
+    );
+  } 
+}
+
+
+class DatePickerTxt extends StatefulWidget {
+  const DatePickerTxt({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<DatePickerTxt> createState() => _DatePickerTxtState();
+}
+
+class _DatePickerTxtState extends State<DatePickerTxt> {
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+  onPressed: () {
+    DatePicker.showDateTimePicker(
+      context,
+      showTitleActions: true,
+      onChanged: (date) => scheduleTime = date,
+      onConfirm: (date) {},
+    );
+  },
+  style: ButtonStyle(
+    side: MaterialStateProperty.all(BorderSide(color: Colors.grey)), // Cambia el color del borde
+    // Otros atributos de estilo que desees modificar
+  ),
+  child: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(Icons.access_time, color: Colors.blueGrey,), // Icono que deseas agregar
+      const SizedBox(width: 8), // Espacio entre el icono y el texto
+      Text(
+        'Selecionar horario',
+        style: TextStyle(fontSize: 16.0, color: Colors.blueGrey),
+      ),
+    ],
+  ),
+);
+
+  }
+}
+
+class ScheduleBtn extends StatelessWidget {
+  const ScheduleBtn({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton.icon(
+        icon: Icon(Icons.notifications), // Icono que deseas agregar
+        label: Text('Guardar ',
+        style: TextStyle(fontSize: 16.0,)),
+        onPressed: () {
+          debugPrint('Notification Scheduled for $scheduleTime');
+          NotificationService().scheduleNotification(
+            title: 'Toma de medicamento ',
+            body: 'Establecida para: $scheduleTime',
+            scheduledNotificationDateTime: scheduleTime,
+          );
+        },
+        style: ElevatedButton.styleFrom(
+         primary: Color.fromARGB(255, 118, 187, 146),
+        ),
+      ),
+      ],
     );
   }
 }

@@ -124,7 +124,7 @@ class _CameraScreenState extends State<CameraScreen> {
   child: Text(
     'Reconocer medicamento',
     style: TextStyle(
-      fontSize: 20.0,
+      fontSize: 23.0,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),

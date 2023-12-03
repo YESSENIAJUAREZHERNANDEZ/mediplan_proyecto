@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/text/home_page.dart';
 
-void main() => runApp(const Plan());
+import 'package:timezone/data/latest.dart' as tz;
+
+void main() async{
+  tz.initializeTimeZones();
+  (const Plan());
+}
 
 class Plan extends StatelessWidget {
   const Plan({super.key});

@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/oIoGET/app/bindings/home_bindings.dart';
-import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
 import 'package:flutter_application_1/screens/ayuda.dart';
 import 'package:flutter_application_1/screens/camara.dart';
-import 'package:flutter_application_1/screens/dispositivos.dart';
-import 'package:flutter_application_1/screens/editarecordatorios.dart';
-import 'package:flutter_application_1/screens/editarmedicamento.dart';
 import 'package:flutter_application_1/screens/formulario2.dart';
 import 'package:flutter_application_1/screens/seguimiento.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
-import 'package:flutter_application_1/screens/splash_screen.dart';
 import 'package:flutter_application_1/screens/terminos.dart';
 import 'package:flutter_application_1/ver2/editarmedicamento.dart';
 import 'package:flutter_application_1/ver2/eventoos.dart';
-import 'package:flutter_application_1/ver2/form.dart';
-import 'package:flutter_application_1/ver2/rem.dart';
 import 'package:flutter_application_1/ver2/splash_calendario.dart';
 import 'package:flutter_application_1/ver2/splash_medicamentos.dart';
+import 'package:flutter_application_1/ver2/splash_ubi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
+import '/ver2/services/noti_service.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //seokjin day
+  NotificationService().initNotification();
+  tz.initializeTimeZones();
+  //   tz.initializeTimeZones(); 
+  runApp(MainScreen());
+}
 
 class MainScreen extends StatelessWidget{
    void _signOut(BuildContext context) async {
@@ -39,7 +43,7 @@ class MainScreen extends StatelessWidget{
       automaticallyImplyLeading: false,
   elevation: 0,
   //backgroundColor: Color.fromARGB(255, 52, 65, 97),
-  backgroundColor: Color.fromARGB(255, 94, 81, 233),
+  backgroundColor: Color.fromARGB(255, 78, 157, 196),
   title: Row(
     
   ),
@@ -219,7 +223,7 @@ Widget _textsHeader(BuildContext context) {
       Container(
         width: MediaQuery.of(context).size.width, // Ancho de la pantalla
         child: Image.asset(
-          'assets/imagenes/encabezado.jpg', // Reemplaza con la ruta de la imagen que deseas usar
+          'assets/imagenes/encabezado2.jpg', // Reemplaza con la ruta de la imagen que deseas usar
           fit: BoxFit.cover,
         ),
         
@@ -239,7 +243,7 @@ Widget _forYou(context) {
       Padding(
         padding: const EdgeInsets.only(left: 16.0), // Añadido padding izquierdo
         child: Text(
-          'Categorias',
+          'Sus opciones:',
           style: TextStyle(
             fontSize: 23.0,
             fontWeight: FontWeight.w600,
@@ -267,7 +271,7 @@ Widget _forYou(context) {
              );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 52, 65, 97), // Color de fondo
+              primary: Color.fromARGB(255, 121, 83, 133), // Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
@@ -300,7 +304,7 @@ Widget _forYou(context) {
                );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 123, 59, 51), // Color de fondo
+              primary: Color.fromARGB(255, 52, 65, 97), // Color de fondo    Color.fromARGB(255, 123, 59, 51)
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -373,12 +377,12 @@ Widget _forYou(context) {
             onPressed: () {
               // Acción cuando se presiona el cuarto botón
              Navigator.push( context,
-                 MaterialPageRoute(builder: (context) => ColoresCalendar()),
+                 MaterialPageRoute(builder: (context) => splashubi()),
                );
              
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 207, 175, 115) ,// Color de fondo
+              primary: Color.fromARGB(255, 86, 175, 113) ,// Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),

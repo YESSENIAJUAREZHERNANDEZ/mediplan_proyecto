@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 void main() {
+   tz.initializeTimeZones();
   runApp(CalendarScreen());
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-
+import 'package:timezone/data/latest.dart' as tz;
 // Define la clase Medication para los medicamentos
 class Medication {
   final String nombre;
@@ -27,6 +27,7 @@ class Reminders {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+    tz.initializeTimeZones();
   await Firebase.initializeApp();
   runApp(Remi());
 }

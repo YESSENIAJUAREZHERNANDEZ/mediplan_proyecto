@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
+
 // don't forget this line
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
+   tz.initializeTimeZones();
   runApp(const Terminos());
 }
 

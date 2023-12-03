@@ -5,18 +5,6 @@ import 'package:flutter_application_1/screens/main_screen.dart'; // Importa la p
 import 'package:firebase_auth/firebase_auth.dart'; // Importa FirebaseAuth
 import 'package:shared_preferences/shared_preferences.dart'; // Importa SharedPreferences
 
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Splashdos(),
-    );
-  }
-}
-
 class Splashdos extends StatelessWidget {
 
   

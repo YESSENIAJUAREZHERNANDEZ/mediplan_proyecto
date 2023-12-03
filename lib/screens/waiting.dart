@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Waiting());
 
 class Waiting extends StatelessWidget {
   @override

@@ -5,6 +5,7 @@ import 'package:flutter_application_1/screens/loginapp.dart';
 import 'package:flutter_application_1/screens/splash_dos.dart';
 import 'package:flutter_application_1/ver2/form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 class Medication {
   final String id; // Nuevo campo para almacenar el ID único
@@ -25,6 +26,7 @@ class Medication {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await Firebase.initializeApp();
   runApp(MedicationsNew());
 }
@@ -207,7 +209,7 @@ void editMedication(BuildContext context, Medication medication) {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 78, 157, 196),
+                      primary: Color.fromARGB(255, 39, 71, 87),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
