@@ -1,4 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/ver2/form.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(splashmedicamentos());
+}
+
 
 class splashmedicamentos extends StatelessWidget {
   @override
@@ -15,6 +26,10 @@ class splashmedicamentos extends StatelessWidget {
 }
 
 class SplashScreen extends StatelessWidget {
+
+  DatabaseReference _medicationsRef =
+      FirebaseDatabase.instance.reference().child('medications');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +77,7 @@ class SplashScreen extends StatelessWidget {
                 // Navegar a la segunda pantalla
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SecondScreen()),
+                  MaterialPageRoute(builder: (context) => AddMedicationScreen(medicationsRef: _medicationsRef)),
                 );
               },
               style: ElevatedButton.styleFrom(
