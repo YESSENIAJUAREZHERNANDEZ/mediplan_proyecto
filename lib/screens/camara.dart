@@ -156,25 +156,28 @@ class _CameraScreenState extends State<CameraScreen> {
           width: 170, // Ancho deseado de la imagen
           height: 150, // Alto deseado de la imagen
         ),
-        SizedBox(height: 20), // Espacio entre la imagen y el botón
+        SizedBox(height: 30), // Espacio entre la imagen y el botón
         ElevatedButton(
           onPressed:(){
             Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Plan()),
-    );
-          },
-          style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 78, 157, 196), // Color de fondo
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // Radio de esquinas redondeadas
-                      ),
-                      minimumSize: Size(double.minPositive, 45),
-                    ),
-          child: Text(
-            'Iniciar escaneo',
-            style: TextStyle(fontSize: 18), // Cambiar el tamaño de fuente del botón
-          ),
+              context,
+              MaterialPageRoute(builder: (context) => Plan()),
+            );
+            },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                primary: const Color.fromARGB(255, 78, 157, 196),
+              ),
+              child: Text(
+                'Empezar',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white, // Asegúrate de establecer el color del texto explícitamente
+                ),
+              ),
         ),
         SizedBox(height: 20),
       ],

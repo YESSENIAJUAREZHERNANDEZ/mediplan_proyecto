@@ -40,6 +40,7 @@ class MainScreen extends StatelessWidget{
   elevation: 0,
   backgroundColor: Color.fromARGB(255, 52, 65, 97),
   title: Row(
+    
   ),
 ),
   endDrawer: Drawer(
