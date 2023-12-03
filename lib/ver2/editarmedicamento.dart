@@ -201,7 +201,7 @@ void editMedication(BuildContext context, Medication medication) {
                     onPressed: () => addMedication(context),
                     child: Text(
                       'Agregar medicamento',
-                      style: TextStyle(
+                      style: TextStyle( 
                         fontSize: 15,
                         color: Colors.white,
                       ),
