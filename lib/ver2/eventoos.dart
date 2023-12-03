@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ColoresCalendar extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _ColoresCalendarState createState() => _ColoresCalendarState();
 }
-class _MyAppState extends State<ColoresCalendar> {
-  DateRangePickerController _datePickerController = DateRangePickerController();
 
-   @override
+class _ColoresCalendarState extends State<ColoresCalendar> {
+  DateRangePickerController _datePickerController =
+      DateRangePickerController();
+
+  bool blockGestures = true; // Variable para controlar el bloqueo de gestos
+
+  @override
   initState() {
-    _datePickerController.selectedRange =
-        PickerDateRange(DateTime(2023, 12, 01), DateTime(2023, 12, 05));
+    _datePickerController.selectedRanges = <PickerDateRange>[
+      PickerDateRange(
+          DateTime(2023, 12, 01).subtract(Duration(days: 4)),
+          DateTime.now().add(Duration(days: 4))),
+      PickerDateRange(DateTime.now().add(Duration(days: 11)),
+          DateTime.now().add(Duration(days: 16)))
+    ];
     super.initState();
   }
 
@@ -24,13 +31,21 @@ class _MyAppState extends State<ColoresCalendar> {
         appBar: AppBar(
           title: Text('DateRangePicker Demo'),
         ),
-        body: SfDateRangePicker(
-          view: DateRangePickerView.month,
-          selectionMode: DateRangePickerSelectionMode.range,
-          controller: _datePickerController,
-          startRangeSelectionColor: Colors.green,
-          endRangeSelectionColor: Colors.red,
-          rangeSelectionColor: Color.fromARGB(255, 157, 185, 228),
+        body: AbsorbPointer(
+          absorbing: blockGestures, // true para bloquear, false para permitir
+          child: SfDateRangePicker(
+            view: DateRangePickerView.month,
+            selectionMode: DateRangePickerSelectionMode.multiRange,
+            controller: _datePickerController,
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              blockGestures = !blockGestures; // Cambia el estado de bloqueo
+            });
+          },
+          child: Icon(Icons.block), // Icono para cambiar el bloqueo
         ),
       ),
     );
