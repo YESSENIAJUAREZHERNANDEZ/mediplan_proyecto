@@ -22,7 +22,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 223, 238, 248), // Fondo azul
+      backgroundColor: Color.fromARGB(255, 244, 244, 254), // Fondo azul
     appBar: AppBar(
   elevation: 0,
   backgroundColor: Colors.transparent,

@@ -147,7 +147,7 @@ void editMedication(BuildContext context, Medication medication) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 223, 238, 248),
+       backgroundColor: Color.fromARGB(255, 244, 244, 254),
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -257,14 +257,14 @@ void editMedication(BuildContext context, Medication medication) {
                               },
                             );
                           },
-                          child: Icon(Icons.medical_services, color: Colors.green),
+                          child: Icon(Icons.medication, color: Colors.green),
                         ),
                         title: Text('${medication[index].nombre}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Propósito: ${medication[index].proposito}'),
-                            Text('Vía de Administración: ${medication[index].administracion}'),
+                            Text('Duración de tratamiento: ${medication[index].administracion} días'),
                           ],
                         ),
                       ),

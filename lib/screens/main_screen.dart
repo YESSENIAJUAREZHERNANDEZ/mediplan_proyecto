@@ -16,6 +16,8 @@ import 'package:flutter_application_1/ver2/editarmedicamento.dart';
 import 'package:flutter_application_1/ver2/eventoos.dart';
 import 'package:flutter_application_1/ver2/form.dart';
 import 'package:flutter_application_1/ver2/rem.dart';
+import 'package:flutter_application_1/ver2/splash_calendario.dart';
+import 'package:flutter_application_1/ver2/splash_medicamentos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -293,7 +295,7 @@ Widget _forYou(context) {
             onPressed: () {
               // Acción cuando se presiona el segundo botón
             Navigator.push( context,
-                  MaterialPageRoute(builder: (context) => MedicationsNew()),
+                  MaterialPageRoute(builder: (context) => splashmedicamentos()),
                );
             },
             style: ElevatedButton.styleFrom(
@@ -334,7 +336,7 @@ Widget _forYou(context) {
             onPressed: () {
               //Get.toNamed(Routes.HOME);   " or "Get.lazyPut(()=>HomeController())
                Navigator.push( context,
-                MaterialPageRoute(builder: (context) => HomeView()),
+                MaterialPageRoute(builder: (context) => splashcalendario()),
              );
             },
             style: ElevatedButton.styleFrom(

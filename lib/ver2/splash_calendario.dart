@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/muppet/mediform.dart';
+import 'package:flutter_application_1/oIoGET/app/views/home_screen.dart';
 
-class splashmedicamentos extends StatelessWidget {
+class splashcalendario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +27,7 @@ class SplashScreen extends StatelessWidget {
             
             SizedBox(height: 20),
             Image.asset(
-          'assets/imagenes/futa.png', // Reemplaza con la ruta de la imagen que deseas usar
+          'assets/imagenes/mono.png', // Reemplaza con la ruta de la imagen que deseas usar
           width: 150,
               height: 150,
         ),
@@ -42,7 +42,7 @@ class SplashScreen extends StatelessWidget {
             ),
             SizedBox(height: 7),
             Text(
-              'Organice el tratamiento',
+              'Conozca su ubicación',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class SplashScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'De todos los medicamentos que toma',
+              'Comience a compartir su ubicación actual.',
               style: TextStyle(
                 fontSize: 17,
                 color: Colors.black87,
@@ -63,7 +63,7 @@ class SplashScreen extends StatelessWidget {
                 // Navegar a la segunda pantalla
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddMedicationScreen()),
+                  MaterialPageRoute(builder: (context) => HomeView()),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -82,25 +82,6 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Segunda Pantalla'),
-      ),
-      body: Center(
-        child: Text(
-          'Esta es la segunda pantalla',
-          style: TextStyle(
-            fontSize: 24,
-          ),
         ),
       ),
     );
