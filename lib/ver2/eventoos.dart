@@ -9,6 +9,16 @@ void main() async {
   runApp(ColoresCalendar());
 }
 
+class Medication {
+  final String id;
+  final String nombre;
+  final String administracion;
+  final String fecha;
+  final String proposito;
+
+  Medication(this.id, this.nombre, this.administracion, this.fecha, this.proposito);
+}
+
 class ColoresCalendar extends StatefulWidget {
   @override
   _ColoresCalendarState createState() => _ColoresCalendarState();
@@ -17,69 +27,81 @@ class ColoresCalendar extends StatefulWidget {
 class _ColoresCalendarState extends State<ColoresCalendar> {
   DateRangePickerController _datePickerController = DateRangePickerController();
   bool blockGestures = true;
-  late String fechaFromFirebase = ''; // Variable para almacenar el campo 'fecha'
-  int year = 0; // Variable para almacenar el año
-  int month = 0; // Variable para almacenar el mes
-  int day = 0; // Variable para almacenar el día
+  late List<Medication> medications = [];
+  late Medication selectedMedication = Medication('', '', '', '', ''); // Valores predeterminados vacíos
 
-  DatabaseReference _medicationsRef =
-      FirebaseDatabase.instance.reference().child('medications');
+  late DatabaseReference _medicationsRef;
 
   @override
   void initState() {
     super.initState();
-    // Inicializa la variable fechaFromFirebase
-    _loadFechaFromFirebase();
+    _medicationsRef = FirebaseDatabase.instance.reference().child('medications');
+    _loadMedicationsFromFirebase();
   }
 
-  void _loadFechaFromFirebase() {
-  _medicationsRef.child('-NkmImnJ4u_sUxFN_jUc').child('administracion').onValue.listen((event) {
-    if (event.snapshot.value != null) {
-      int daysToAdd = int.parse(event.snapshot.value.toString());
-
-      _medicationsRef.child('-NkmImnJ4u_sUxFN_jUc').child('fecha').onValue.listen((eventFecha) {
-        if (eventFecha.snapshot.value != null) {
+Future<void> _loadMedicationsFromFirebase() async {
+  try {
+    DataSnapshot snapshot = await _medicationsRef.once().then((event) => event.snapshot);
+    if (snapshot.value != null) {
+      Map<dynamic, dynamic>? values = snapshot.value as Map<dynamic, dynamic>?; // Uso de as para realizar un cast
+      if (values != null) {
+        values.forEach((key, value) {
+          medications.add(
+            Medication(
+              key,
+              value['nombre'],
+              value['administracion'],
+              value['fecha'],
+              value['proposito'],
+            ),
+          );
+        });
+        if (medications.isNotEmpty) {
           setState(() {
-            String fechaFromFirebase = eventFecha.snapshot.value.toString();
-
-            // Convierte la cadena de fecha en un objeto DateTime
-            DateTime dateTime = DateTime.parse(fechaFromFirebase);
-            // Obtén el año, mes y día del objeto DateTime
-            int year = dateTime.year;
-            int month = dateTime.month;
-            int day = dateTime.day;
-
-            // Suma los días obtenidos del campo 'administracion' al día
-            DateTime newDate = dateTime.add(Duration(days: daysToAdd));
-
-            // Almacena la nueva fecha en nuevas variables year, month y day
-            int newYear = newDate.year;
-            int newMonth = newDate.month;
-            int newDay = newDate.day;
-
-            // Actualiza el rango de fecha en el SfDateRangePicker con la nueva fecha
-             _datePickerController.selectedRange =
-              PickerDateRange(DateTime(year, month, day), DateTime(newYear, newMonth, newDay));
+            selectedMedication = medications[0];
+            _loadFechaFromFirebase(selectedMedication);
           });
         }
-      }, onError: (Object? error) {
-        // Manejar cualquier error que pueda ocurrir al obtener el campo 'fecha' desde Firebase
-        print('Error al obtener el campo fecha desde Firebase: $error');
-      });
+      }
     }
-  }, onError: (Object? error) {
-    // Manejar cualquier error que pueda ocurrir al obtener el campo 'administracion' desde Firebase
-    print('Error al obtener el campo administracion desde Firebase: $error');
-  });
+  } catch (error) {
+    print('Error al obtener medicamentos: $error');
+  }
 }
+
+
+  Future<void> _loadFechaFromFirebase(Medication medication) async {
+    try {
+      int daysToAdd = int.parse(medication.administracion);
+
+      DateTime dateTime = DateTime.parse(medication.fecha);
+      int year = dateTime.year;
+      int month = dateTime.month;
+      int day = dateTime.day;
+
+      DateTime newDate = dateTime.add(Duration(days: daysToAdd));
+      int newYear = newDate.year;
+      int newMonth = newDate.month;
+      int newDay = newDate.day;
+
+      setState(() {
+        _datePickerController.selectedRange = PickerDateRange(
+          DateTime(year, month, day),
+          DateTime(newYear, newMonth, newDay)
+        );
+      });
+    } catch (error) {
+      print('Error al cargar fecha del medicamento: $error');
+    }
+  }
 
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
+         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
@@ -109,34 +131,43 @@ class _ColoresCalendarState extends State<ColoresCalendar> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Muestra el valor del campo 'fecha' obtenido desde Firebase y separado en año, mes y día
-            //Text('Fecha desde Firebase: $fechaFromFirebase'),
             Text(
-            'Medicación del mes',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 0, 0, 0),
-            ),
-          ),
-          SizedBox(height: 5),
-          Text('Calendario de tratamiento'),
-            SizedBox(height: 20),
-            //Text('Año: $year, Mes: $month, Día: $day'),
-            // Muestra el SfDateRangePicker debajo de los textos anteriores
-            Expanded(
-              child: AbsorbPointer(
-                absorbing: blockGestures, // Controla la absorción de gestos
-                child: SfDateRangePicker(
-                view: DateRangePickerView.month,
-                selectionMode: DateRangePickerSelectionMode.range,
-                selectionShape: DateRangePickerSelectionShape.rectangle,
-                rangeSelectionColor: Colors.lightGreen,
-                endRangeSelectionColor: Colors.transparent,
-                selectionTextStyle: const TextStyle(color: Colors.black),
-                controller: _datePickerController,
+              'Medicación del mes',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
+             SizedBox(height: 16),
+            DropdownButton<Medication>(
+              value: selectedMedication,
+              onChanged: (Medication? newValue) {
+                setState(() {
+                  selectedMedication = newValue!;
+                  _loadFechaFromFirebase(selectedMedication);
+                });
+              },
+              items: medications.map<DropdownMenuItem<Medication>>((Medication medication) {
+                return DropdownMenuItem<Medication>(
+                  value: medication,
+                  child: Text(medication.nombre),
+                );
+              }).toList(),
+            ),
+            Expanded(
+              child: AbsorbPointer(
+                absorbing: blockGestures,
+                child: SfDateRangePicker(
+                  view: DateRangePickerView.month,
+                  selectionMode: DateRangePickerSelectionMode.range,
+                  selectionShape: DateRangePickerSelectionShape.rectangle,
+                  startRangeSelectionColor: Color.fromARGB(255, 78, 157, 196),
+                  rangeSelectionColor: Color.fromARGB(255, 188, 176, 230),
+                  endRangeSelectionColor: Colors.transparent,
+                  selectionTextStyle: const TextStyle(color: Colors.black),
+                  controller: _datePickerController,
+                ),
+              ),
             ),
             SizedBox(height: 100),
           ],
@@ -147,11 +178,11 @@ class _ColoresCalendarState extends State<ColoresCalendar> {
               blockGestures = !blockGestures;
             });
           },
-          backgroundColor: Colors.transparent, // Cambiar el color de fondo a blanco
+          backgroundColor: Colors.transparent,
           foregroundColor: Colors.transparent,
           elevation: 0.0,
-          highlightElevation: 0.0, // Eliminar la elevación al presionar
-          splashColor: Colors.transparent, // Establecer el color de resaltado a transparente
+          highlightElevation: 0.0,
+          splashColor: Colors.transparent,
           child: Icon(Icons.block),
         ),
       ),
