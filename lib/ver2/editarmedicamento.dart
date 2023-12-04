@@ -111,38 +111,40 @@ void editMedication(BuildContext context, Medication medication) {
 }
 
 
-  void deleteMedication(BuildContext context, String key, medicationsRef) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Eliminar medicamento'),
-          content: Text('¿Seguro que quiere eliminar este medicamento?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el diálogo
-              },
-              child: Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                medicationsRef.child(key).remove().then(() {
-                  setState(() {
-                    medication.removeWhere((element) => element.nombre == key);
-                    Navigator.of(context).pop(); // Cerrar el diálogo después de eliminar
-                  });
-                }).catchError((error) {
-                  print('Error removing medication: $error');
+void deleteMedication(BuildContext context, String key, medicationsRef) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Eliminar medicamento'),
+        content: Text('¿Seguro que quiere eliminar este medicamento?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Cerrar el diálogo
+            },
+            child: Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              medicationsRef.child(key).remove().then((_) {
+                setState(() {
+                  medication.removeWhere((element) => element.id == key); // Usar el ID para eliminar de la lista local
+                  Navigator.of(context).pop(); // Cerrar el diálogo después de eliminar
                 });
-              },
-              child: Text('Eliminar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+              }).catchError((error) {
+                print('Error removing medication: $error');
+              });
+            },
+            child: Text('Eliminar'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +225,7 @@ void editMedication(BuildContext context, Medication medication) {
               child: ListView.builder(
                 itemCount: medication.length,
                 itemBuilder: (context, index) {
-                  String key = medication[index].nombre;
+                  String key = medication[index].id; // Utilizar la clave única (ID) del medicamento
                   return Column(
                     children: [
                       ListTile(
@@ -259,7 +261,7 @@ void editMedication(BuildContext context, Medication medication) {
                               },
                             );
                           },
-                          child: Icon(Icons.medication, color: Colors.green),
+                          child: Icon(Icons.medication, color: Colors.pinkAccent),
                         ),
                         title: Text('${medication[index].nombre}'),
                         subtitle: Column(
@@ -322,7 +324,7 @@ class _EditMedicationScreenState extends State<EditMedicationScreen> {
             Text('Nombre:'),
             TextField(controller: nombreController),
             SizedBox(height: 16),
-            Text('Descripción:'),
+            Text('Dosis:'),
             TextField(controller: descripcionController),
             SizedBox(height: 16),
             Text('Propósito:'),

@@ -45,7 +45,7 @@ class _ColoresCalendarState extends State<ColoresCalendar> {
     // Lógica para obtener la fecha legible desde Firebase y dividirla en sus componentes
 
 
-    String firebaseDate = "2023-12-03"; // Aquí obtendrás la fecha de Firebase
+    String firebaseDate = "2023-12-01"; // Aquí obtendrás la fecha de Firebase
     List<String> dateComponents = firebaseDate.split('-');
     int year = int.parse(dateComponents[0]);
     int month = int.parse(dateComponents[1]);

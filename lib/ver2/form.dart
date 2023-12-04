@@ -22,7 +22,7 @@ class AddMedicationScreen extends StatefulWidget {
 class _AddMedicationScreenState extends State<AddMedicationScreen> {
   String dropdownValue = 'ml / Jarabe';
   DateTime? _selectedDate;
-  late String medicationId; 
+  
 
   @override
   Widget build(BuildContext context) {
