@@ -8,11 +8,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 class Medication {
-  final String id; // Nuevo campo para almacenar el ID único
+  final String id;
   final String nombre;
   final String descripcion;
   final String proposito;
   final String administracion;
+  final String sheduleTime; // Nuevo campo para la hora de administración
 
   Medication({
     required this.id,
@@ -20,8 +21,10 @@ class Medication {
     required this.descripcion,
     required this.proposito,
     required this.administracion,
+    required this.sheduleTime, // Agregar el campo en el constructor
   });
 }
+
 
 
 void main() async {
@@ -70,20 +73,23 @@ class _MedicationsAppState extends State<MedicationsNew> {
           medication.clear();
           Map<dynamic, dynamic> values =
               event.snapshot.value as Map<dynamic, dynamic>;
-          values.forEach((key, values) {
+  values.forEach((key, values) {
   String nombre = values['nombre'] ?? '';
   String descripcion = values['descripcion'] ?? '';
   String proposito = values['proposito'] ?? '';
   String administracion = values['administracion'] ?? '';
+  String scheduleTime = values['scheduleTime'] ?? ''; // Obtener el valor de scheduleTime
 
   medication.add(Medication(
-    id: key, // Asignar el ID único a cada medicamento
+    id: key,
     nombre: nombre,
     descripcion: descripcion,
     proposito: proposito,
     administracion: administracion,
+    sheduleTime: scheduleTime, // Asignar el valor a la propiedad sheduleTime
   ));
 });
+
         });
       }
     });
@@ -269,6 +275,7 @@ void deleteMedication(BuildContext context, String key, medicationsRef) {
                           children: [
                             Text('Propósito: ${medication[index].proposito}'),
                             Text('Duración de tratamiento: ${medication[index].administracion} días'),
+                            Text('Hora: ${medication[index].sheduleTime}'), // Mostrar la hora de administración
                           ],
                         ),
                       ),
@@ -352,4 +359,4 @@ class _EditMedicationScreenState extends State<EditMedicationScreen> {
       ),
     );
   }
-}
+} 

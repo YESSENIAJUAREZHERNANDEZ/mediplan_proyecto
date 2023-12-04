@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:intl/intl.dart'; 
+import 'package:intl/intl.dart';
 
-//Notificación
+// Notificación
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'services/noti_service.dart';
 
@@ -18,11 +18,9 @@ class AddMedicationScreen extends StatefulWidget {
   _AddMedicationScreenState createState() => _AddMedicationScreenState();
 }
 
-
 class _AddMedicationScreenState extends State<AddMedicationScreen> {
   String dropdownValue = 'ml / Jarabe';
   DateTime? _selectedDate;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -31,76 +29,75 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
     TextEditingController propositoController = TextEditingController();
     TextEditingController administracionController = TextEditingController();
 
-void addMedication() {
-  String nombre = nombreController.text.toUpperCase();
-  String descripcion = descripcionController.text;
-  String proposito = propositoController.text;
-  String administracion = administracionController.text;
+    void addMedication() {
+      String nombre = nombreController.text.toUpperCase();
+      String descripcion = descripcionController.text;
+      String proposito = propositoController.text;
+      String administracion = administracionController.text;
 
-  if (nombre.isNotEmpty && descripcion.isNotEmpty && _selectedDate != null) {
-    // Obtén el formateador de fecha
-    DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
+      if (nombre.isNotEmpty && descripcion.isNotEmpty && _selectedDate != null) {
+        DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
+        String formattedDate = dateFormatter.format(_selectedDate!);
 
-    // Formatea la fecha seleccionada a una cadena con el formato deseado
-    String formattedDate = dateFormatter.format(_selectedDate!);
+        DateFormat dateTimeFormatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-    // Verifica si el medicamento ya existe en la base de datos
-    widget.medicationsRef
-        .orderByChild('nombre')
-        .equalTo(nombre)
-        .once()
-        .then((DatabaseEvent event) {
-      DataSnapshot snapshot = event.snapshot;
-      Map<dynamic, dynamic>? values = snapshot.value as Map<dynamic, dynamic>?;
+        widget.medicationsRef
+            .orderByChild('nombre')
+            .equalTo(nombre)
+            .once()
+            .then((DatabaseEvent event) {
+          DataSnapshot snapshot = event.snapshot;
+          Map<dynamic, dynamic>? values =
+              snapshot.value as Map<dynamic, dynamic>?;
 
-      if (values != null) {
-        bool exists = values.entries.any((entry) => entry.value['nombre'] == nombre);
-        if (exists) {
-          final snackBar = SnackBar(
-            content: Text('El medicamento ya existe en la base de datos.'),
-            duration: Duration(seconds: 3),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else {
-          String id = widget.medicationsRef.push().key ?? '';
+          if (values != null) {
+            bool exists = values.entries
+                .any((entry) => entry.value['nombre'] == nombre);
+            if (exists) {
+              final snackBar = SnackBar(
+                content: Text('El medicamento ya existe en la base de datos.'),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else {
+              String id = widget.medicationsRef.push().key ?? '';
 
-          // Guardar los datos en Firebase, incluyendo la fecha formateada
-          widget.medicationsRef.child(id).set({
-            'nombre': nombre,
-            'descripcion': descripcion,
-            'proposito': proposito,
-            'administracion': administracion,
-            'fecha': formattedDate, // Agregar la fecha formateada
-          }).then((_) {
-            Navigator.pop(context);
-          }).catchError((error) {
-            print('Error adding medication: $error');
-          });
-        }
-      } else {
-        String id = widget.medicationsRef.push().key ?? '';
+              widget.medicationsRef.child(id).set({
+                'nombre': nombre,
+                'descripcion': descripcion,
+                'proposito': proposito,
+                'administracion': administracion,
+                'fecha': formattedDate,
+                'scheduleTime': dateTimeFormatter.format(scheduleTime),
+              }).then((_) {
+                Navigator.pop(context);
+              }).catchError((error) {
+                print('Error adding medication: $error');
+              });
+            }
+          } else {
+            String id = widget.medicationsRef.push().key ?? '';
 
-        // Guardar los datos en Firebase, incluyendo la fecha formateada
-        widget.medicationsRef.child(id).set({
-          'nombre': nombre,
-          'descripcion': descripcion,
-          'proposito': proposito,
-          'administracion': administracion,
-          'fecha': formattedDate, // Agregar la fecha formateada
-        }).then((_) {
-          Navigator.pop(context);
+            widget.medicationsRef.child(id).set({
+              'nombre': nombre,
+              'descripcion': descripcion,
+              'proposito': proposito,
+              'administracion': administracion,
+              'fecha': formattedDate,
+              'scheduleTime': dateTimeFormatter.format(scheduleTime),
+            }).then((_) {
+              Navigator.pop(context);
+            }).catchError((error) {
+              print('Error adding medication: $error');
+            });
+          }
         }).catchError((error) {
-          print('Error adding medication: $error');
+          print('Error searching for medication: $error');
         });
       }
-    }).catchError((error) {
-      print('Error searching for medication: $error');
-    });
-  }
-}
+    }
 
-
-     Future<void> _selectDate(BuildContext context) async {
+    Future<void> _selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: _selectedDate ?? DateTime.now(),
