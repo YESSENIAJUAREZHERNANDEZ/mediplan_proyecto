@@ -44,7 +44,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       appBar: AppBar(
         title: Text('Perfil'),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 94, 81, 233),
+        backgroundColor: Color.fromARGB(255, 58, 108, 127),
       ),
       body: Stack(
         children: [
@@ -118,7 +118,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   },
                   child: Text('Cerrar Sesión'),
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 93, 86, 196),
+                    //Color.fromARGB(255, 93, 86, 196),
+                    primary: Color.fromARGB(255, 58, 108, 127),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),

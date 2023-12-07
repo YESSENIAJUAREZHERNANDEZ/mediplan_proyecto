@@ -43,7 +43,7 @@ class MainScreen extends StatelessWidget{
       automaticallyImplyLeading: false,
   elevation: 0,
   //backgroundColor: Color.fromARGB(255, 52, 65, 97),
-  backgroundColor: Color.fromARGB(255, 78, 157, 196),
+  backgroundColor: Color.fromARGB(255, 39, 79, 104),
   title: Row(
     
   ),
@@ -304,7 +304,7 @@ Widget _forYou(context) {
                );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 52, 65, 97), // Color de fondo    Color.fromARGB(255, 123, 59, 51)
+              primary: Color.fromARGB(255, 87, 120, 160),  // Color de fondo    Color.fromARGB(255, 123, 59, 51)
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -339,13 +339,13 @@ Widget _forYou(context) {
           
           ElevatedButton(
             onPressed: () {
-              //Get.toNamed(Routes.HOME);   " or "Get.lazyPut(()=>HomeController())
+              //   
                Navigator.push( context,
                 MaterialPageRoute(builder: (context) => splashcalendario()),
              );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 87, 120, 160), // Color de fondo 255, 104, 169, 115
+              primary: Color.fromARGB(255, 52, 65, 97), // Color de fondo 255, 104, 169, 115
               
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
@@ -382,7 +382,7 @@ Widget _forYou(context) {
              
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 86, 175, 113) ,// Color de fondo
+              primary: Color.fromARGB(255, 58, 97, 79) ,// Color de fondo
               onPrimary: Colors.white, // Color del texto
               //side: BorderSide(color: Color.fromARGB(255, 120, 49, 148), width: 2), // Color y ancho del borde,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),

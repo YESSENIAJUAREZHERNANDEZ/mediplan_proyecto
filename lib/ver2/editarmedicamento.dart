@@ -152,144 +152,158 @@ void deleteMedication(BuildContext context, String key, medicationsRef) {
 
 
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-       backgroundColor: Color.fromARGB(255, 244, 244, 254),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Row(
-            children: [
-              IconButton(
-                icon: Image.asset('assets/iconos/icono2.png'),
-                onPressed: () {},
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Medi plan',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 48, 24, 49),
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
+@override
+Widget build(BuildContext context) {
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      backgroundColor: Color.fromARGB(255, 244, 244, 254),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Column(
+        title: Row(
           children: [
+            IconButton(
+              icon: Image.asset('assets/iconos/icono2.png'),
+              onPressed: () {},
+            ),
+            SizedBox(width: 8),
             Text(
-              'Recordatorios',
+              'Medi plan',
               style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              '_',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueGrey,
-              ),
-              textAlign: TextAlign.left,
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    onPressed: () => addMedication(context),
-                    child: Text(
-                      'Agregar medicamento',
-                      style: TextStyle( 
-                        fontSize: 15,
-                        color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 39, 71, 87),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      minimumSize: Size(double.infinity, 45),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: medication.length,
-                itemBuilder: (context, index) {
-                  String key = medication[index].id; // Utilizar la clave única (ID) del medicamento
-                  return Column(
-                    children: [
-                      ListTile(
-                        leading: GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('Opciones de medicamento'),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      ListTile(
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          editMedication(context, medication[index]);
-                                        },
-                                        title: Text('Editar'),
-                                        leading: Icon(Icons.edit),
-                                      ),
-                                      ListTile(
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          deleteMedication(context, key, _medicationsRef);
-                                        },
-                                        title: Text('Eliminar'),
-                                        leading: Icon(Icons.delete),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: Icon(Icons.medication, color: Colors.pinkAccent),
-                        ),
-                        title: Text('${medication[index].nombre}'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Propósito: ${medication[index].proposito}'),
-                            Text('Duración de tratamiento: ${medication[index].administracion} días'),
-                            Text('Hora: ${medication[index].sheduleTime}'), // Mostrar la hora de administración
-                          ],
-                        ),
-                      ),
-                      Divider(),
-                    ],
-                  );
-                },
+                color: Color.fromARGB(255, 48, 24, 49),
+                fontSize: 16,
               ),
             ),
           ],
         ),
       ),
-    );
-  }
+      body: Column(
+        children: [
+          Text(
+            'Recordatorios',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 16),
+          Text(
+            '_',
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.blueGrey,
+            ),
+            textAlign: TextAlign.left,
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () => addMedication(context),
+                  child: Text(
+                    'Agregar medicamento',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 39, 71, 87),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    minimumSize: Size(double.infinity, 45),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: medication.length,
+              itemBuilder: (context, index) {
+                String key = medication[index].id;
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(16),
+                      leading: GestureDetector(
+                        onTap: () {
+                          // Tu lógica aquí...
+                        },
+                        child: Icon(Icons.alarm, color: Color.fromARGB(255, 124, 38, 64)),
+                      ),
+                      title: Text('${medication[index].nombre}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Propósito: ${medication[index].proposito}'),
+                          Text('Duración de tratamiento: ${medication[index].administracion} días'),
+                          Text('Hora: ${medication[index].sheduleTime}'),
+                        ],
+                      ),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Opciones de medicamento'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => EditMedicationScreen(
+                                            medicationsRef: _medicationsRef, // Reemplaza con tu referencia real
+                                            medication: medication[index], // El medicamento que se va a editar
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    title: Text('Editar'),
+                                    leading: Icon(Icons.edit),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                      deleteMedication(context, key, _medicationsRef);
+                                    },
+                                    title: Text('Eliminar'),
+                                    leading: Icon(Icons.delete),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 }
 
 class EditMedicationScreen extends StatefulWidget {

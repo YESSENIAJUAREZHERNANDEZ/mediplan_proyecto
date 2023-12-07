@@ -11,7 +11,7 @@ class Splashdos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 78, 157, 196), // Fondo azul
+      backgroundColor: Color.fromARGB(255, 58, 108, 127), // Fondo azul
       body: Center(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -32,7 +32,7 @@ class Splashdos extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 52, 65, 97), 
+                  color: Color.fromARGB(255, 2, 42, 46), 
                 ),
               ),
               SizedBox(height: 10),
@@ -100,7 +100,7 @@ class Splashdos extends StatelessWidget {
                   Text(
                     'No tiene una cuenta? ',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 64, 66, 78),
+                      color: Color.fromARGB(255, 2, 42, 46), 
                       fontSize: 12,
                     ),
                   ),
